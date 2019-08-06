@@ -8,7 +8,8 @@
   "unpkg": "dist/dalkak.umd.js",
   "scripts": {
     "build": "microbundle --no-sourcemap",
-    "dev": "microbundle watch --no-sourcemap"
+    "dev": "microbundle watch --no-sourcemap",
+    "test": "node test/test"
   },
   "author": "",
   "license": "MIT",
