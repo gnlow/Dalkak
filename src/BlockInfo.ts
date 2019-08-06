@@ -1,12 +1,19 @@
+import Name from "./Name";
+import Param from "./Param";
+
 export default class BlockInfo{
-	constructor(name, template, func){
-		this.name = name || Name.randomize(); // String
-		this.template = template || ""; // String
+	name: string;
+	template: string;
+	func: Function;
+	params: object;
+	constructor(name?: string, template?: string, func?: Function, params?: object){
+		this.name = name || Name.randomize();
+		this.template = template || "";
 		const rule = /<<(?<boolean>.+?)>>|\(\((?<string>.+?)\)\)|{{(?<block>.+?)}}/g;
-		this.params = this.genParams(rule); // Array by Param
-		this.func = func || new Function; // Function
+		this.params = this.genParams(rule);
+		this.func = func || new Function;
 	}
-	genParams(rule){
+	genParams(rule: RegExp){
 		var result = {};
 		(this.template.match(rule) || []).forEach(e => {
 			rule.lastIndex = 0;

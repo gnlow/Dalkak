@@ -2,12 +2,10 @@
   "name": "dalkak",
   "version": "0.0.1",
   "description": "",
-
-  "source": "src/dalkak.js",
+  "source": "src/dalkak.ts",
   "main": "dist/dalkak.js",
   "module": "dist/dalkak.mjs",
   "unpkg": "dist/dalkak.umd.js",
-
   "scripts": {
     "build": "microbundle --no-sourcemap",
     "dev": "microbundle watch --no-sourcemap"
@@ -15,6 +13,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "microbundle": "^0.11.0"
+    "microbundle": "^0.11.0",
+    "typescript": "^3.5.3"
   }
 }

@@ -1,6 +1,7 @@
 export default class Name{
-	constructor(name){
-		this.name = name || this.randomize();
+	name: string;
+	constructor(name: string){
+		this.name = name || Name.randomize();
 	}
 	static randomize(){
 		var charSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
