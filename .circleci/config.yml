@@ -10,4 +10,4 @@ jobs:
          key: dependency-cache-{{ checksum "package.json" }}
       - run: 
          name: build
-         command: npm build
+         command: npm run build
