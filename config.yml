@@ -1,0 +1,13 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/Dalkak
+    docker: 
+      - image: circleci/node:12.7
+    steps: 
+      - checkout
+      - restore_cache: 
+         key: dependency-cache-{{ checksum "package.json" }}
+      - run: 
+         name: build
+         command: npm build
