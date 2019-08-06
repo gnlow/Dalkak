@@ -8,6 +8,7 @@ import Block from "./Block.js";
 import BlockGroup from "./BlockGroup.js";
 import Thing from "./Thing.js";
 import ThingGroup from "./ThingGroup.js";
+import Project from "./Project.js";
 
 const dalkak = {
 	Name,
@@ -19,7 +20,8 @@ const dalkak = {
 	Block,
 	BlockGroup,
 	Thing,
-	ThingGroup
+	ThingGroup,
+	Project
 }
 
 export default dalkak;

@@ -10,7 +10,7 @@
 
   "scripts": {
     "build": "microbundle --no-sourcemap",
-    "dev": "microbundle watch"
+    "dev": "microbundle watch --no-sourcemap"
   },
   "author": "",
   "license": "MIT",
