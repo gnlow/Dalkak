@@ -1,5 +1,6 @@
 import Event from "./Event";
 import Block from "./Block";
+import BlockInfo from "./BlockInfo";
 
 export default class BlockGroup{
 	event: Event;
@@ -21,7 +22,10 @@ export default class BlockGroup{
 	attach(blockGroup: BlockGroup){
 		return new BlockGroup(this.event, this.blocks.concat(blockGroup.blocks));
 	}
-	static from(block: Block){
-		return new BlockGroup(undefined, [block]);
+	static fromBlock(block: Block, event?: Event){
+		return new BlockGroup(event, [block]);
+	}
+	static fromBlockInfo(blockInfo: BlockInfo, event?: Event){
+		return BlockGroup.fromBlock(Block.fromBlockInfo(blockInfo), event);
 	}
 }

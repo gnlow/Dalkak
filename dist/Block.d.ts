@@ -4,5 +4,5 @@ export default class Block {
     params: object;
     constructor(parent?: BlockInfo, params?: object);
     setParams(params: object): this;
-    static from(blockInfo: any): Block;
+    static fromBlockInfo(blockInfo: BlockInfo): Block;
 }
