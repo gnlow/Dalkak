@@ -9,23 +9,23 @@ export default class BlockGroup{
 		this.event = event || new Event;
 		this.blocks = blocks || [];
 	}
-	ready(){
+	ready(): this{
 		this.event.link(this);
 		return this;
 	}
-	start(e){
+	start(e: any): this{
 		for(var i in this.blocks){
-			this.blocks[i].parent.func();
+			this.blocks[i].parent.func(e);
 		}
 		return this;
 	}
-	attach(blockGroup: BlockGroup){
+	attach(blockGroup: BlockGroup): BlockGroup{
 		return new BlockGroup(this.event, this.blocks.concat(blockGroup.blocks));
 	}
-	static fromBlock(block: Block, event?: Event){
+	static fromBlock(block: Block, event?: Event): BlockGroup{
 		return new BlockGroup(event, [block]);
 	}
-	static fromBlockInfo(blockInfo: BlockInfo, event?: Event){
+	static fromBlockInfo(blockInfo: BlockInfo, event?: Event): BlockGroup{
 		return BlockGroup.fromBlock(Block.fromBlockInfo(blockInfo), event);
 	}
 }

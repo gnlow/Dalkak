@@ -12,11 +12,12 @@ export default class Project{
 		this.things = things || new ThingGroup("Global");
 		this.blockSets = blockSets || [];
 	}
-	addThing(thing: Thing){
+	addThing(thing: Thing): this{
 		this.things.addThing(thing);
 		return this;
 	}
-	ready(){
+	ready(): this{
 		this.things.ready();
+		return this;
 	}
 }

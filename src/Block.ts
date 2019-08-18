@@ -7,11 +7,11 @@ export default class Block{
 		this.parent = parent || new BlockInfo;
 		this.setParams(params || []);
 	}
-	setParams(params: object){
+	setParams(params: object): this{
 		this.params = Object.assign(this.parent.params, params);
 		return this;
 	}
-	static fromBlockInfo(blockInfo: BlockInfo){
+	static fromBlockInfo(blockInfo: BlockInfo): Block{
 		return new Block(blockInfo);
 	}
 }

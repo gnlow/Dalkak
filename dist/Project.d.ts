@@ -7,5 +7,5 @@ export default class Project {
     blockSets: Array<BlockSet>;
     constructor(name?: string, things?: ThingGroup, blockSets?: Array<BlockSet>);
     addThing(thing: Thing): this;
-    ready(): void;
+    ready(): this;
 }

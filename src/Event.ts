@@ -8,11 +8,11 @@ export default class Event{
 		this.name = name || Name.randomize();
 		this.blockGroups = [];
 	}
-	link(blockGroup: BlockGroup){
+	link(blockGroup: BlockGroup): this{
 		this.blockGroups.push(blockGroup);
 		return this;
 	}
-	fire(e){
+	fire(e: any): this{
 		for(var i in this.blockGroups){
 			this.blockGroups[i].start(e);
 		}

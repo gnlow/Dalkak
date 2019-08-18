@@ -14,19 +14,20 @@ export default class Thing{
 		this.pos = pos || new Vector();
 		this.blocks = blocks || [];
 	}
-	addBlock(blockGroup: BlockGroup){
+	addBlock(blockGroup: BlockGroup): this{
 		this.blocks.push(blockGroup);
 		return this;
 	}
-	ready(){
+	ready(): this{
 		this.blocks.forEach(
 			block => block.ready()
 		);
+		return this;
 	}
-	static fromBlock(block: Block, event?: Event){
+	static fromBlock(block: Block, event?: Event): Thing{
 		return new Thing(undefined, undefined, [BlockGroup.fromBlock(block, event)]);
 	}
-	static fromBlockInfo(blockInfo: BlockInfo, event?: Event){
+	static fromBlockInfo(blockInfo: BlockInfo, event?: Event): Thing{
 		return Thing.fromBlock(Block.fromBlockInfo(blockInfo), event);
 	}
 }

@@ -11,13 +11,14 @@ export default class ThingGroup extends Thing{
 		super(name, pos, blocks);
 		this.children = children || [];
 	}
-	addThing(thing: Thing){
+	addThing(thing: Thing): this{
 		this.children.push(thing);
 		return this;
 	}
-	ready(){
+	ready(): this{
 		this.children.forEach(
 			child => child.ready()
 		);
+		return this;
 	}
 }

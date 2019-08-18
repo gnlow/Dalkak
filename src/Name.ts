@@ -3,7 +3,7 @@ export default class Name{
 	constructor(name: string){
 		this.name = name || Name.randomize();
 	}
-	static randomize(){
+	static randomize(): string{
 		var charSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 		var result = "";
 		for(var i=0;i<5;i++){

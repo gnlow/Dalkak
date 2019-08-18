@@ -13,7 +13,7 @@ export default class BlockInfo{
 		this.params = this.genParams(rule);
 		this.func = func || new Function;
 	}
-	genParams(rule: RegExp){
+	genParams(rule: RegExp): object{
 		var result = {};
 		(this.template.match(rule) || []).forEach(e => {
 			rule.lastIndex = 0;
