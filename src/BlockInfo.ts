@@ -1,5 +1,5 @@
 import Name from "./Name";
-import Param from "./Param";
+import Block from "./Block";
 
 export default class BlockInfo{
 	name: string;
@@ -19,11 +19,11 @@ export default class BlockInfo{
 			rule.lastIndex = 0;
 			var names = rule.exec(e).groups;
 			if(names.boolean){
-				result[names.boolean] = new Param("boolean", names.boolean);
+				result[names.boolean] = false;
 			}else if(names.string){
-				result[names.string] = new Param("string", names.string);
+				result[names.string] = "";
 			}else if(names.block){
-				result[names.block] = new Param("block", names.block);
+				result[names.block] = new Block;
 			}
 		});
 		return result;

@@ -1,6 +1,5 @@
 import Name from "./Name";
 import Vector from "./Vector";
-import Param from "./Param";
 import Event from "./Event";
 import BlockInfo from "./BlockInfo";
 import BlockSet from "./BlockSet";
@@ -12,7 +11,6 @@ import Project from "./Project";
 declare const dalkak: {
     Name: typeof Name;
     Vector: typeof Vector;
-    Param: typeof Param;
     Event: typeof Event;
     BlockInfo: typeof BlockInfo;
     BlockSet: typeof BlockSet;

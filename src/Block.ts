@@ -11,6 +11,9 @@ export default class Block{
 		this.params = Object.assign(this.parent.params, params);
 		return this;
 	}
+	run(e?: any){
+		this.parent.func(this.params);
+	}
 	static fromBlockInfo(blockInfo: BlockInfo): Block{
 		return new Block(blockInfo);
 	}

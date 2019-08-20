@@ -15,7 +15,7 @@ export default class BlockGroup{
 	}
 	start(e: any): this{
 		for(var i in this.blocks){
-			this.blocks[i].parent.func(e);
+			this.blocks[i].run(e);
 		}
 		return this;
 	}
