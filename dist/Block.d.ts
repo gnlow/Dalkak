@@ -1,9 +1,11 @@
-import BlockInfo from "./BlockInfo";
 export default class Block {
-    parent: BlockInfo;
+    name: string;
+    template: string;
+    func: Function;
     params: object;
-    constructor(parent?: BlockInfo, params?: object);
+    constructor(name?: string, template?: string, func?: Function, params?: object);
     setParams(params: object): this;
     run(e?: any): void;
-    static fromBlockInfo(blockInfo: BlockInfo): Block;
+    genParams(): object;
+    static fromBlock(block: Block): Block;
 }

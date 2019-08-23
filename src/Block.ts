@@ -1,20 +1,41 @@
-import BlockInfo from "./BlockInfo";
+import Name from "./Name";
 
 export default class Block{
-	parent: BlockInfo;
+	name: string;
+	template: string;
+	func: Function;
 	params: object;
-	constructor(parent?: BlockInfo, params?: object){
-		this.parent = parent || new BlockInfo;
-		this.setParams(params || []);
+	constructor(name?: string, template?: string, func?: Function, params?: object){
+		this.name = name || Name.randomize();
+		this.template = template || "";
+		const rule = /<<(?<boolean>.+?)>>|\(\((?<string>.+?)\)\)|{{(?<block>.+?)}}/g;
+		this.params = this.genParams();
+		this.func = func || new Function;
 	}
 	setParams(params: object): this{
-		this.params = Object.assign(this.parent.params, params);
+		this.params = Object.assign(this.params, params);
 		return this;
 	}
 	run(e?: any){
-		this.parent.func(this.params);
+		this.func(this.params);
 	}
-	static fromBlockInfo(blockInfo: BlockInfo): Block{
-		return new Block(blockInfo);
+	genParams(): object{
+		const rule = /<<(?<boolean>.+?)>>|\(\((?<string>.+?)\)\)|{{(?<block>.+?)}}/g;
+		var result = {};
+		(this.template.match(rule) || []).forEach(e => {
+			rule.lastIndex = 0;
+			var names = rule.exec(e).groups;
+			if(names.boolean){
+				result[names.boolean] = false;
+			}else if(names.string){
+				result[names.string] = "";
+			}else if(names.block){
+				result[names.block] = new Block;
+			}
+		});
+		return result;
+	}
+	static fromBlock(block: Block): Block{
+		return Object.assign(new Block(), block);
 	}
 }

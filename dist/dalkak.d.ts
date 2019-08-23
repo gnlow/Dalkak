@@ -1,7 +1,6 @@
 import Name from "./Name";
 import Vector from "./Vector";
 import Event from "./Event";
-import BlockInfo from "./BlockInfo";
 import BlockSet from "./BlockSet";
 import Block from "./Block";
 import BlockGroup from "./BlockGroup";
@@ -12,7 +11,6 @@ declare const dalkak: {
     Name: typeof Name;
     Vector: typeof Vector;
     Event: typeof Event;
-    BlockInfo: typeof BlockInfo;
     BlockSet: typeof BlockSet;
     Block: typeof Block;
     BlockGroup: typeof BlockGroup;

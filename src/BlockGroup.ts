@@ -1,6 +1,5 @@
 import Event from "./Event";
 import Block from "./Block";
-import BlockInfo from "./BlockInfo";
 
 export default class BlockGroup{
 	event: Event;
@@ -24,8 +23,5 @@ export default class BlockGroup{
 	}
 	static fromBlock(block: Block, event?: Event): BlockGroup{
 		return new BlockGroup(event, [block]);
-	}
-	static fromBlockInfo(blockInfo: BlockInfo, event?: Event): BlockGroup{
-		return BlockGroup.fromBlock(Block.fromBlockInfo(blockInfo), event);
 	}
 }

@@ -1,7 +1,6 @@
 import Name from "./Name";
 import Vector from "./Vector";
 import Event from "./Event";
-import BlockInfo from "./BlockInfo";
 import BlockSet from "./BlockSet";
 import Block from "./Block";
 import BlockGroup from "./BlockGroup";
@@ -13,7 +12,6 @@ const dalkak = {
 	Name,
 	Vector,
 	Event,
-	BlockInfo,
 	BlockSet,
 	Block,
 	BlockGroup,

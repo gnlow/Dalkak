@@ -1,6 +1,5 @@
 import Vector from "./Vector";
 import Event from "./Event";
-import BlockInfo from "./BlockInfo";
 import Block from "./Block";
 import BlockGroup from "./BlockGroup";
 export default class Thing {
@@ -11,5 +10,4 @@ export default class Thing {
     addBlock(blockGroup: BlockGroup): this;
     ready(): this;
     static fromBlock(block: Block, event?: Event): Thing;
-    static fromBlockInfo(blockInfo: BlockInfo, event?: Event): Thing;
 }
