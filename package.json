@@ -15,6 +15,6 @@
   "license": "MIT",
   "devDependencies": {
     "microbundle": "^0.12.0-next.6",
-    "typescript": "^3.5.3"
+    "typescript": "^3.6.3"
   }
 }
