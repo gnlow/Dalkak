@@ -5,19 +5,19 @@ import ThingGroup from "./ThingGroup";
 
 export default class Project{
 	name: string;
-	things: ThingGroup;
+	thingGroup: ThingGroup;
 	blockSets: Array<BlockSet>;
-	constructor(name?: string, things?: ThingGroup, blockSets?: Array<BlockSet>){
+	constructor(name?: string, thingGroup?: ThingGroup, blockSets?: Array<BlockSet>){
 		this.name = name || Name.randomize();
-		this.things = things || new ThingGroup("Global");
+		this.thingGroup = thingGroup || new ThingGroup("Global");
 		this.blockSets = blockSets || [];
 	}
 	addThing(thing: Thing): this{
-		this.things.addThing(thing);
+		this.thingGroup.addThing(thing);
 		return this;
 	}
 	ready(): this{
-		this.things.ready();
+		this.thingGroup.ready();
 		return this;
 	}
 }

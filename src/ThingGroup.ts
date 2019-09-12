@@ -5,10 +5,10 @@ import Thing from "./Thing";
 export default class ThingGroup extends Thing{
 	name: string;
 	pos: Vector;
-	blocks: Array<BlockGroup>;
+	blockGroups: Array<BlockGroup>;
 	children: Array<Thing>;
-	constructor(name?: string, pos?: Vector, blocks?: Array<BlockGroup>, children?: Array<Thing>){
-		super(name, pos, blocks);
+	constructor(name?: string, pos?: Vector, blockGroups?: Array<BlockGroup>, children?: Array<Thing>){
+		super(name, pos, blockGroups);
 		this.children = children || [];
 	}
 	addThing(thing: Thing): this{
