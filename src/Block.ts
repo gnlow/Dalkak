@@ -10,6 +10,7 @@ export default class Block{
 		this.template = template || "";
 		const rule = /<<(?<boolean>.+?)>>|\(\((?<string>.+?)\)\)|{{(?<block>.+?)}}/g;
 		this.params = this.genParams();
+		this.setParams(params);
 		this.func = func || new Function;
 	}
 	setParams(params: object): this{
