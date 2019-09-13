@@ -17,6 +17,9 @@ export default class Block{
 		this.params = Object.assign(this.params, params);
 		return this;
 	}
+	setParam(name: string, value: any){
+		this.params[name] = value;
+	}
 	run(e?: any){
 		this.func(this.params);
 	}
