@@ -1,6 +1,6 @@
 {
   "name": "dalkak",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "source": "src/dalkak.ts",
   "main": "dist/dalkak.js",
@@ -11,10 +11,21 @@
     "dev": "microbundle watch --no-sourcemap",
     "test": "node test/test"
   },
-  "author": "",
+  "author": "Gnlow",
   "license": "MIT",
   "devDependencies": {
-    "microbundle": "^0.12.0-next.6",
-    "typescript": "^3.6.3"
-  }
+    "microbundle": "^0.12.0-next.6"
+  },
+  "bugs": {
+    "url": "https://github.com/gnlow/Dalkak/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gnlow/Dalkak.git"
+  },
+  "homepage": "https://github.com/gnlow/Dalkak",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {}
 }
