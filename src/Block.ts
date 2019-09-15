@@ -5,13 +5,16 @@ export default class Block{
 	template: string;
 	func: Function;
 	params: object;
+	types: object;
 	constructor(name?: string, template?: string, func?: Function, params?: object){
 		this.name = name || Name.randomize();
 		this.template = template || "";
-		const rule = /<<(?<boolean>.+?)>>|\(\((?<string>.+?)\)\)|{{(?<block>.+?)}}/g;
-		this.params = this.genParams();
+		var templateParse = this.templateParse();
+		this.params = templateParse.params;
+		this.types = templateParse.types;
 		this.setParams(params);
 		this.func = func || new Function;
+		
 	}
 	setParams(params: object): this{
 		this.params = Object.assign(this.params, params);
@@ -23,21 +26,28 @@ export default class Block{
 	run(e?: any){
 		this.func(this.params);
 	}
-	genParams(): object{
-		const rule = /<<(?<boolean>.+?)>>|\(\((?<string>.+?)\)\)|{{(?<block>.+?)}}/g;
-		var result = {};
+	templateParse(): {params: object, types: object}{
+		const rule = /<<(?<boolean>.+?)>>|\(\((?<string>[^:]+?)\)\)|{{(?<block>.+?)}}|\(\((?<other>.+?): *(?<type>.+?)\)\)/g;
+		var params = {};
+		var types = {};
 		(this.template.match(rule) || []).forEach(e => {
 			rule.lastIndex = 0;
 			var names = rule.exec(e).groups;
-			if(names.boolean){
-				result[names.boolean] = false;
+			if(names.other){
+				params[names.other] = undefined;
+				types[names.other] = names.type;
+			}else if(names.boolean){
+				params[names.boolean] = false;
+				types[names.boolean] = "boolean";
 			}else if(names.string){
-				result[names.string] = "";
+				params[names.string] = "";
+				types[names.string] = "string";
 			}else if(names.block){
-				result[names.block] = new Block;
+				params[names.block] = new Block;
+				types[names.block] = "block";
 			}
 		});
-		return result;
+		return {params, types};
 	}
 	static fromBlock(block: Block): Block{
 		return Object.assign(new Block(), block);
