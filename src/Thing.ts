@@ -7,18 +7,18 @@ import BlockGroup from "./BlockGroup";
 export default class Thing{
 	name: string;
 	pos: Vector;
-	blocks: Array<BlockGroup>;
-	constructor(name?: string, pos?: Vector, blocks?: Array<BlockGroup>){
+	blockGroups: Array<BlockGroup>;
+	constructor(name?: string, pos?: Vector, blockGroups?: Array<BlockGroup>){
 		this.name = name || Name.randomize();
 		this.pos = pos || new Vector();
-		this.blocks = blocks || [];
+		this.blockGroups = blockGroups || [];
 	}
 	addBlock(blockGroup: BlockGroup): this{
-		this.blocks.push(blockGroup);
+		this.blockGroups.push(blockGroup);
 		return this;
 	}
 	ready(): this{
-		this.blocks.forEach(
+		this.blockGroups.forEach(
 			block => block.ready()
 		);
 		return this;

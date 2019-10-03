@@ -21,4 +21,4 @@ move.setParam("walks", 10)
 project.ready();
 
 start.fire();
-console.log(project.thingGroup.children[0].blocks[0].blocks[0]);
+console.log(project.thingGroup.children[0].blockGroups[0].blocks[0]);
