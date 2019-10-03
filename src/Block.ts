@@ -6,15 +6,16 @@ export default class Block{
 	func: Function;
 	params: object;
 	types: object;
+	returnType: string;
 	constructor(name?: string, template?: string, func?: Function, params?: object){
 		this.name = name || Name.randomize();
 		this.template = template || "";
-		var templateParse = this.templateParse();
+		let templateParse = this.templateParse();
 		this.params = templateParse.params;
 		this.types = templateParse.types;
 		this.setParams(params);
 		this.func = func || new Function;
-		
+		this.returnType = templateParse.returnType;
 	}
 	setParams(params: object): this{
 		this.params = Object.assign(this.params, params);
@@ -26,11 +27,16 @@ export default class Block{
 	run(e?: any){
 		this.func(this.params);
 	}
-	templateParse(): {params: object, types: object}{
+	templateParse(): {params: object, types: object, returnType: string}{
+		const returnRule = /(<<|\(\(|{{)(.+)(?:>>|\)\)|}})/;
+		const bracketType = {"<<": "boolean", "((": "string", "{{": "block"};
 		const rule = /<<(?<boolean>.+?)>>|\(\((?<string>[^:]+?)\)\)|{{(?<block>.+?)}}|\(\((?<other>.+?): *(?<type>.+?)\)\)/g;
-		var params = {};
-		var types = {};
-		(this.template.match(rule) || []).forEach(e => {
+		let params = {};
+		let types = {};
+		let returnExec = returnRule.exec(this.template);
+		let returnType = bracketType[returnExec[1]];
+		let content = returnExec[2];
+		(content.match(rule) || []).forEach(e => {
 			rule.lastIndex = 0;
 			var names = rule.exec(e).groups;
 			if(names.other){
@@ -47,7 +53,7 @@ export default class Block{
 				types[names.block] = "block";
 			}
 		});
-		return {params, types};
+		return {params, types, returnType};
 	}
 	static fromBlock(block: Block): Block{
 		return Object.assign(new Block(), block);
