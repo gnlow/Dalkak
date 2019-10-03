@@ -2,23 +2,37 @@ const dalkak = require("../dist/dalkak.js");
 
 var project = new dalkak.Project();
 var start = new dalkak.Event("start");
-var move = new dalkak.Block(
-    "move", 
-    "Move ((walks: number)) steps", 
+var log = new dalkak.Block(
+    "log", 
+    "((text)) 찍기", 
     param => {
-        for(var i=1;i<=param.walks;i++)
-            console.log(`${i} step${i==1?"":"s"}`);
+        console.log(param.text);
     },
     {
-        walks: 0
+        text: ""
     }
 );
 
-var entrybot = dalkak.Thing.fromBlock(move, start);
+var join = new dalkak.Block(
+    "join", 
+    "(( ((a)) 와 ((b)) 합치기 ))", 
+    param => {
+        return param.a + param.b;
+    },
+    {
+        a: "Hello, ",
+        b: "World!"
+    }
+);
+
+var entrybot = dalkak.Thing.fromBlock(log, start);
 
 project.addThing(entrybot);
-move.setParam("walks", 10)
+log.setParam("text", join);
+join.setParam("a", "Wow, ");
+join.setParam("b", "Dalkak!");
 project.ready();
 
 start.fire();
-console.log(project.thingGroup.children[0].blockGroups[0].blocks[0]);
+//console.log(project.thingGroup.children[0].blockGroups[0].blocks[0]);
+//console.log(log.params.text);

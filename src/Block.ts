@@ -22,10 +22,16 @@ export default class Block{
 		return this;
 	}
 	setParam(name: string, value: any){
-		this.params[name] = value;
+		if(typeof value == "object"){
+			// Value is block
+			Object.defineProperty(this.params, name, {get: value.run.bind(value)});
+		}else{
+			// Value is literal (string, boolean, etc.)
+			this.params[name] = value;
+		}
 	}
 	run(e?: any){
-		this.func(this.params);
+		return this.func(this.params);
 	}
 	templateParse(): {params: object, types: object, returnType: string}{
 		const returnRule = /(<<|\(\(|{{)(.+)(?:>>|\)\)|}})(?:: *(.+))?/;
