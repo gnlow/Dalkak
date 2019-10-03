@@ -28,13 +28,13 @@ export default class Block{
 		this.func(this.params);
 	}
 	templateParse(): {params: object, types: object, returnType: string}{
-		const returnRule = /(<<|\(\(|{{)(.+)(?:>>|\)\)|}})/;
+		const returnRule = /(<<|\(\(|{{)(.+)(?:>>|\)\)|}})(?:: *(.+))?/;
 		const bracketType = {"<<": "boolean", "((": "string", "{{": "block"};
 		const rule = /<<(?<boolean>.+?)>>|\(\((?<string>[^:]+?)\)\)|{{(?<block>.+?)}}|\(\((?<other>.+?): *(?<type>.+?)\)\)/g;
 		let params = {};
 		let types = {};
 		let returnExec = returnRule.exec(this.template);
-		let returnType = bracketType[returnExec[1]];
+		let returnType = returnExec[3] || bracketType[returnExec[1]];
 		let content = returnExec[2];
 		(content.match(rule) || []).forEach(e => {
 			rule.lastIndex = 0;

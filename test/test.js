@@ -2,24 +2,20 @@ const dalkak = require("../dist/dalkak.js");
 
 var project = new dalkak.Project();
 var start = new dalkak.Event("start");
-var join = new dalkak.Block(
-    "join", 
-    "(( Join ((a)) and ((b)) ))", 
+var square = new dalkak.Block(
+    "square", 
+    "(( The square of ((a: number)) )): number", 
     param => {
-        return param.a + param.b;
+        return param.a**2
     },
     {
-        a: "Hello, ",
-        b: "World!"
+        a: 0
     }
 );
 
-var entrybot = dalkak.Thing.fromBlock(join, start);
+var entrybot = dalkak.Thing.fromBlock(square, start);
 
 project.addThing(entrybot);
-
-//join.setParam("a", "Hello, ");
-//join.setParam("b", "World!");
 
 project.ready();
 
