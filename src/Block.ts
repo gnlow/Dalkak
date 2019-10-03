@@ -33,9 +33,19 @@ export default class Block{
 		const rule = /<<(?<boolean>.+?)>>|\(\((?<string>[^:]+?)\)\)|{{(?<block>.+?)}}|\(\((?<other>.+?): *(?<type>.+?)\)\)/g;
 		let params = {};
 		let types = {};
-		let returnExec = returnRule.exec(this.template);
-		let returnType = returnExec[3] || bracketType[returnExec[1]];
-		let content = returnExec[2];
+		let returnExec;
+		let returnType;
+		let content;
+		if(this.template.split(/(?:<<|\(\(|{{)/).slice(1).findIndex(str => str.search(/(?:>>|\)\)|}})/) == -1) == -1){ 
+			// No returnType bracket
+			returnType = "block";
+			content = this.template;
+		}else{
+			returnExec = returnRule.exec(this.template);
+			returnType = returnExec[3] || bracketType[returnExec[1]];
+			content = returnExec[2];
+		}
+		
 		(content.match(rule) || []).forEach(e => {
 			rule.lastIndex = 0;
 			var names = rule.exec(e).groups;
