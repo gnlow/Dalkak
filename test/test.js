@@ -29,7 +29,7 @@ var entrybot = dalkak.Thing.fromBlock(log, start);
 
 project.addThing(entrybot);
 log.setParam("text", join);
-join.setParam("a", "Wow, ");
+join.setParam("a", 2); // Error: Type 'number' is not assignable to type 'string'
 join.setParam("b", "Dalkak!");
 project.ready();
 
