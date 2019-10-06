@@ -1,1 +1,1 @@
-# Dalkak
+# Dalkak ![minzipped size](https://badgen.net/bundlephobia/minzip/dalkak)
