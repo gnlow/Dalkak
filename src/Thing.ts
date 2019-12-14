@@ -23,7 +23,7 @@ export class Thing{
 	}
 	ready(): this{
 		this.blockGroups.forEach(
-			block => block.ready()
+			blockGroup => blockGroup.ready()
 		);
 		return this;
 	}
