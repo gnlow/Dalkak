@@ -5,7 +5,7 @@ export class Event{
 	name: string;
 	blockGroups: Array<BlockGroup>;
 	constructor(
-		name = "", 
+		name = Name.randomize(), 
 		blockGroups: Array<BlockGroup> = []
 	){
 		this.name = name;
