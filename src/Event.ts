@@ -9,7 +9,7 @@ export class Event{
 		blockGroups: Array<BlockGroup> = []
 	){
 		this.name = name;
-		this.blockGroups = [];
+		this.blockGroups = blockGroups;
 	}
 	link(blockGroup: BlockGroup): this{
 		this.blockGroups.push(blockGroup);
