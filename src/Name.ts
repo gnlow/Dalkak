@@ -1,7 +1,7 @@
 export class Name{
 	name: string;
-	constructor(name: string){
-		this.name = name || Name.randomize();
+	constructor(name = Name.randomize()){
+		this.name = name;
 	}
 	static randomize(): string{
 		var charSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

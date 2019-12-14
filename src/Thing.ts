@@ -8,10 +8,14 @@ export class Thing{
 	name: string;
 	pos: Vector;
 	blockGroups: Array<BlockGroup>;
-	constructor(name?: string, pos?: Vector, blockGroups?: Array<BlockGroup>){
-		this.name = name || Name.randomize();
-		this.pos = pos || new Vector();
-		this.blockGroups = blockGroups || [];
+	constructor(
+		name = Name.randomize(), 
+		pos = new Vector(), 
+		blockGroups: Array<BlockGroup> = []
+	){
+		this.name = name;
+		this.pos = pos;
+		this.blockGroups = blockGroups;
 	}
 	addBlock(blockGroup: BlockGroup): this{
 		this.blockGroups.push(blockGroup);

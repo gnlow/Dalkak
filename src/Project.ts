@@ -7,10 +7,14 @@ export class Project{
 	name: string;
 	thingGroup: ThingGroup;
 	blockSets: Array<BlockSet>;
-	constructor(name?: string, thingGroup?: ThingGroup, blockSets?: Array<BlockSet>){
-		this.name = name || Name.randomize();
-		this.thingGroup = thingGroup || new ThingGroup("Global");
-		this.blockSets = blockSets || [];
+	constructor(
+		name = Name.randomize(), 
+		thingGroup = new ThingGroup("Global"), 
+		blockSets: Array<BlockSet> = []
+	){
+		this.name = name;
+		this.thingGroup = thingGroup;
+		this.blockSets = blockSets;
 	}
 	addThing(thing: Thing): this{
 		this.thingGroup.addThing(thing);

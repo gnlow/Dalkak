@@ -4,9 +4,12 @@ import {Block} from "./Block";
 export class BlockGroup{
 	event: Event;
 	blocks: Array<Block>;
-	constructor(event?: Event, blocks?: Array<Block>){
-		this.event = event || new Event;
-		this.blocks = blocks || [];
+	constructor(
+		event = new Event, 
+		blocks: Array<Block> = []
+	){
+		this.event = event;
+		this.blocks = blocks;
 	}
 	ready(): this{
 		this.event.link(this);

@@ -8,13 +8,18 @@ export class Block{
 	params: object;
 	paramTypes: object;
 	returnType: string;
-	constructor(name?: string, template?: string, func?: Function, params?: object){
-		this.name = name || Name.randomize();
-		this.template = new Template(template || "");
+	constructor(
+		name = Name.randomize(), 
+		template = "", 
+		func = new Function, 
+		params: object = {}
+	){
+		this.name = name;
+		this.template = new Template(template);
 		this.params = this.template.params;
 		this.paramTypes = this.template.paramTypes;
 		this.setParams(params);
-		this.func = func || new Function;
+		this.func = func;
 		this.returnType = this.template.returnType;
 	}
 	setParams(params: object): this{

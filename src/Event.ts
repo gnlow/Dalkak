@@ -4,8 +4,11 @@ import {BlockGroup} from "./BlockGroup";
 export class Event{
 	name: string;
 	blockGroups: Array<BlockGroup>;
-	constructor(name?: string, blockGroups?: Array<BlockGroup>){
-		this.name = name || Name.randomize();
+	constructor(
+		name = "", 
+		blockGroups: Array<BlockGroup> = []
+	){
+		this.name = name;
 		this.blockGroups = [];
 	}
 	link(blockGroup: BlockGroup): this{

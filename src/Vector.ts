@@ -2,8 +2,8 @@ export class Vector{
 	poses: Array<number>;
 	dimension: number;
 	constructor(...poses: Array<number>){
-		this.poses = poses || []; // Array
-		this.dimension = this.poses.length; // Number
+		this.poses = poses;
+		this.dimension = this.poses.length;
 	}
 	rotate(angle = 0): Vector{
 		angle = angle * Math.PI / 180;

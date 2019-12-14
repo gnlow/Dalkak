@@ -5,7 +5,7 @@ export class Template{
     readonly params: object;
     readonly paramTypes: object;
     readonly returnType: string;
-    constructor(template: string){
+    constructor(template = ""){
         this.template = template;
 
         var parsed = this.templateParse();
