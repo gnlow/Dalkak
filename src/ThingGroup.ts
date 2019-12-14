@@ -21,10 +21,4 @@ export class ThingGroup extends Thing{
 		this.children.push(thing);
 		return this;
 	}
-	ready(): this{
-		this.children.forEach(
-			child => child.ready()
-		);
-		return this;
-	}
 }

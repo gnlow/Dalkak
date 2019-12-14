@@ -1,4 +1,5 @@
 import {Name} from "./Name";
+import {Event} from "./Event";
 import {Block} from "./Block";
 
 export class BlockSet{

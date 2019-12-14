@@ -21,13 +21,7 @@ export class Thing{
 		this.blockGroups.push(blockGroup);
 		return this;
 	}
-	ready(): this{
-		this.blockGroups.forEach(
-			blockGroup => blockGroup.ready()
-		);
-		return this;
-	}
-	static fromBlock(block: Block, event?: Event): Thing{
-		return new Thing(undefined, undefined, [BlockGroup.fromBlock(block, event)]);
+	static fromBlock(block: Block): Thing{
+		return new Thing(undefined, undefined, [BlockGroup.fromBlock(block)]);
 	}
 }

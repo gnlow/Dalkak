@@ -25,17 +25,17 @@ var join = new dalkak.Block(
     }
 );
 
-var entrybot = dalkak.Thing.fromBlock(log, start);
+var entrybot = dalkak.Thing.fromBlock(log);
+start.link(entrybot.blockGroups[0]);
 
 project.addThing(entrybot);
 log.setParam("text", join);
 //join.setParam("a", 2); // Error: Type 'number' is not assignable to type 'string'
 join.setParam("a", "Wow, ");
 join.setParam("b", "Dalkak!");
-project.ready();
 
 start.fire();
 
-console.log(project.thingGroup.children[0].blockGroups[0].event);
+console.log(project);
 //console.log(project.thingGroup.children[0].blockGroups[0].blocks[0]);
 //console.log(log.params.text);
