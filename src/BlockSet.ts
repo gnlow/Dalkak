@@ -1,3 +1,4 @@
+import {Name} from "./Name";
 import {Block} from "./Block";
 
 export class BlockSet{
@@ -5,10 +6,11 @@ export class BlockSet{
 	infos: Array<Block>;
 	events: Array<Event>;
 	constructor(
-		name = "", 
+		name = Name.randomize(), 
 		infos: Array<Block> = [], 
 		events: Array<Event> = []
 	){
+		this.name = name;
 		this.infos = infos;
 		this.events = events;
 	}
