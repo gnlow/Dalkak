@@ -1,7 +1,7 @@
-import Name from "./Name";
-import Template from "./Template";
+import {Name} from "./Name";
+import {Template} from "./Template";
 
-export default class Block{
+export class Block{
 	name: string;
 	template: Template;
 	func: Function;

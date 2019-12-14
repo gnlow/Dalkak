@@ -1,7 +1,7 @@
-import Name from "./Name";
-import BlockGroup from "./BlockGroup";
+import {Name} from "./Name";
+import {BlockGroup} from "./BlockGroup";
 
-export default class Event{
+export class Event{
 	name: string;
 	blockGroups: Array<BlockGroup>;
 	constructor(name?: string, blockGroups?: Array<BlockGroup>){

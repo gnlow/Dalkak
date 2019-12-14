@@ -1,6 +1,6 @@
-import Block from "./Block";
+import {Block} from "./Block";
 
-export default class Template{
+export class Template{
     template: string;
     readonly params: object;
     readonly paramTypes: object;

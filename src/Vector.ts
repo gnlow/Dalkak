@@ -1,4 +1,4 @@
-export default class Vector{
+export class Vector{
 	poses: Array<number>;
 	dimension: number;
 	constructor(...poses: Array<number>){

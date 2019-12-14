@@ -1,10 +1,10 @@
-import Name from "./Name";
-import Vector from "./Vector";
-import Event from "./Event";
-import Block from "./Block";
-import BlockGroup from "./BlockGroup";
+import {Name} from "./Name";
+import {Vector} from "./Vector";
+import {Event} from "./Event";
+import {Block} from "./Block";
+import {BlockGroup} from "./BlockGroup";
 
-export default class Thing{
+export class Thing{
 	name: string;
 	pos: Vector;
 	blockGroups: Array<BlockGroup>;

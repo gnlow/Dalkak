@@ -1,4 +1,4 @@
-export default class Name{
+export class Name{
 	name: string;
 	constructor(name: string){
 		this.name = name || Name.randomize();

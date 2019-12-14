@@ -1,25 +1,10 @@
-import Name from "./Name";
-import Vector from "./Vector";
-import Event from "./Event";
-import BlockSet from "./BlockSet";
-import Block from "./Block";
-import BlockGroup from "./BlockGroup";
-import Thing from "./Thing";
-import ThingGroup from "./ThingGroup";
-import Project from "./Project";
-import Template from "./Template";
-
-const dalkak = {
-	Name,
-	Vector,
-	Event,
-	BlockSet,
-	Block,
-	BlockGroup,
-	Thing,
-	ThingGroup,
-	Project,
-	Template
-}
-
-export default dalkak;
+export {Name} from "./Name";
+export {Vector} from "./Vector";
+export {Event} from "./Event";
+export {BlockSet} from "./BlockSet";
+export {Block} from "./Block";
+export {BlockGroup} from "./BlockGroup";
+export {Thing} from "./Thing";
+export {ThingGroup} from "./ThingGroup";
+export {Project} from "./Project";
+export {Template} from "./Template";

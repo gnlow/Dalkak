@@ -1,8 +1,8 @@
-import Vector from "./Vector";
-import BlockGroup from "./BlockGroup";
-import Thing from "./Thing";
+import {Vector} from "./Vector";
+import {BlockGroup} from "./BlockGroup";
+import {Thing} from "./Thing";
 
-export default class ThingGroup extends Thing{
+export class ThingGroup extends Thing{
 	name: string;
 	pos: Vector;
 	blockGroups: Array<BlockGroup>;

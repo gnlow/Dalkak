@@ -1,9 +1,9 @@
-import Name from "./Name";
-import BlockSet from "./BlockSet";
-import Thing from "./Thing";
-import ThingGroup from "./ThingGroup";
+import {Name} from "./Name";
+import {BlockSet} from "./BlockSet";
+import {Thing} from "./Thing";
+import {ThingGroup} from "./ThingGroup";
 
-export default class Project{
+export class Project{
 	name: string;
 	thingGroup: ThingGroup;
 	blockSets: Array<BlockSet>;
