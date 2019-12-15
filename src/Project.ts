@@ -1,23 +1,23 @@
 import {Name} from "./Name";
 import {Event} from "./Event";
-import {BlockSet} from "./BlockSet";
+import {Package} from "./Package";
 import {Thing} from "./Thing";
 import {ThingGroup} from "./ThingGroup";
 
 export class Project{
 	name: string;
 	thingGroup: ThingGroup;
-	blockSets: Array<BlockSet>;
+	packages: Array<Package>;
 	events: Array<Event>
 	constructor(
 		name = Name.randomize(), 
 		thingGroup = new ThingGroup("Global"), 
-		blockSets: Array<BlockSet> = [],
+		packages: Array<Package> = [],
 		events: Array<Event> = []
 	){
 		this.name = name;
 		this.thingGroup = thingGroup;
-		this.blockSets = blockSets;
+		this.packages = packages;
 		this.events = events;
 	}
 	addThing(thing: Thing): this{
