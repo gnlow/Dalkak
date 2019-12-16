@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>BlockSet | dalkak</title>
+	<title>Template | dalkak</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,13 +56,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_blockset_.html">&quot;BlockSet&quot;</a>
+					<a href="../modules/_template_.html">&quot;Template&quot;</a>
 				</li>
 				<li>
-					<a href="_blockset_.blockset.html">BlockSet</a>
+					<a href="_template_.template.html">Template</a>
 				</li>
 			</ul>
-			<h1>Class BlockSet</h1>
+			<h1>Class Template</h1>
 		</div>
 	</div>
 </header>
@@ -73,7 +73,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">BlockSet</span>
+						<span class="target">Template</span>
 					</li>
 				</ul>
 			</section>
@@ -84,15 +84,22 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_blockset_.blockset.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_template_.template.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_blockset_.blockset.html#events" class="tsd-kind-icon">events</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_blockset_.blockset.html#infos" class="tsd-kind-icon">infos</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_blockset_.blockset.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_template_.template.html#paramtypes" class="tsd-kind-icon">param<wbr>Types</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_template_.template.html#params" class="tsd-kind-icon">params</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_template_.template.html#returntype" class="tsd-kind-icon">return<wbr>Type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_template_.template.html#template" class="tsd-kind-icon">template</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_template_.template.html#templateparse" class="tsd-kind-icon">template<wbr>Parse</a></li>
 							</ul>
 						</section>
 					</div>
@@ -104,28 +111,22 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Block<wbr>Set<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, infos<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="_block_.block.html" class="tsd-signature-type">Block</a><span class="tsd-signature-symbol">&gt;</span>, events<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Event</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_blockset_.blockset.html" class="tsd-signature-type">BlockSet</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Template<span class="tsd-signature-symbol">(</span>template<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_template_.template.html" class="tsd-signature-type">Template</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in BlockSet.ts:6</li>
+									<li>Defined in Template.ts:7</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> name: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> infos: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="_block_.block.html" class="tsd-signature-type">Block</a><span class="tsd-signature-symbol">&gt;</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> events: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Event</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> template: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;&quot;</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_blockset_.blockset.html" class="tsd-signature-type">BlockSet</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_template_.template.html" class="tsd-signature-type">Template</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -133,34 +134,75 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="events" class="tsd-anchor"></a>
-					<h3>events</h3>
-					<div class="tsd-signature tsd-kind-icon">events<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Event</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<a name="paramtypes" class="tsd-anchor"></a>
+					<h3>param<wbr>Types</h3>
+					<div class="tsd-signature tsd-kind-icon">param<wbr>Types<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in BlockSet.ts:6</li>
+							<li>Defined in Template.ts:6</li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="infos" class="tsd-anchor"></a>
-					<h3>infos</h3>
-					<div class="tsd-signature tsd-kind-icon">infos<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="_block_.block.html" class="tsd-signature-type">Block</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<a name="params" class="tsd-anchor"></a>
+					<h3>params</h3>
+					<div class="tsd-signature tsd-kind-icon">params<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in BlockSet.ts:5</li>
+							<li>Defined in Template.ts:5</li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="name" class="tsd-anchor"></a>
-					<h3>name</h3>
-					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="returntype" class="tsd-anchor"></a>
+					<h3>return<wbr>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">return<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in BlockSet.ts:4</li>
+							<li>Defined in Template.ts:7</li>
 						</ul>
 					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="template" class="tsd-anchor"></a>
+					<h3>template</h3>
+					<div class="tsd-signature tsd-kind-icon">template<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in Template.ts:4</li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="templateparse" class="tsd-anchor"></a>
+					<h3>template<wbr>Parse</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">template<wbr>Parse<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in Template.ts:16</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
+							<ul class="tsd-parameters">
+								<li class="tsd-parameter">
+									<h5>param<wbr>Types<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>return<wbr>Type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -171,34 +213,37 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_block_.html">"<wbr>Block"</a>
+						<a href="../modules/_block_.html">&quot;<wbr>Block&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_blockgroup_.html">"<wbr>Block<wbr>Group"</a>
+						<a href="../modules/_blockgroup_.html">&quot;<wbr>Block<wbr>Group&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_event_.html">&quot;<wbr>Event&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_name_.html">&quot;<wbr>Name&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_package_.html">&quot;<wbr>Package&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_project_.html">&quot;<wbr>Project&quot;</a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_blockset_.html">"<wbr>Block<wbr>Set"</a>
+						<a href="../modules/_template_.html">&quot;<wbr>Template&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_event_.html">"<wbr>Event"</a>
+						<a href="../modules/_thing_.html">&quot;<wbr>Thing&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_name_.html">"<wbr>Name"</a>
+						<a href="../modules/_thinggroup_.html">&quot;<wbr>Thing<wbr>Group&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_project_.html">"<wbr>Project"</a>
+						<a href="../modules/_vector_.html">&quot;<wbr>Vector&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_thing_.html">"<wbr>Thing"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_thinggroup_.html">"<wbr>Thing<wbr>Group"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_vector_.html">"<wbr>Vector"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/_dalkak_.html">"dalkak"</a>
+						<a href="../modules/_dalkak_.html">&quot;dalkak&quot;</a>
 					</li>
 				</ul>
 			</nav>
@@ -207,19 +252,25 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_blockset_.blockset.html" class="tsd-kind-icon">Block<wbr>Set</a>
+						<a href="_template_.template.html" class="tsd-kind-icon">Template</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="_blockset_.blockset.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="_template_.template.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_blockset_.blockset.html#events" class="tsd-kind-icon">events</a>
+								<a href="_template_.template.html#paramtypes" class="tsd-kind-icon">param<wbr>Types</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_blockset_.blockset.html#infos" class="tsd-kind-icon">infos</a>
+								<a href="_template_.template.html#params" class="tsd-kind-icon">params</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_blockset_.blockset.html#name" class="tsd-kind-icon">name</a>
+								<a href="_template_.template.html#returntype" class="tsd-kind-icon">return<wbr>Type</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_template_.template.html#template" class="tsd-kind-icon">template</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_template_.template.html#templateparse" class="tsd-kind-icon">template<wbr>Parse</a>
 							</li>
 						</ul>
 					</li>
