@@ -1,4 +1,3 @@
-import {Event} from "./Event";
 import {Block} from "./Block";
 
 export class BlockGroup{
