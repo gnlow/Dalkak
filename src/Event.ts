@@ -1,12 +1,15 @@
-import Name from "./Name";
-import BlockGroup from "./BlockGroup";
+import {Name} from "./Name";
+import {BlockGroup} from "./BlockGroup";
 
-export default class Event{
+export class Event{
 	name: string;
 	blockGroups: Array<BlockGroup>;
-	constructor(name?: string, blockGroups?: Array<BlockGroup>){
-		this.name = name || Name.randomize();
-		this.blockGroups = [];
+	constructor(
+		name = Name.randomize(), 
+		blockGroups: Array<BlockGroup> = []
+	){
+		this.name = name;
+		this.blockGroups = blockGroups;
 	}
 	link(blockGroup: BlockGroup): this{
 		this.blockGroups.push(blockGroup);
