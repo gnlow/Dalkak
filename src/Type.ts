@@ -10,4 +10,7 @@ export class Type{
     check(value: any): boolean{
         return this.checker(value);
     }
+    static typeof(typeName: string): Type{
+        return new Type(value => typeof value == typeName);
+    }
 }
