@@ -8,3 +8,4 @@ export {Thing} from "./Thing";
 export {ThingGroup} from "./ThingGroup";
 export {Project} from "./Project";
 export {Template} from "./Template";
+export {Type} from "./Type";
