@@ -16,4 +16,7 @@ export class Type{
     static typeof(typeName: string): Type{
         return new Type(typeName, value => typeof value == typeName);
     }
+    static fromConstructor(constructor: Function): Type{
+        return new Type(constructor.name, value => value.constructor.name == constructor.name);
+    }
 }
