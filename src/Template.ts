@@ -56,7 +56,7 @@ export class Template{
 		}
 	}
 	static isShorthand(template: string){
-		return template.split(/(?:<<|\(\(|{{)/).slice(1).findIndex(str => str.search(/(?:>>|\)\)|}})/)) == -1;
+		return ( template.substring(0,2).search(/(?:<<|\(\(|{{)/) == -1 ) || ( template.substring(template.length-2).search(/(?:>>|\)\)|}})/) == -1);
 	}
 	static parseReturnType(template: string, pack: Pack){
 		if(Template.isShorthand(template)){
