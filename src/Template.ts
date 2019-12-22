@@ -4,10 +4,12 @@ import {Type} from "./Type";
 import {Dict} from "./Dict";
 
 type Bracket = "<<" | "((" | "{{";
+const paramRule = /<<(?<boolean>.+?)>>|\(\((?<string>[^:]+?)\)\)|{{(?<block>.+?)}}|\(\((?<other>.+?): *(?<type>.+?)\)\)/g;
 
 export class Template{
 	template: string;
 	pack: Pack;
+	readonly content: string;
     readonly params: Dict<any>;
     readonly paramTypes: Dict<Type>;
     readonly returnType: Type;
@@ -15,15 +17,30 @@ export class Template{
 		this.template = template;
 		this.pack = pack;
 
-        var parsed = this.templateParse();
+		var parsed = this.templateParse();
+		this.content = parsed.content;
         this.params = parsed.params;
         this.paramTypes = parsed.paramTypes;
         this.returnType = parsed.returnType;
     }
-    templateParse(): {params: Dict<any>, paramTypes: Dict<Type>, returnType: Type}{
+    templateParse(): {content: string, params: Dict<any>, paramTypes: Dict<Type>, returnType: Type}{
 		let {content, returnType} = Template.parseReturnType(this.template, this.pack);
 		let {params, paramTypes} = Template.parseParams(content, this.pack);
-		return {params, paramTypes, returnType};
+		return {content, params, paramTypes, returnType};
+	}
+	export(): string{
+		var replaced: string = this.template;
+		for(var currentKey in this.paramTypes.values){
+			var currentValue = this.params.get(currentKey);
+			var template: string;
+			if(Type.fromConstructor(Block).check(currentValue)){
+				template = Template.parseReturnType((currentValue as Block).export(), this.pack).content;
+			}else{
+				template = currentValue.toString();
+			}
+			replaced = replaced.replace(paramRule, template);
+		}
+		return replaced;
 	}
 	static typeFromBracket(bracket: Bracket): Type{
 		switch(bracket){
@@ -53,14 +70,12 @@ export class Template{
 		return {content, returnType};
 	}
 	static parseParams(content: string, pack: Pack){
-		const rule = /<<(?<boolean>.+?)>>|\(\((?<string>[^:]+?)\)\)|{{(?<block>.+?)}}|\(\((?<other>.+?): *(?<type>.+?)\)\)/g;
-
 		let params = new Dict<any>();
 		let paramTypes = new Dict<Type>();
 		
-		(content.match(rule) || []).forEach(e => {
-			rule.lastIndex = 0;
-			var names = rule.exec(e).groups;
+		(content.match(paramRule) || []).forEach(e => {
+			paramRule.lastIndex = 0;
+			var names = paramRule.exec(e).groups;
 			if(names.other){
 				params.set(names.other, undefined);
 				paramTypes.set(names.other, pack.types.get(names.type));

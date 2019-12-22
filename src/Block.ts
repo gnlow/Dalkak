@@ -55,7 +55,10 @@ export class Block{
 	run(e?: any){
 		return this.func(this.params.values);
 	}
-	
+	export(): string{
+		return this.template.export();
+	}
+
 	static fromBlock(block: Block): Block{
 		return Object.assign(new Block(), block);
 	}
