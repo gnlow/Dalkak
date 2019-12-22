@@ -21,28 +21,8 @@ export class Template{
         this.returnType = parsed.returnType;
     }
     templateParse(): {params: Dict<any>, paramTypes: Dict<Type>, returnType: Type}{
-		const rule = /<<(?<boolean>.+?)>>|\(\((?<string>[^:]+?)\)\)|{{(?<block>.+?)}}|\(\((?<other>.+?): *(?<type>.+?)\)\)/g;
-		let params = new Dict<any>();
-		let paramTypes = new Dict<Type>();
 		let {content, returnType} = Template.parseReturnType(this.template, this.pack);
-		
-		(content.match(rule) || []).forEach(e => {
-			rule.lastIndex = 0;
-			var names = rule.exec(e).groups;
-			if(names.other){
-				params.set(names.other, undefined);
-				paramTypes.set(names.other, this.pack.types.get(names.type));
-			}else if(names.boolean){
-				params.set(names.boolean, false);
-				paramTypes.set(names.boolean, Type.typeof("boolean"));
-			}else if(names.string){
-				params.set(names.string, "");
-				paramTypes.set(names.string, Type.typeof("string"));
-			}else if(names.block){
-				params.set(names.block, new Block);
-				paramTypes.set(names.block, Type.fromConstructor(Block));
-			}
-		});
+		let {params, paramTypes} = Template.parseParams(content, this.pack);
 		return {params, paramTypes, returnType};
 	}
 	static typeFromBracket(bracket: Bracket): Type{
@@ -71,5 +51,30 @@ export class Template{
 			returnType = Template.typeFromBracket(bracket as Bracket);
 		}
 		return {content, returnType};
+	}
+	static parseParams(content: string, pack: Pack){
+		const rule = /<<(?<boolean>.+?)>>|\(\((?<string>[^:]+?)\)\)|{{(?<block>.+?)}}|\(\((?<other>.+?): *(?<type>.+?)\)\)/g;
+
+		let params = new Dict<any>();
+		let paramTypes = new Dict<Type>();
+		
+		(content.match(rule) || []).forEach(e => {
+			rule.lastIndex = 0;
+			var names = rule.exec(e).groups;
+			if(names.other){
+				params.set(names.other, undefined);
+				paramTypes.set(names.other, pack.types.get(names.type));
+			}else if(names.boolean){
+				params.set(names.boolean, false);
+				paramTypes.set(names.boolean, Type.typeof("boolean"));
+			}else if(names.string){
+				params.set(names.string, "");
+				paramTypes.set(names.string, Type.typeof("string"));
+			}else if(names.block){
+				params.set(names.block, new Block);
+				paramTypes.set(names.block, Type.fromConstructor(Block));
+			}
+		});
+		return {params, paramTypes};
 	}
 }
