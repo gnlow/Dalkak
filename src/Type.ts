@@ -28,7 +28,7 @@ export class Type{
             // "null": null,
             "undefined": undefined,
             "number": 0,
-            "bigint": 0n,
+            // "bigint": 0n,
             "string": "",
             "symbol": Symbol()
         }[typeName];
