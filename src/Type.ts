@@ -3,11 +3,13 @@ import {Name} from "./Name";
 type Checker = (value: any) => boolean;
 
 export class Type{
-    checker: Checker
+    name: string;
+    checker: Checker;
     constructor(
         name = Name.randomize(), 
         checker: Checker = () => false
     ){
+        this.name = name;
         this.checker = checker;
     }
     check(value: any): boolean{
