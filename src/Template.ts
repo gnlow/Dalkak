@@ -1,34 +1,44 @@
+import {Pack} from "./Pack";
 import {Block} from "./Block";
+import {Type} from "./Type";
+import {Dict} from "./Dict";
 
 export class Template{
-    template: string;
-    readonly params: object;
-    readonly paramTypes: object;
-    readonly returnType: string;
-    constructor(template = ""){
-        this.template = template;
+	template: string;
+	pack: Pack;
+    readonly params: Dict<any>;
+    readonly paramTypes: Dict<Type>;
+    readonly returnType: Type;
+    constructor(template: string, pack: Pack){
+		this.template = template;
+		this.pack = pack;
 
         var parsed = this.templateParse();
         this.params = parsed.params;
         this.paramTypes = parsed.paramTypes;
         this.returnType = parsed.returnType;
     }
-    templateParse(): {params: object, paramTypes: object, returnType: string}{
+    templateParse(): {params: Dict<any>, paramTypes: Dict<Type>, returnType: Type}{
 		const returnRule = /(<<|\(\(|{{)(.+)(?:>>|\)\)|}})(?:: *(.+))?/;
 		const bracketType = {"<<": "boolean", "((": "string", "{{": "block"};
 		const rule = /<<(?<boolean>.+?)>>|\(\((?<string>[^:]+?)\)\)|{{(?<block>.+?)}}|\(\((?<other>.+?): *(?<type>.+?)\)\)/g;
-		let params = {};
-		let paramTypes = {};
+		let params = new Dict<any>();
+		let paramTypes = new Dict<Type>();
 		let returnExec;
-		let returnType;
+		let returnType: Type;
 		let content;
 		if(this.template.split(/(?:<<|\(\(|{{)/).slice(1).findIndex(str => str.search(/(?:>>|\)\)|}})/) == -1) == -1){ 
 			// No returnType bracket
-			returnType = "block";
+			returnType = Type.fromConstructor(Block);
 			content = this.template;
 		}else{
 			returnExec = returnRule.exec(this.template);
-			returnType = returnExec[3] || bracketType[returnExec[1]];
+			if(returnExec[3]){
+				// Other Types
+				returnType = this.pack.types.get(returnExec[3]);
+			}else{
+				returnType = Type.typeof(bracketType[returnExec[1]]);
+			}
 			content = returnExec[2];
 		}
 		
@@ -36,17 +46,17 @@ export class Template{
 			rule.lastIndex = 0;
 			var names = rule.exec(e).groups;
 			if(names.other){
-				params[names.other] = undefined;
-				paramTypes[names.other] = names.type;
+				params.set(names.other, undefined);
+				paramTypes.set(names.other, this.pack.types.get(names.type));
 			}else if(names.boolean){
-				params[names.boolean] = false;
-				paramTypes[names.boolean] = "boolean";
+				params.set(names.boolean, false);
+				paramTypes.set(names.boolean, Type.typeof("boolean"));
 			}else if(names.string){
-				params[names.string] = "";
-				paramTypes[names.string] = "string";
+				params.set(names.string, "");
+				paramTypes.set(names.string, Type.typeof("string"));
 			}else if(names.block){
-				params[names.block] = new Block;
-				paramTypes[names.block] = "block";
+				params.set(names.block, new Block);
+				paramTypes.set(names.block, Type.fromConstructor(Block));
 			}
 		});
 		return {params, paramTypes, returnType};

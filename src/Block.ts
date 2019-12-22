@@ -1,50 +1,59 @@
 import {Name} from "./Name";
+import {Pack} from "./Pack";
 import {Template} from "./Template";
+import {Type} from "./Type";
+import {Dict} from "./Dict";
 
 export class Block{
 	name: string;
 	template: Template;
 	func: Function;
-	params: object;
-	paramTypes: object;
-	returnType: string;
+	params: Dict<any>;
+	pack: Pack;
+	paramTypes: Dict<Type>;
+	returnType: Type;
 	constructor(
 		name = Name.randomize(), 
 		template = "", 
 		func = new Function, 
-		params: object = {}
+		params: object = {},
+		pack = new Pack
 	){
+		this.pack = pack;
 		this.name = name;
-		this.template = new Template(template);
+		this.template = new Template(template, this.pack);
 		this.params = this.template.params;
 		this.paramTypes = this.template.paramTypes;
 		this.setParams(params);
 		this.func = func;
 		this.returnType = this.template.returnType;
 	}
+	
 	setParams(params: object): this{
-		this.params = Object.assign(this.params, params);
+		for(var param in params){
+			this.params.set(param, params[param]);
+		}
 		return this;
 	}
+	
 	setParam(name: string, value: any){
-		if(typeof value == "object"){
+		if(Type.fromConstructor(Block).check(value)){
 			// Value is block
-			if(this.paramTypes[name] == (value as Block).returnType){
-				Object.defineProperty(this.params, name, {get: value.run.bind(value)});	
+			if( this.paramTypes.get(name).check( (value as Block).run() ) ){
+				Object.defineProperty(this.params.values, name, {get: value.run.bind(value)});	
 			}else{
-				throw Error(`(Block) Type '${value.returnType}' is not assignable to type '${this.paramTypes[name]}'`);
+				throw Error(`(Block) Type '${(value as Block).returnType.name}' is not assignable to type '${this.paramTypes.get(name).name}'`);
 			}
 		}else{
-			// Value is literal (string, boolean, etc.)
-			if(this.paramTypes[name] == typeof value){
-				this.params[name] = value;
+			if(this.paramTypes.get(name).check(value)){
+				this.params.set(name, value);
 			}else{
-				throw Error(`Type '${typeof value}' is not assignable to type '${this.paramTypes[name]}'`);
+				throw Error(`'${value}' is not assignable to type '${this.paramTypes.get(name).name}'`);
 			}
 		}
 	}
 	run(e?: any){
-		return this.func(this.params);
+		return this.func(this.params.values);
 	}
 	
 	static fromBlock(block: Block): Block{
