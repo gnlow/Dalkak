@@ -3,6 +3,8 @@ import {Block} from "./Block";
 import {Type} from "./Type";
 import {Dict} from "./Dict";
 
+type Bracket = "<<" | "((" | "{{";
+
 export class Template{
 	template: string;
 	pack: Pack;
@@ -19,28 +21,10 @@ export class Template{
         this.returnType = parsed.returnType;
     }
     templateParse(): {params: Dict<any>, paramTypes: Dict<Type>, returnType: Type}{
-		const returnRule = /(<<|\(\(|{{)(.+)(?:>>|\)\)|}})(?:: *(.+))?/;
-		const bracketType = {"<<": "boolean", "((": "string", "{{": "block"};
 		const rule = /<<(?<boolean>.+?)>>|\(\((?<string>[^:]+?)\)\)|{{(?<block>.+?)}}|\(\((?<other>.+?): *(?<type>.+?)\)\)/g;
 		let params = new Dict<any>();
 		let paramTypes = new Dict<Type>();
-		let returnExec;
-		let returnType: Type;
-		let content;
-		if(this.template.split(/(?:<<|\(\(|{{)/).slice(1).findIndex(str => str.search(/(?:>>|\)\)|}})/) == -1) == -1){ 
-			// No returnType bracket
-			returnType = Type.fromConstructor(Block);
-			content = this.template;
-		}else{
-			returnExec = returnRule.exec(this.template);
-			if(returnExec[3]){
-				// Other Types
-				returnType = this.pack.types.get(returnExec[3]);
-			}else{
-				returnType = Type.typeof(bracketType[returnExec[1]]);
-			}
-			content = returnExec[2];
-		}
+		let {content, returnType} = Template.parseReturnType(this.template, this.pack);
 		
 		(content.match(rule) || []).forEach(e => {
 			rule.lastIndex = 0;
@@ -60,5 +44,29 @@ export class Template{
 			}
 		});
 		return {params, paramTypes, returnType};
-    }
+	}
+	static typeFromBracket(bracket: Bracket): Type{
+		return {
+			"<<": Type.typeof("boolean"), 
+			"((": Type.typeof("string"), 
+			"{{": Type.fromConstructor(Block)
+		}[bracket];
+	}
+	static isShorthand(template: string){
+		return template.split(/(?:<<|\(\(|{{)/).slice(1).findIndex(str => str.search(/(?:>>|\)\)|}})/) == -1) == -1;
+	}
+	static parseReturnType(template: string, pack: Pack){
+		if(Template.isShorthand(template)){
+			template = `{{${template}}}`;
+		}
+		var execResult = /(<<|\(\(|{{)(.+)(?:>>|\)\)|}})(?:: *(.+))?/.exec(template);
+		var [full, bracket, content, typeLabel] = execResult;
+		var returnType: Type;
+		if(typeLabel){
+			returnType = pack.types.get(typeLabel);
+		}else{
+			returnType = Template.typeFromBracket(bracket as Bracket);
+		}
+		return {content, returnType};
+	}
 }
