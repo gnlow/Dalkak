@@ -92,6 +92,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_block_.block.html#func" class="tsd-kind-icon">func</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_block_.block.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_block_.block.html#pack" class="tsd-kind-icon">pack</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_block_.block.html#paramtypes" class="tsd-kind-icon">param<wbr>Types</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_block_.block.html#params" class="tsd-kind-icon">params</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_block_.block.html#returntype" class="tsd-kind-icon">return<wbr>Type</a></li>
@@ -116,13 +117,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Block<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, template<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, func<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span>, params<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_block_.block.html" class="tsd-signature-type">Block</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Block<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, template<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, func<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span>, params<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span>, pack<span class="tsd-signature-symbol">?: </span><a href="_pack_.pack.html" class="tsd-signature-type">Pack</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_block_.block.html" class="tsd-signature-type">Block</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in Block.ts:10</li>
+									<li>Defined in <a href="https://github.com/gnlow/Dalkak/blob/d814579/src/Block.ts#L14">Block.ts:14</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -139,6 +140,9 @@
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> params: <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
 								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> pack: <a href="_pack_.pack.html" class="tsd-signature-type">Pack</a><span class="tsd-signature-symbol"> =&nbsp;new Pack</span></h5>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_block_.block.html" class="tsd-signature-type">Block</a></h4>
 						</li>
@@ -153,7 +157,7 @@
 					<div class="tsd-signature tsd-kind-icon">func<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in Block.ts:7</li>
+							<li>Defined in <a href="https://github.com/gnlow/Dalkak/blob/d814579/src/Block.ts#L10">Block.ts:10</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -163,37 +167,47 @@
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in Block.ts:5</li>
+							<li>Defined in <a href="https://github.com/gnlow/Dalkak/blob/d814579/src/Block.ts#L8">Block.ts:8</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="pack" class="tsd-anchor"></a>
+					<h3>pack</h3>
+					<div class="tsd-signature tsd-kind-icon">pack<span class="tsd-signature-symbol">:</span> <a href="_pack_.pack.html" class="tsd-signature-type">Pack</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/gnlow/Dalkak/blob/d814579/src/Block.ts#L12">Block.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="paramtypes" class="tsd-anchor"></a>
 					<h3>param<wbr>Types</h3>
-					<div class="tsd-signature tsd-kind-icon">param<wbr>Types<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<div class="tsd-signature tsd-kind-icon">param<wbr>Types<span class="tsd-signature-symbol">:</span> <a href="_dict_.dict.html" class="tsd-signature-type">Dict</a><span class="tsd-signature-symbol">&lt;</span><a href="_type_.type.html" class="tsd-signature-type">Type</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in Block.ts:9</li>
+							<li>Defined in <a href="https://github.com/gnlow/Dalkak/blob/d814579/src/Block.ts#L13">Block.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="params" class="tsd-anchor"></a>
 					<h3>params</h3>
-					<div class="tsd-signature tsd-kind-icon">params<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<div class="tsd-signature tsd-kind-icon">params<span class="tsd-signature-symbol">:</span> <a href="_dict_.dict.html" class="tsd-signature-type">Dict</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in Block.ts:8</li>
+							<li>Defined in <a href="https://github.com/gnlow/Dalkak/blob/d814579/src/Block.ts#L11">Block.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="returntype" class="tsd-anchor"></a>
 					<h3>return<wbr>Type</h3>
-					<div class="tsd-signature tsd-kind-icon">return<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<div class="tsd-signature tsd-kind-icon">return<wbr>Type<span class="tsd-signature-symbol">:</span> <a href="_type_.type.html" class="tsd-signature-type">Type</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in Block.ts:10</li>
+							<li>Defined in <a href="https://github.com/gnlow/Dalkak/blob/d814579/src/Block.ts#L14">Block.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -203,7 +217,7 @@
 					<div class="tsd-signature tsd-kind-icon">template<span class="tsd-signature-symbol">:</span> <a href="_template_.template.html" class="tsd-signature-type">Template</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in Block.ts:6</li>
+							<li>Defined in <a href="https://github.com/gnlow/Dalkak/blob/d814579/src/Block.ts#L9">Block.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -220,7 +234,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in Block.ts:46</li>
+									<li>Defined in <a href="https://github.com/gnlow/Dalkak/blob/d814579/src/Block.ts#L55">Block.ts:55</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -243,7 +257,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in Block.ts:29</li>
+									<li>Defined in <a href="https://github.com/gnlow/Dalkak/blob/d814579/src/Block.ts#L39">Block.ts:39</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -269,7 +283,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in Block.ts:25</li>
+									<li>Defined in <a href="https://github.com/gnlow/Dalkak/blob/d814579/src/Block.ts#L32">Block.ts:32</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -292,7 +306,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in Block.ts:50</li>
+									<li>Defined in <a href="https://github.com/gnlow/Dalkak/blob/d814579/src/Block.ts#L59">Block.ts:59</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -320,13 +334,16 @@
 						<a href="../modules/_blockgroup_.html">&quot;<wbr>Block<wbr>Group&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="../modules/_dict_.html">&quot;<wbr>Dict&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_event_.html">&quot;<wbr>Event&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_name_.html">&quot;<wbr>Name&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_package_.html">&quot;<wbr>Package&quot;</a>
+						<a href="../modules/_pack_.html">&quot;<wbr>Pack&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_project_.html">&quot;<wbr>Project&quot;</a>
@@ -339,6 +356,9 @@
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_thinggroup_.html">&quot;<wbr>Thing<wbr>Group&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_type_.html">&quot;<wbr>Type&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_vector_.html">&quot;<wbr>Vector&quot;</a>
@@ -363,6 +383,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_block_.block.html#name" class="tsd-kind-icon">name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_block_.block.html#pack" class="tsd-kind-icon">pack</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_block_.block.html#paramtypes" class="tsd-kind-icon">param<wbr>Types</a>
