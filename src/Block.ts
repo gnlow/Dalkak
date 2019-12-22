@@ -14,7 +14,7 @@ export class Block{
 	returnType: Type;
 	constructor(
 		name = Name.randomize(), 
-		template = "", 
+		template = "(( ))", 
 		func = new Function, 
 		params: object = {},
 		pack = new Pack

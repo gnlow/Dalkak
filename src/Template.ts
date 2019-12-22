@@ -46,20 +46,23 @@ export class Template{
 		return {params, paramTypes, returnType};
 	}
 	static typeFromBracket(bracket: Bracket): Type{
-		return {
-			"<<": Type.typeof("boolean"), 
-			"((": Type.typeof("string"), 
-			"{{": Type.fromConstructor(Block)
-		}[bracket];
+		switch(bracket){
+			case "<<":
+				return Type.typeof("boolean");
+			case "((":
+				return Type.typeof("string");
+			case "{{":
+				return Type.fromConstructor(Block);
+		}
 	}
 	static isShorthand(template: string){
-		return template.split(/(?:<<|\(\(|{{)/).slice(1).findIndex(str => str.search(/(?:>>|\)\)|}})/) == -1) == -1;
+		return template.split(/(?:<<|\(\(|{{)/).slice(1).findIndex(str => str.search(/(?:>>|\)\)|}})/)) == -1;
 	}
 	static parseReturnType(template: string, pack: Pack){
 		if(Template.isShorthand(template)){
 			template = `{{${template}}}`;
 		}
-		var execResult = /(<<|\(\(|{{)(.+)(?:>>|\)\)|}})(?:: *(.+))?/.exec(template);
+		var execResult = /(<<|\(\(|{{)(.+)(?:>>|\)\)|}})(?:: *(.+))?/.exec(template) || ["", "((", "", ""];
 		var [full, bracket, content, typeLabel] = execResult;
 		var returnType: Type;
 		if(typeLabel){
