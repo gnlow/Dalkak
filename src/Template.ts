@@ -33,7 +33,7 @@ export class Template{
 		for(var currentKey in this.paramTypes.values){
 			var currentValue = this.params.get(currentKey);
 			var template: string;
-			if(Type.fromConstructor(Block).check(currentValue)){
+			if(Block.isBlock(currentValue)){
 				template = Template.parseReturnType((currentValue as Block).export(), this.pack).content;
 			}else{
 				template = currentValue.toString();

@@ -37,7 +37,7 @@ export class Block{
 	}
 	
 	setParam(name: string, value: any){
-		if(Type.fromConstructor(Block).check(value)){
+		if(Block.isBlock(value)){
 			// Value is block
 			if( this.paramTypes.get(name).check( (value as Block).run() ) ){
 				Object.defineProperty(this.params.values, name, {get: value.run.bind(value)});	
@@ -61,5 +61,8 @@ export class Block{
 
 	static fromBlock(block: Block): Block{
 		return Object.assign(new Block(), block);
+	}
+	static isBlock(value: any): boolean{
+		return Type.fromConstructor(Block).check(value);
 	}
 }
