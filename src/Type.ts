@@ -35,6 +35,13 @@ export class Type{
         return new Type(typeName, value => typeof value == typeName, defaultValue);
     }
     static fromConstructor(constructor: Constructor): Type{
-        return new Type(constructor.name, value => value.constructor.name == constructor.name, new constructor);
+        return new Type(
+            constructor.name, 
+            value => 
+            (value.constructor.name == constructor.name) // Same class
+            || 
+            (value.constructor.prototype instanceof constructor), // Extended class
+            new constructor
+        );
     }
 }
