@@ -3,6 +3,7 @@ export {Vector} from "./Vector";
 export {Event} from "./Event";
 export {Pack} from "./Pack";
 export {Block} from "./Block";
+export {LiteralBlock} from "./LiteralBlock";
 export {BlockGroup} from "./BlockGroup";
 export {Thing} from "./Thing";
 export {ThingGroup} from "./ThingGroup";
