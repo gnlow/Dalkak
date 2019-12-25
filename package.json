@@ -9,7 +9,7 @@
   "scripts": {
     "build": "microbundle --no-sourcemap",
     "dev": "microbundle watch --no-sourcemap",
-    "test": "node test/test",
+    "test": "ts-node test/test.ts",
     "docs": "npx typedoc --out docs ./src --module import --target esnext"
   },
   "author": "Gnlow",
