@@ -4,6 +4,7 @@ import {Type} from "./Type";
 import {Dict} from "./Dict";
 
 export class LiteralBlock extends Block{
+	params: Dict<any>
 	constructor(
 		type: Type
 	){
@@ -17,7 +18,15 @@ export class LiteralBlock extends Block{
 				undefined,
 				undefined,
 				(new Dict<Type>()).set(type.name, type)
-			)
+			),
+			true
 		);
+	}
+	setParam(name: string, value: any){
+		if(this.paramTypes.get(name).check(value)){
+			this.params.set(name, value);
+		}else{
+			throw Error(`'${value}' is not assignable to type '${this.paramTypes.get(name).name}'`);
+		}
 	}
 }

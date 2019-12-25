@@ -3,23 +3,27 @@ import {Pack} from "./Pack";
 import {Template} from "./Template";
 import {Type} from "./Type";
 import {Dict} from "./Dict";
+import {LiteralBlock} from "./LiteralBlock";
 
 export class Block{
 	name: string;
 	template: Template;
 	func: Function;
-	params: Dict<any>;
+	params: Dict<Block>;
 	pack: Pack;
 	paramTypes: Dict<Type>;
 	returnType: Type;
+	useLiteralParam: boolean;
 	constructor(
 		name = Name.randomize(), 
 		template = "(( ))", 
 		func = new Function, 
 		params: object = {},
-		pack = new Pack
+		pack = new Pack,
+		useLiteralParam = false
 	){
 		this.pack = pack;
+		this.useLiteralParam = useLiteralParam;
 		this.name = name;
 		this.template = new Template(template, this.pack);
 		this.params = this.template.params;
@@ -36,20 +40,11 @@ export class Block{
 		return this;
 	}
 	
-	setParam(name: string, value: any){
-		if(Block.isBlock(value)){
-			// Value is block
-			if( this.paramTypes.get(name).check( (value as Block).run() ) ){
-				Object.defineProperty(this.params.values, name, {get: value.run.bind(value)});	
-			}else{
-				throw Error(`(Block) Type '${(value as Block).returnType.name}' is not assignable to type '${this.paramTypes.get(name).name}'`);
-			}
+	setParam(name: string, value: Block){
+		if( this.paramTypes.get(name).check( value.run() ) ){
+			Object.defineProperty(this.params.values, name, {get: value.run.bind(value)});
 		}else{
-			if(this.paramTypes.get(name).check(value)){
-				this.params.set(name, value);
-			}else{
-				throw Error(`'${value}' is not assignable to type '${this.paramTypes.get(name).name}'`);
-			}
+			throw Error(`(Block) Type '${value.returnType.name}' is not assignable to type '${this.paramTypes.get(name).name}'`);
 		}
 	}
 	run(e?: any){

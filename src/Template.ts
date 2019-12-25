@@ -1,5 +1,6 @@
 import {Pack} from "./Pack";
 import {Block} from "./Block";
+import {LiteralBlock} from "./LiteralBlock";
 import {Type} from "./Type";
 import {Dict} from "./Dict";
 
@@ -9,13 +10,15 @@ const paramRule = /<<(?<boolean>.+?)>>|\(\((?<string>[^:]+?)\)\)|{{(?<block>.+?)
 export class Template{
 	template: string;
 	pack: Pack;
+	useLiteralParam: boolean;
 	readonly content: string;
     readonly params: Dict<any>;
     readonly paramTypes: Dict<Type>;
     readonly returnType: Type;
-    constructor(template: string, pack: Pack){
+    constructor(template: string, pack: Pack, useLiteralParam = false){
 		this.template = template;
 		this.pack = pack;
+		this.useLiteralParam = useLiteralParam;
 
 		var parsed = this.templateParse();
 		this.content = parsed.content;
@@ -25,7 +28,7 @@ export class Template{
     }
     templateParse(): {content: string, params: Dict<any>, paramTypes: Dict<Type>, returnType: Type}{
 		let {content, returnType} = Template.parseReturnType(this.template, this.pack);
-		let {params, paramTypes} = Template.parseParams(content, this.pack);
+		let {params, paramTypes} = Template.parseParams(content, this.pack, this.useLiteralParam);
 		return {content, params, paramTypes, returnType};
 	}
 	export(): string{
@@ -69,7 +72,7 @@ export class Template{
 		}
 		return {content, returnType};
 	}
-	static parseParams(content: string, pack: Pack){
+	static parseParams(content: string, pack: Pack, useLiteralParam = false){
 		let params = new Dict<any>();
 		let paramTypes = new Dict<Type>();
 		
@@ -77,13 +80,13 @@ export class Template{
 			paramRule.lastIndex = 0;
 			var names = paramRule.exec(e).groups;
 			if(names.other){
-				params.set(names.other, undefined);
+				params.set(names.other, useLiteralParam?undefined:new LiteralBlock(pack.types.get(names.type)));
 				paramTypes.set(names.other, pack.types.get(names.type));
 			}else if(names.boolean){
-				params.set(names.boolean, false);
+				params.set(names.boolean, useLiteralParam?false:new LiteralBlock(Type.typeof("boolean")));
 				paramTypes.set(names.boolean, Type.typeof("boolean"));
 			}else if(names.string){
-				params.set(names.string, "");
+				params.set(names.string, useLiteralParam?"":new LiteralBlock(Type.typeof("string")));
 				paramTypes.set(names.string, Type.typeof("string"));
 			}else if(names.block){
 				params.set(names.block, new Block);
