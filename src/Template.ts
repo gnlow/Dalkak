@@ -1,6 +1,5 @@
 import {Pack} from "./Pack";
 import {Block} from "./Block";
-import {LiteralBlock} from "./LiteralBlock";
 import {Type} from "./Type";
 import {Dict} from "./Dict";
 
@@ -80,13 +79,13 @@ export class Template{
 			paramRule.lastIndex = 0;
 			var names = paramRule.exec(e).groups;
 			if(names.other){
-				params.set(names.other, useLiteralParam?undefined:new LiteralBlock(pack.types.get(names.type)));
+				params.set(names.other, useLiteralParam?undefined:pack.blocks.get(names.type));
 				paramTypes.set(names.other, pack.types.get(names.type));
 			}else if(names.boolean){
-				params.set(names.boolean, useLiteralParam?false:new LiteralBlock(Type.typeof("boolean")));
+				params.set(names.boolean, useLiteralParam?false:pack.blocks.get("boolean"));
 				paramTypes.set(names.boolean, Type.typeof("boolean"));
 			}else if(names.string){
-				params.set(names.string, useLiteralParam?"":new LiteralBlock(Type.typeof("string")));
+				params.set(names.string, useLiteralParam?"":pack.blocks.get("string"));
 				paramTypes.set(names.string, Type.typeof("string"));
 			}else if(names.block){
 				params.set(names.block, new Block);
