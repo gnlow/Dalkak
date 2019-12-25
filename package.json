@@ -16,6 +16,7 @@
   "license": "MIT",
   "devDependencies": {
     "microbundle": "^0.12.0-next.6",
+    "ts-node": "^8.5.4",
     "typedoc": "^0.15.0"
   },
   "bugs": {
