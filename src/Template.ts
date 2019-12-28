@@ -32,8 +32,8 @@ export class Template{
 	}
 	export(): string{
 		var replaced: string = this.template;
-		for(var currentKey in this.paramTypes.values){
-			var currentValue = this.params.get(currentKey);
+		for(var currentKey in this.paramTypes){
+			var currentValue = this.params[currentKey];
 			var template: string;
 			if(Block.isBlock(currentValue)){
 				template = Template.parseReturnType((currentValue as Block).export(), this.pack).content;
@@ -65,23 +65,22 @@ export class Template{
 		var [full, bracket, content, typeLabel] = execResult;
 		var returnType: Type;
 		if(typeLabel){
-			returnType = pack.types.get(typeLabel);
+			returnType = pack.types[typeLabel];
 		}else{
 			returnType = Template.typeFromBracket(bracket as Bracket);
 		}
 		return {content, returnType};
 	}
 	static parseParams(content: string, pack: Pack, useLiteralParam = false){
-		let params = new Dict<any>();
-		let paramTypes = new Dict<Type>();
-		
+		let params: Dict<any> = {};
+		let paramTypes: Dict<Type> = {};
 		(content.match(paramRule) || []).forEach(e => {
 			paramRule.lastIndex = 0;
 			var names = paramRule.exec(e).groups;
 			var paramName = names.other || names.boolean || names.string || names.block;
-			var paramType = pack.types.get(names.type) || Template.typeFromBracket(e.substring(0,2) as Bracket);
-			params.set(paramName, useLiteralParam?paramType.initial:pack.blocks.get(paramType.name));
-			paramTypes.set(paramName, paramType);
+			var paramType = pack.types[names.type] || Template.typeFromBracket(e.substring(0,2) as Bracket);
+			params[paramName] = useLiteralParam?paramType.initial:pack.blocks[paramType.name];
+			paramTypes[paramName] = paramType;
 		});
 		return {params, paramTypes};
 	}

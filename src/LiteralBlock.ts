@@ -17,16 +17,16 @@ export class LiteralBlock extends Block{
 				type.name,
 				undefined,
 				undefined,
-				(new Dict<Type>()).set(type.name, type)
+				{[type.name]: type}
 			),
 			true
 		);
 	}
 	setParam(name: string, value: any){
-		if(this.paramTypes.get(name).check(value)){
-			this.params.set(name, value);
+		if(this.paramTypes[name].check(value)){
+			this.params[name] = value;
 		}else{
-			throw Error(`'${value}' is not assignable to type '${this.paramTypes.get(name).name}'`);
+			throw Error(`'${value}' is not assignable to type '${this.paramTypes[name].name}'`);
 		}
 	}
 }

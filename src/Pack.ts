@@ -11,9 +11,9 @@ export class Pack{
 	types: Dict<Type>;
 	constructor(
 		name = Name.randomize(), 
-		blocks: Dict<Block> = new Dict, 
-		events: Dict<Event> = new Dict,
-		types: Dict<Type> = new Dict
+		blocks: Dict<Block> = {}, 
+		events: Dict<Event> = {},
+		types: Dict<Type> = {}
 	){
 		this.name = name;
 		this.blocks = blocks;
