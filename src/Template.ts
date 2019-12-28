@@ -78,19 +78,10 @@ export class Template{
 		(content.match(paramRule) || []).forEach(e => {
 			paramRule.lastIndex = 0;
 			var names = paramRule.exec(e).groups;
-			if(names.other){
-				params.set(names.other, useLiteralParam?undefined:pack.blocks.get(names.type));
-				paramTypes.set(names.other, pack.types.get(names.type));
-			}else if(names.boolean){
-				params.set(names.boolean, useLiteralParam?false:pack.blocks.get("boolean"));
-				paramTypes.set(names.boolean, Type.typeof("boolean"));
-			}else if(names.string){
-				params.set(names.string, useLiteralParam?"":pack.blocks.get("string"));
-				paramTypes.set(names.string, Type.typeof("string"));
-			}else if(names.block){
-				params.set(names.block, new Block);
-				paramTypes.set(names.block, Type.fromConstructor(Block));
-			}
+			var paramName = names.other || names.boolean || names.string || names.block;
+			var paramType = pack.types.get(names.type) || Template.typeFromBracket(e.substring(0,2) as Bracket);
+			params.set(paramName, useLiteralParam?paramType.initial:pack.blocks.get(paramType.name));
+			paramTypes.set(paramName, paramType);
 		});
 		return {params, paramTypes};
 	}
