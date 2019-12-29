@@ -1,5 +1,6 @@
 import {Name} from "./Name";
 import {Pack} from "./Pack";
+import {Literal} from "./Literal";
 import {Template} from "./Template";
 import {Type} from "./Type";
 import {Dict} from "./Dict";
@@ -42,13 +43,17 @@ export class Block{
 	
 	setParam(name: string, value: Param){
 		if( this.paramTypes[name].check( value.run() ) ){
-			Object.defineProperty(this.params, name, {get: value.run.bind(value), configurable: true, enumerable: true});
+			this.params[name] = value;
 		}else{
 			throw Error(`'${value.run()}' is not assignable to type '${this.paramTypes[name].name}'`);
 		}
 	}
 	run(e?: any){
-		return this.func(this.params);
+		var params: Dict<Param> = {};
+		for(var paramKey in this.params){
+			params[paramKey] = this.params[paramKey].run();
+		}
+		return this.func(params);
 	}
 	export(): string{
 		return this.template.export(this.params);

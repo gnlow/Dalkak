@@ -40,7 +40,7 @@ export class Template{
 		for(var currentKey in params){
 			var currentValue = params[currentKey];
 			var template: string;
-			if(Block.isBlock(currentValue)){
+			if(currentValue.constructor == Block || currentValue.constructor == Literal){
 				template = (currentValue as Block).export();
 			}else{
 				template = Template.addBracket(currentValue.toString(), this.paramTypes[currentKey]);
@@ -102,7 +102,7 @@ export class Template{
 				params[paramName] = paramType.initial;
 			}else{
 				var literal = new Literal(paramType);
-				Object.defineProperty(params, paramName, {get: literal.run.bind(literal), configurable: true, enumerable: true});
+				params[paramName] = literal;
 			}
 			paramTypes[paramName] = paramType;
 		});
