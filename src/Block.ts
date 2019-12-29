@@ -3,13 +3,13 @@ import {Pack} from "./Pack";
 import {Template} from "./Template";
 import {Type} from "./Type";
 import {Dict} from "./Dict";
-import {LiteralBlock} from "./LiteralBlock";
+import {Param} from "./Param";
 
 export class Block{
 	name: string;
 	template: Template;
 	func: Function;
-	params: Dict<Block>;
+	params: Dict<Param>;
 	pack: Pack;
 	paramTypes: Dict<Type>;
 	returnType: Type;
@@ -18,7 +18,7 @@ export class Block{
 		name = Name.randomize(), 
 		template = "(( ))", 
 		func = new Function, 
-		params: object = {},
+		params: Dict<Param> = {},
 		pack = new Pack,
 		useLiteralParam = false
 	){
@@ -33,14 +33,14 @@ export class Block{
 		this.returnType = this.template.returnType;
 	}
 	
-	setParams(params: object): this{
+	setParams(params: Dict<Param>): this{
 		for(var param in params){
 			this.setParam(param, params[param]);
 		}
 		return this;
 	}
 	
-	setParam(name: string, value: Block){
+	setParam(name: string, value: Param){
 		if( this.paramTypes[name].check( value.run() ) ){
 			Object.defineProperty(this.params, name, {get: value.run.bind(value)});
 		}else{

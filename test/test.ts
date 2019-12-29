@@ -5,7 +5,7 @@ import {
     Pack,
     Event,
     Block,
-    LiteralBlock,
+    Literal,
     Thing
 } from "../src/dalkak";
 
@@ -14,10 +14,11 @@ var project = new Project();
 var types: Dict<Type> = {};
 types.even = new Type("even", v => v%2 == 0, 0);
 
-var number = new LiteralBlock(Type.typeof("number"));
-var string = new LiteralBlock(Type.typeof("string"));
+var number = new Literal(Type.typeof("number"));
+var string = new Literal(Type.typeof("string"));
+var even = new Literal(types.even);
 
-var pack = new Pack("a", {number, string}, {}, types);
+var pack = new Pack("a", {}, {}, types);
 
 var start = new Event("start");
 var log = new Block(
@@ -55,7 +56,7 @@ join.setParam("a", number);
 join.setParam("b", string);
 
 start.fire(0); 
-
+//console.log(join);
 //console.log(project);
 //console.log(string.export());
 //console.log(project.thingGroup.children[0].blockGroups[0].blocks[0]);

@@ -2,6 +2,7 @@ import {Pack} from "./Pack";
 import {Block} from "./Block";
 import {Type} from "./Type";
 import {Dict} from "./Dict";
+import {Literal} from "./Literal";
 
 type Bracket = "<<" | "((" | "{{";
 const paramRule = /<<(?<boolean>.+?)>>|\(\((?<string>[^:]+?)\)\)|{{(?<block>.+?)}}|\(\((?<other>.+?): *(?<type>.+?)\)\)/g;
@@ -79,7 +80,7 @@ export class Template{
 			var names = paramRule.exec(e).groups;
 			var paramName = names.other || names.boolean || names.string || names.block;
 			var paramType = pack.types[names.type] || Template.typeFromBracket(e.substring(0,2) as Bracket);
-			params[paramName] = useLiteralParam?paramType.initial:pack.blocks[paramType.name];
+			params[paramName] = useLiteralParam?paramType.initial:new Literal(paramType);
 			paramTypes[paramName] = paramType;
 		});
 		return {params, paramTypes};
