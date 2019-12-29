@@ -6,6 +6,7 @@ import {Literal} from "./Literal";
 
 type Bracket = "<<" | "((" | "{{";
 const paramRule = /<<(?<boolean>.+?)>>|\(\((?<string>[^:]+?)\)\)|{{(?<block>.+?)}}|\(\((?<other>.+?): *(?<type>.+?)\)\)/g;
+const parseRule = /(<<|\(\(|{{)(.+)(?:>>|\)\)|}})(?:: *(.+))?(?!.+)/;
 
 export class Template{
 	template: string;
@@ -55,14 +56,14 @@ export class Template{
 				return Type.fromConstructor(Block);
 		}
 	}
-	static isShorthand(template: string){
-		return ( template.substring(0,2).search(/(?:<<|\(\(|{{)/) == -1 ) || ( template.substring(template.length-2).search(/(?:>>|\)\)|}})/) == -1);
+	static isShorthand(template: string): boolean{
+		return !parseRule.exec(template);
 	}
 	static parseReturnType(template: string, pack: Pack){
 		if(Template.isShorthand(template)){
 			template = `{{${template}}}`;
 		}
-		var execResult = /(<<|\(\(|{{)(.+)(?:>>|\)\)|}})(?:: *(.+))?/.exec(template) || ["", "((", "", ""];
+		var execResult = parseRule.exec(template) || ["", "((", "", ""];
 		var [full, bracket, content, typeLabel] = execResult;
 		var returnType: Type;
 		if(typeLabel){
