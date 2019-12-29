@@ -34,8 +34,9 @@ export class Template{
 		return {content, params, paramTypes, returnType};
 	}
 	export(params: Dict<any>): string{
+		var paramReplace = this.content.match(paramRule);
 		var replaced: string = this.content;
-		console.log(params)
+		var index = 0;
 		for(var currentKey in params){
 			var currentValue = params[currentKey];
 			var template: string;
@@ -44,7 +45,8 @@ export class Template{
 			}else{
 				template = Template.addBracket(currentValue.toString(), this.paramTypes[currentKey]);
 			}
-			replaced = replaced.replace(paramRule, template);
+			replaced = replaced.replace(paramReplace[index], template);
+			index++;
 		}
 		return replaced;
 	}
