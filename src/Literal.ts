@@ -17,7 +17,7 @@ export class Literal{
 	){
 		this.name = type.name;
 		this.pack = new Pack(this.name, {}, {}, {[this.name]: type});
-		this.template = new Template(`((((input: ${this.name})))): ${this.name}`, this.pack, true);
+		this.template = new Template(`((input: ${this.name})): ${this.name}`, this.pack, true);
 		this.func = params => params.input;
 		this.params = {input: type.initial};
 		this.paramTypes = {input: type};

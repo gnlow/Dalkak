@@ -5,9 +5,9 @@ import {Dict} from "./Dict";
 import {Literal} from "./Literal";
 import {Param} from "./Param";
 
-type Bracket = "<<" | "((" | "{{";
-const paramRule = /(?:<<|\(\(|{{)(?<paramName>.+?)(?:: *(?<type>.+?))?(?:>>|\)\)|}})/g;
-const parseRule = /(<<|\(\(|{{)(.+)(?:>>|\)\)|}})(?:: *(.+))?(?!.+)/;
+type Bracket = "<" | "(" | "{";
+const paramRule = /(?:<|\(|{)(?<paramName>.+?)(?:: *(?<type>.+?))?(?:>|\)|})/g;
+const parseRule = /(<|\(|{)(.+)(?:>|\)|})(?:: *(.+))?(?!.+)/;
 
 export class Template{
 	template: string;
@@ -52,24 +52,24 @@ export class Template{
 	}
 	static typeFromBracket(bracket: Bracket): Type{
 		switch(bracket){
-			case "<<":
+			case "<":
 				return Type.typeof("boolean");
-			case "((":
+			case "(":
 				return Type.typeof("string");
-			case "{{":
+			case "{":
 				return Type.fromConstructor(Block);
 		}
 	}
 	static addBracket(value: string, type: Type): string{
 		switch(type.name){
 			case "boolean":
-				return `<<${value}>>`;
+				return `<${value}>`;
 			case "string":
-				return `((${value}))`;
+				return `(${value})`;
 			case "Block":
-				return `{{${value}}}`;
+				return `{${value}}`;
 			default:
-				return `((${value}: ${type.name}))`
+				return `(${value}: ${type.name})`
 
 		}
 	}
@@ -78,9 +78,9 @@ export class Template{
 	}
 	static parseReturnType(template: string, pack: Pack){
 		if(Template.isShorthand(template)){
-			template = `{{${template}}}`;
+			template = `{${template}}`;
 		}
-		var execResult = parseRule.exec(template) || ["", "((", "", ""];
+		var execResult = parseRule.exec(template) || ["", "(", "", ""];
 		var [full, bracket, content, typeLabel] = execResult;
 		var returnType: Type;
 		if(typeLabel){
@@ -97,7 +97,7 @@ export class Template{
 			paramRule.lastIndex = 0;
 			var names = paramRule.exec(e).groups;
 			var paramName = names.paramName;
-			var paramType = pack.types[names.type] || Template.typeFromBracket(e.substring(0,2) as Bracket);
+			var paramType = pack.types[names.type] || Template.typeFromBracket(e[0] as Bracket);
 			if(useLiteralParam){
 				params[paramName] = paramType.initial;
 			}else{

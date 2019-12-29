@@ -23,7 +23,7 @@ var pack = new Pack("a", {}, {}, types);
 var start = new Event("start");
 var log = new Block(
     "log", 
-    "((text)) 찍기", 
+    "(text) 찍기", 
     param => {
         console.log(param.text);
     },
@@ -33,7 +33,7 @@ var log = new Block(
 
 var join = new Block(
     "join", 
-    "(( ((a: even)) 와 ((b)) 합치기 ))", 
+    "( (a: even) 와 (b) 합치기 )", 
     param => {
         return param.a + param.b;
     },

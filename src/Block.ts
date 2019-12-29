@@ -17,7 +17,7 @@ export class Block{
 	useLiteralParam: boolean;
 	constructor(
 		name = Name.randomize(), 
-		template = "(( ))", 
+		template = "( )", 
 		func = new Function, 
 		params: Dict<Param> = {},
 		pack = new Pack,
