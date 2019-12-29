@@ -3,6 +3,7 @@ import {Block} from "./Block";
 import {Type} from "./Type";
 import {Dict} from "./Dict";
 import {Literal} from "./Literal";
+import {Param} from "./Param";
 
 type Bracket = "<<" | "((" | "{{";
 const paramRule = /(?:<<|\(\(|{{)(?<paramName>.+?)(?:: *(?<type>.+?))?(?:>>|\)\)|}})/g;
@@ -32,15 +33,16 @@ export class Template{
 		let {params, paramTypes} = Template.parseParams(content, this.pack, this.useLiteralParam);
 		return {content, params, paramTypes, returnType};
 	}
-	export(): string{
-		var replaced: string = this.template;
-		for(var currentKey in this.paramTypes){
-			var currentValue = this.params[currentKey];
+	export(params: Dict<any>): string{
+		var replaced: string = this.content;
+		console.log(params)
+		for(var currentKey in params){
+			var currentValue = params[currentKey];
 			var template: string;
 			if(Block.isBlock(currentValue)){
-				template = Template.parseReturnType((currentValue as Block).export(), this.pack).content;
+				template = (currentValue as Block).export();
 			}else{
-				template = currentValue.toString();
+				template = Template.addBracket(currentValue.toString(), this.paramTypes[currentKey]);
 			}
 			replaced = replaced.replace(paramRule, template);
 		}
@@ -54,6 +56,19 @@ export class Template{
 				return Type.typeof("string");
 			case "{{":
 				return Type.fromConstructor(Block);
+		}
+	}
+	static addBracket(value: string, type: Type): string{
+		switch(type.name){
+			case "boolean":
+				return `<<${value}>>`;
+			case "string":
+				return `((${value}))`;
+			case "Block":
+				return `{{${value}}}`;
+			default:
+				return `((${value}: ${type.name}))`
+
 		}
 	}
 	static isShorthand(template: string): boolean{

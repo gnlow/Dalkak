@@ -51,7 +51,7 @@ export class Block{
 		return this.func(this.params);
 	}
 	export(): string{
-		return this.template.export();
+		return this.template.export(this.params);
 	}
 
 	static fromBlock(block: Block): Block{

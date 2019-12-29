@@ -35,6 +35,6 @@ export class Literal{
 		return this.func(this.params);
 	}
 	export(): string{
-		return this.template.export();
+		return this.template.export(this.params);
 	}
 }
