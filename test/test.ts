@@ -52,12 +52,13 @@ log.setParam("text", join);
 number.setParam("input", 2);
 string.setParam("input", "Dalkak!");
 
-//join.setParam("a", number);
+join.setParam("a", number);
 join.setParam("b", string);
 
-start.fire(0); 
+//start.fire(0); 
 //console.log(join);
 //console.log(project);
-//console.log(string.export());
+//console.log(string);
+console.log(log.export());
 //console.log(project.thingGroup.children[0].blockGroups[0].blocks[0]);
 //console.log(log.params.text);

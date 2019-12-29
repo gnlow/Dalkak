@@ -41,7 +41,7 @@ export class Template{
 			var currentValue = params[currentKey];
 			var template: string;
 			if(currentValue.constructor == Block || currentValue.constructor == Literal){
-				template = (currentValue as Block).export();
+				template = Template.addBracket((currentValue as Block).export(), (currentValue as Block).returnType);
 			}else{
 				template = Template.addBracket(currentValue.toString(), this.paramTypes[currentKey]);
 			}
