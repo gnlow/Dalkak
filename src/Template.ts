@@ -80,7 +80,12 @@ export class Template{
 			var names = paramRule.exec(e).groups;
 			var paramName = names.other || names.boolean || names.string || names.block;
 			var paramType = pack.types[names.type] || Template.typeFromBracket(e.substring(0,2) as Bracket);
-			params[paramName] = useLiteralParam?paramType.initial:new Literal(paramType);
+			if(useLiteralParam){
+				params[paramName] = paramType.initial;
+			}else{
+				var literal = new Literal(paramType);
+				Object.defineProperty(params, paramName, {get: literal.run.bind(literal)});
+			}
 			paramTypes[paramName] = paramType;
 		});
 		return {params, paramTypes};

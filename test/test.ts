@@ -52,7 +52,7 @@ log.setParam("text", join);
 number.setParam("input", 2);
 string.setParam("input", "Dalkak!");
 
-join.setParam("a", number);
+//join.setParam("a", number);
 join.setParam("b", string);
 
 start.fire(0); 
