@@ -42,7 +42,7 @@ export class Block{
 	
 	setParam(name: string, value: Param){
 		if( this.paramTypes[name].check( value.run() ) ){
-			Object.defineProperty(this.params, name, {get: value.run.bind(value)});
+			Object.defineProperty(this.params, name, {get: value.run.bind(value), configurable: true});
 		}else{
 			throw Error(`'${value.run()}' is not assignable to type '${this.paramTypes[name].name}'`);
 		}

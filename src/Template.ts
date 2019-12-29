@@ -84,7 +84,7 @@ export class Template{
 				params[paramName] = paramType.initial;
 			}else{
 				var literal = new Literal(paramType);
-				Object.defineProperty(params, paramName, {get: literal.run.bind(literal)});
+				Object.defineProperty(params, paramName, {get: literal.run.bind(literal), configurable: true});
 			}
 			paramTypes[paramName] = paramType;
 		});
