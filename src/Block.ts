@@ -35,7 +35,7 @@ export class Block{
 	
 	setParams(params: object): this{
 		for(var param in params){
-			this.params[param] = params[param];
+			this.setParam(param, params[param]);
 		}
 		return this;
 	}
@@ -44,7 +44,7 @@ export class Block{
 		if( this.paramTypes[name].check( value.run() ) ){
 			Object.defineProperty(this.params, name, {get: value.run.bind(value)});
 		}else{
-			throw Error(`(Block) Type '${value.returnType.name}' is not assignable to type '${this.paramTypes[name].name}'`);
+			throw Error(`'${value.run()}' is not assignable to type '${this.paramTypes[name].name}'`);
 		}
 	}
 	run(e?: any){

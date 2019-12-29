@@ -12,8 +12,12 @@ import {
 var project = new Project();
 
 var types: Dict<Type> = {};
-types.even = new Type("even", v => v%2 == 0);
-var pack = new Pack("a", {}, {}, types);
+types.even = new Type("even", v => v%2 == 0, 0);
+
+var number = new LiteralBlock(Type.typeof("number"));
+var string = new LiteralBlock(Type.typeof("string"));
+
+var pack = new Pack("a", {number, string}, {}, types);
 
 var start = new Event("start");
 var log = new Block(
@@ -22,9 +26,7 @@ var log = new Block(
     param => {
         console.log(param.text);
     },
-    {
-        text: ""
-    },
+    void 0,
     pack
 );
 
@@ -34,14 +36,9 @@ var join = new Block(
     param => {
         return param.a + param.b;
     },
-    {
-        a: "Hello, ",
-        b: "World!"
-    },
+    void 0,
     pack
 );
-var number = new LiteralBlock(Type.typeof("number"));
-var string = new LiteralBlock(Type.typeof("string"));
 
 var entrybot = Thing.fromBlock(log);
 start.link(entrybot.blockGroups[0]);
