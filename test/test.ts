@@ -6,7 +6,8 @@ import {
     Event,
     Block,
     Literal,
-    Thing
+    Thing,
+    Util
 } from "../src/dalkak";
 
 var project = new Project();
@@ -59,6 +60,7 @@ join.setParam("b", string);
 //console.log(join);
 //console.log(project);
 //console.log(string);
-console.log(log.export());
+project.addEvent(start);
+console.log(project.export());
 //console.log(project.thingGroup.children[0].blockGroups[0].blocks[0]);
 //console.log(log.params.text);

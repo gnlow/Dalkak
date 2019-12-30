@@ -1,5 +1,6 @@
 import {Name} from "./Name";
 import {BlockGroup} from "./BlockGroup";
+import {Util} from "./Util";
 
 export class Event{
 	name: string;
@@ -16,9 +17,10 @@ export class Event{
 		return this;
 	}
 	fire(e: any): this{
-		for(var i in this.blockGroups){
-			this.blockGroups[i].start(e);
-		}
+		this.blockGroups.forEach( b => b.start(e) );
 		return this;
+	}
+	export(): string{
+		return this.blockGroups.map( b => `${this.name} -> \n${Util.indent(b.export())}` ).join("\n");
 	}
 }

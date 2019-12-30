@@ -11,3 +11,4 @@ export {Project} from "./Project";
 export {Template} from "./Template";
 export {Type} from "./Type";
 export {Dict} from "./Dict";
+export {Util} from "./Util";
