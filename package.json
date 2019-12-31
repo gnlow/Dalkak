@@ -6,7 +6,7 @@
   "main": "dist/dalkak.js",
   "module": "dist/dalkak.mjs",
   "unpkg": "dist/dalkak.umd.js",
-  "types": "dist/src/dalkak.ts",
+  "types": "dist/src/dalkak.d.ts",
   "scripts": {
     "build": "microbundle --no-sourcemap",
     "dev": "microbundle watch --no-sourcemap",
