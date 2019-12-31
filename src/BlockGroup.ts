@@ -8,9 +8,7 @@ export class BlockGroup{
 		this.blocks = blocks;
 	}
 	start(e: any): this{
-		for(var i in this.blocks){
-			this.blocks[i].run(e);
-		}
+		this.blocks.forEach(block => block.run(e));
 		return this;
 	}
 	attach(blockGroup: BlockGroup): BlockGroup{
