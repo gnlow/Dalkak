@@ -3,6 +3,7 @@ import {Event} from "./Event";
 import {Pack} from "./Pack";
 import {Thing} from "./Thing";
 import {ThingGroup} from "./ThingGroup";
+import {Util} from "./Util";
 
 export class Project{
 	name: string;
@@ -19,6 +20,12 @@ export class Project{
 		this.thingGroup = thingGroup;
 		this.packs = packs;
 		this.events = events;
+	}
+	export(): string{
+		return (
+`- ${this.name}
+${Util.indent( this.events.map(e => e.export()).join("\n") )}`
+		);
 	}
 	addThing(thing: Thing): this{
 		this.thingGroup.addThing(thing);
