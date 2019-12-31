@@ -10,7 +10,8 @@
     "build": "microbundle --no-sourcemap",
     "dev": "microbundle watch --no-sourcemap",
     "test": "ts-node test/test.ts",
-    "docs": "npx typedoc --out docs ./src --module import --target esnext"
+    "docs": "npx typedoc --out docs ./src --module import --target esnext",
+    "ready": "rimraf dist docs && npm run build && npm run docs"
   },
   "author": "Gnlow",
   "license": "MIT",
@@ -30,5 +31,7 @@
   "files": [
     "dist"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "rimraf": "^3.0.0"
+  }
 }
