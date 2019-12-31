@@ -1,6 +1,6 @@
 {
   "name": "dalkak",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "",
   "source": "src/dalkak.ts",
   "main": "dist/dalkak.js",
@@ -17,6 +17,7 @@
   "license": "MIT",
   "devDependencies": {
     "microbundle": "^0.12.0-next.6",
+    "rimraf": "^3.0.0",
     "ts-node": "^8.5.4",
     "typedoc": "^0.15.0"
   },
@@ -31,7 +32,5 @@
   "files": [
     "dist"
   ],
-  "dependencies": {
-    "rimraf": "^3.0.0"
-  }
+  "dependencies": {}
 }
