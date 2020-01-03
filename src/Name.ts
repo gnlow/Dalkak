@@ -1,7 +1,11 @@
+import {Namespace} from "./Namespace";
+
 export class Name{
-	name: string;
-	constructor(name = Name.randomize()){
-		this.name = name;
+	namespace: Namespace;
+	key: string;
+	constructor(namespace: Namespace, key = Name.randomize()){
+		this.namespace = namespace;
+		this.key = this.namespace.names.has(key) ? key : Name.randomize();
 	}
 	static randomize(): string{
 		var charSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
