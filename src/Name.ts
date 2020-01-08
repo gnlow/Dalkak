@@ -7,5 +7,6 @@ export class Name{
 	constructor(namespace: Namespace, key = Util.randString(5)){
 		this.namespace = namespace;
 		this.key = this.namespace.names.has(key) ? key : Util.randString(5);
+		this.namespace.names.add(this.key);
 	}
 }
