@@ -1,11 +1,14 @@
 import {Block} from "./Block";
+import {Namespace} from "./Namespace";
 
 export class BlockGroup{
 	blocks: Array<Block>;
+	namespace: Namespace;
 	constructor(
 		blocks: Array<Block> = []
 	){
 		this.blocks = blocks;
+		this.namespace = new Namespace;
 	}
 	start(e: any): this{
 		this.blocks.forEach(block => block.run(e));

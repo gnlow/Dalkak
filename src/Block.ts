@@ -5,9 +5,12 @@ import {Template} from "./Template";
 import {Type} from "./Type";
 import {Dict} from "./Dict";
 import {Param} from "./Param";
+import {BlockGroup} from "./BlockGroup";
+import {Util} from "./Util";
 
 export class Block{
-	name: string;
+	parent: BlockGroup;
+	name: Name;
 	template: Template;
 	func: Function;
 	params: Dict<Param>;
@@ -16,7 +19,8 @@ export class Block{
 	returnType: Type;
 	useLiteralParam: boolean;
 	constructor(
-		name = Name.randomize(), 
+		parent = new BlockGroup, 
+		name = Util.randString(5), 
 		template = "( )", 
 		func = new Function, 
 		params: Dict<Param> = {},
@@ -25,7 +29,7 @@ export class Block{
 	){
 		this.pack = pack;
 		this.useLiteralParam = useLiteralParam;
-		this.name = name;
+		this.name = new Name(parent.namespace,name);
 		this.template = new Template(template, this.pack);
 		this.params = this.template.params;
 		this.paramTypes = this.template.paramTypes;
