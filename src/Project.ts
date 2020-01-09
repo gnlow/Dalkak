@@ -6,12 +6,12 @@ import {ThingGroup} from "./ThingGroup";
 import {Util} from "./Util";
 
 export class Project{
-	name: string;
+	name: string; // Doesn't have to have namespace
 	thingGroup: ThingGroup;
 	packs: Array<Pack>;
 	events: Array<Event>
 	constructor(
-		name = Name.randomize(), 
+		name = Util.randString(5), 
 		thingGroup = new ThingGroup("Global"), 
 		packs: Array<Pack> = [],
 		events: Array<Event> = []
