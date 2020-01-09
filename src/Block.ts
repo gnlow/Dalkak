@@ -9,7 +9,6 @@ import {BlockGroup} from "./BlockGroup";
 import {Util} from "./Util";
 
 export class Block{
-	parent: Dict<Block>;
 	name: Name;
 	template: Template;
 	func: Function;
@@ -29,7 +28,7 @@ export class Block{
 	){
 		this.pack = pack;
 		this.useLiteralParam = useLiteralParam;
-		this.name = new Name(parent.namespace,name);
+		this.name = new Name(parent.namespace, name);
 		this.template = new Template(template, this.pack);
 		this.params = this.template.params;
 		this.paramTypes = this.template.paramTypes;
@@ -53,7 +52,7 @@ export class Block{
 		}
 	}
 	run(e?: any){
-		var params: Dict<Param> = {};
+		var params: Dict<Param> = new Dict;
 		for(var paramKey in this.params){
 			params.value[paramKey] = this.params.value[paramKey].run();
 		}
