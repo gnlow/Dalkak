@@ -3,6 +3,7 @@ import {Event} from "./Event";
 import {Pack} from "./Pack";
 import {Thing} from "./Thing";
 import {ThingGroup} from "./ThingGroup";
+import {Dict} from "./Dict";
 import {Util} from "./Util";
 
 export class Project{
@@ -12,7 +13,7 @@ export class Project{
 	events: Array<Event>
 	constructor(
 		name = Util.randString(5), 
-		thingGroup = new ThingGroup("Global"), 
+		thingGroup = new ThingGroup(new Dict, "Global"), 
 		packs: Array<Pack> = [],
 		events: Array<Event> = []
 	){
