@@ -1,10 +1,11 @@
+import {Name} from "./Name";
 import {Pack} from "./Pack";
 import {Template} from "./Template";
 import {Type} from "./Type";
 import {Dict} from "./Dict";
 
 export class Literal{
-	name: string;
+	name: Name;
 	template: Template;
 	func: Function;
 	params: Dict<any>;
@@ -13,10 +14,11 @@ export class Literal{
 	returnType: Type;
 	useLiteralParam: boolean;
 	constructor(
-		type: Type
+		type: Type,
+		parent = new Dict
 	){
-		this.name = type.name;
-		this.pack = new Pack(this.name, new Dict, new Dict, new Dict({[this.name]: type}));
+		this.name = new Name(parent.namespace, type.name);
+		this.pack = new Pack(this.name, new Dict, new Dict, new Dict({[this.name.key]: type}));
 		this.template = new Template(`((input: ${this.name})): ${this.name}`, this.pack, true);
 		this.func = params => params.input;
 		this.params = new Dict({input: type.initial});
