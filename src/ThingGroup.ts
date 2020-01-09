@@ -2,19 +2,22 @@ import {Name} from "./Name";
 import {Vector} from "./Vector";
 import {BlockGroup} from "./BlockGroup";
 import {Thing} from "./Thing";
+import {Dict} from "./Dict";
+import {Util} from "./Util";
 
 export class ThingGroup extends Thing{
-	name: string;
+	name: Name;
 	pos: Vector;
 	blockGroups: Array<BlockGroup>;
 	children: Array<Thing>;
 	constructor(
-		name = Name.randomize(), 
+		parent = new Dict, 
+		name = Util.randString(5), 
 		pos = new Vector(), 
 		blockGroups: Array<BlockGroup> = [], 
 		children: Array<Thing> = []
 	){
-		super(name, pos, blockGroups);
+		super(parent, name, pos, blockGroups);
 		this.children = children;
 	}
 	addThing(thing: Thing): this{
