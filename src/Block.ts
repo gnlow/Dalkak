@@ -48,7 +48,7 @@ export class Block{
 		if( this.paramTypes.value[name].check( value.run() ) ){
 			this.params.value[name] = value;
 		}else{
-			throw Error(`'${value.run()}' is not assignable to type '${this.paramTypes.value[name].name}'`);
+			throw Error(`'${value.run()}' is not assignable to type '${this.paramTypes.value[name].name.key}'`);
 		}
 	}
 	run(e?: any){

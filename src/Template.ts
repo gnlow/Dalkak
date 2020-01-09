@@ -69,7 +69,7 @@ export class Template{
 			case "Block":
 				return `{${value}}`;
 			default:
-				return `(${value}: ${type.name})`
+				return `(${value}: ${type.name.key})`
 
 		}
 	}

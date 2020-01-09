@@ -19,7 +19,7 @@ export class Literal{
 	){
 		this.name = new Name(parent.namespace, type.name.key);
 		this.pack = new Pack(new Dict, this.name.key, new Dict, new Dict, new Dict({[this.name.key]: type}));
-		this.template = new Template(`((input: ${this.name})): ${this.name}`, this.pack, true);
+		this.template = new Template(`((input: ${this.name.key})): ${this.name.key}`, this.pack, true);
 		this.func = params => params.input;
 		this.params = new Dict({input: type.initial});
 		this.paramTypes = new Dict({input: type});
@@ -30,7 +30,7 @@ export class Literal{
 		if(this.paramTypes.value[name].check(value)){
 			this.params.value[name] = value;
 		}else{
-			throw Error(`'${value}' is not assignable to type '${this.paramTypes.value[name].name}'`);
+			throw Error(`'${value}' is not assignable to type '${this.paramTypes.value[name].name.key}'`);
 		}
 	}
 	run(e?: any){
