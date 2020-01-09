@@ -12,17 +12,18 @@ import {
 
 var project = new Project();
 
-var types: Dict<Type> = {};
-types.even = new Type("even", v => v%2 == 0, 0);
+var types: Dict<Type> = new Dict;
+types.value.even = new Type(new Dict, "even", v => v%2 == 0, 0);
 
 var number = new Literal(Type.typeof("number"));
 var string = new Literal(Type.typeof("string"));
-var even = new Literal(types.even);
+var even = new Literal(types.value.even);
 
-var pack = new Pack("a", {}, {}, types);
+var pack = new Pack(new Dict, "a", new Dict, new Dict, types);
 
-var start = new Event("start");
+var start = new Event(new Dict, "start");
 var log = new Block(
+    new Dict, 
     "log", 
     "(text) 찍기", 
     param => {
@@ -33,6 +34,7 @@ var log = new Block(
 );
 
 var join = new Block(
+    new Dict, 
     "join", 
     "( (a: even) 와 (b) 합치기 )", 
     param => {
