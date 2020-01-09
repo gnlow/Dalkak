@@ -26,14 +26,15 @@ export class Literal{
 		this.returnType = type;
 		this.useLiteralParam = true;
 	}
-	setParam(name: string, value: any){
+	setParam(name: string, value: any): this{
 		if(this.paramTypes.value[name].check(value)){
 			this.params.value[name] = value;
 		}else{
 			throw Error(`'${value}' is not assignable to type '${this.paramTypes.value[name].name.key}'`);
 		}
+		return this;
 	}
-	run(e?: any){
+	run(e?: any): any{
 		return this.func(this.params.value);
 	}
 	export(): string{
