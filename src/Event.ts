@@ -1,15 +1,17 @@
 import {Name} from "./Name";
 import {BlockGroup} from "./BlockGroup";
 import {Util} from "./Util";
+import { Dict } from "./Dict";
 
 export class Event{
-	name: string;
+	name: Name;
 	blockGroups: Array<BlockGroup>;
 	constructor(
-		name = Name.randomize(), 
+		parent = new Dict, 
+		name = Util.randString(5), 
 		blockGroups: Array<BlockGroup> = []
 	){
-		this.name = name;
+		this.name = new Name(parent.namespace, name);
 		this.blockGroups = blockGroups;
 	}
 	link(blockGroup: BlockGroup): this{
