@@ -9,7 +9,7 @@ import {BlockGroup} from "./BlockGroup";
 import {Util} from "./Util";
 
 export class Block{
-	parent: BlockGroup;
+	parent: Dict<Block>;
 	name: Name;
 	template: Template;
 	func: Function;
