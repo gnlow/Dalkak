@@ -19,11 +19,11 @@ export class Block{
 	returnType: Type;
 	useLiteralParam: boolean;
 	constructor(
-		parent = new BlockGroup, 
+		parent = new Dict, 
 		name = Util.randString(5), 
 		template = "( )", 
 		func = new Function, 
-		params: Dict<Param> = {},
+		params: Dict<Param> = new Dict,
 		pack = new Pack,
 		useLiteralParam = false
 	){
@@ -40,24 +40,24 @@ export class Block{
 	
 	setParams(params: Dict<Param>): this{
 		for(var param in params){
-			this.setParam(param, params[param]);
+			this.setParam(param, params.value[param]);
 		}
 		return this;
 	}
 	
 	setParam(name: string, value: Param){
-		if( this.paramTypes[name].check( value.run() ) ){
-			this.params[name] = value;
+		if( this.paramTypes.value[name].check( value.run() ) ){
+			this.params.value[name] = value;
 		}else{
-			throw Error(`'${value.run()}' is not assignable to type '${this.paramTypes[name].name}'`);
+			throw Error(`'${value.run()}' is not assignable to type '${this.paramTypes.value[name].name}'`);
 		}
 	}
 	run(e?: any){
 		var params: Dict<Param> = {};
 		for(var paramKey in this.params){
-			params[paramKey] = this.params[paramKey].run();
+			params.value[paramKey] = this.params.value[paramKey].run();
 		}
-		return this.func(params);
+		return this.func(params.value);
 	}
 	export(): string{
 		return this.template.export(this.params);

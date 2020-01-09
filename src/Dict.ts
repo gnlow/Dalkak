@@ -1,8 +1,11 @@
 import {Namespace} from "./Namespace";
 
-export interface Dict<T> {
-    value:{
+export class Dict<T> {
+    namespace: Namespace = new Namespace;
+    value: {
         [key: string]: T;
-    }, 
-    namespace: Namespace
+    };
+    constructor(value = {}){
+        this.value = value;
+    }
 };

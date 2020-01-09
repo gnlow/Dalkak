@@ -19,20 +19,20 @@ export class Literal{
 		this.pack = new Pack(this.name, {}, {}, {[this.name]: type});
 		this.template = new Template(`((input: ${this.name})): ${this.name}`, this.pack, true);
 		this.func = params => params.input;
-		this.params = {input: type.initial};
-		this.paramTypes = {input: type};
+		this.params = new Dict({input: type.initial});
+		this.paramTypes = new Dict({input: type});
 		this.returnType = type;
 		this.useLiteralParam = true;
 	}
 	setParam(name: string, value: any){
-		if(this.paramTypes[name].check(value)){
-			this.params[name] = value;
+		if(this.paramTypes.value[name].check(value)){
+			this.params.value[name] = value;
 		}else{
-			throw Error(`'${value}' is not assignable to type '${this.paramTypes[name].name}'`);
+			throw Error(`'${value}' is not assignable to type '${this.paramTypes.value[name].name}'`);
 		}
 	}
 	run(e?: any){
-		return this.func(this.params);
+		return this.func(this.params.value);
 	}
 	export(): string{
 		return this.template.export(this.params);
