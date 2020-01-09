@@ -38,7 +38,7 @@ export class Block{
 	}
 	
 	setParams(params: Dict<Param>): this{
-		for(var param in params){
+		for(var param in params.value){
 			this.setParam(param, params.value[param]);
 		}
 		return this;
@@ -53,7 +53,7 @@ export class Block{
 	}
 	run(e?: any){
 		var params: Dict<Param> = new Dict;
-		for(var paramKey in this.params){
+		for(var paramKey in this.params.value){
 			params.value[paramKey] = this.params.value[paramKey].run();
 		}
 		return this.func(params.value);
