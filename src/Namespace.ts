@@ -1,5 +1,5 @@
 import {Name} from "./Name";
 
 export class Namespace{
-    names: Set<string>;
+    names: Set<string> = new Set;
 }
