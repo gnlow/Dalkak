@@ -3,16 +3,17 @@ import {Event} from "./Event";
 import {Pack} from "./Pack";
 import {Thing} from "./Thing";
 import {ThingGroup} from "./ThingGroup";
+import {Dict} from "./Dict";
 import {Util} from "./Util";
 
 export class Project{
-	name: string;
+	name: string; // Doesn't have to have namespace
 	thingGroup: ThingGroup;
 	packs: Array<Pack>;
 	events: Array<Event>
 	constructor(
-		name = Name.randomize(), 
-		thingGroup = new ThingGroup("Global"), 
+		name = Util.randString(5), 
+		thingGroup = new ThingGroup(new Dict, "Global"), 
 		packs: Array<Pack> = [],
 		events: Array<Event> = []
 	){

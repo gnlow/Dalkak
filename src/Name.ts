@@ -1,14 +1,12 @@
+import {Util} from "./Util";
+import {Namespace} from "./Namespace";
+
 export class Name{
-	name: string;
-	constructor(name = Name.randomize()){
-		this.name = name;
-	}
-	static randomize(): string{
-		var charSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-		var result = "";
-		for(var i=0;i<5;i++){
-			result += charSet.charAt(Math.floor(Math.random() * charSet.length));
-		}
-		return result;
+	namespace: Namespace;
+	key: string;
+	constructor(namespace: Namespace, key = Util.randString(5)){
+		this.namespace = namespace;
+		this.key = this.namespace.names.has(key) ? Util.randString(5) : key;
+		this.namespace.names.add(this.key);
 	}
 }

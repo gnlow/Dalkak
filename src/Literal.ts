@@ -1,10 +1,11 @@
+import {Name} from "./Name";
 import {Pack} from "./Pack";
 import {Template} from "./Template";
 import {Type} from "./Type";
 import {Dict} from "./Dict";
 
 export class Literal{
-	name: string;
+	name: Name;
 	template: Template;
 	func: Function;
 	params: Dict<any>;
@@ -13,26 +14,27 @@ export class Literal{
 	returnType: Type;
 	useLiteralParam: boolean;
 	constructor(
-		type: Type
+		type: Type,
+		parent = new Dict
 	){
-		this.name = type.name;
-		this.pack = new Pack(this.name, {}, {}, {[this.name]: type});
-		this.template = new Template(`((input: ${this.name})): ${this.name}`, this.pack, true);
+		this.name = new Name(parent.namespace, type.name.key);
+		this.pack = new Pack(new Dict, this.name.key, new Dict, new Dict, new Dict({[this.name.key]: type}));
+		this.template = new Template(`((input: ${this.name.key})): ${this.name.key}`, this.pack, true);
 		this.func = params => params.input;
-		this.params = {input: type.initial};
-		this.paramTypes = {input: type};
+		this.params = new Dict({input: type.initial});
+		this.paramTypes = new Dict({input: type});
 		this.returnType = type;
 		this.useLiteralParam = true;
 	}
 	setParam(name: string, value: any){
-		if(this.paramTypes[name].check(value)){
-			this.params[name] = value;
+		if(this.paramTypes.value[name].check(value)){
+			this.params.value[name] = value;
 		}else{
-			throw Error(`'${value}' is not assignable to type '${this.paramTypes[name].name}'`);
+			throw Error(`'${value}' is not assignable to type '${this.paramTypes.value[name].name.key}'`);
 		}
 	}
 	run(e?: any){
-		return this.func(this.params);
+		return this.func(this.params.value);
 	}
 	export(): string{
 		return this.template.export(this.params);

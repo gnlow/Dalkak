@@ -1,4 +1,6 @@
 import {Name} from "./Name";
+import {Dict} from "./Dict";
+import {Util} from "./Util";
 
 interface Constructor {
     new (...any): any
@@ -7,15 +9,16 @@ interface Constructor {
 type Checker = (value: any) => boolean;
 
 export class Type{
-    name: string;
+    name: Name;
     checker: Checker;
     initial: any;
     constructor(
-        name = Name.randomize(), 
+        parent = new Dict, 
+        name = Util.randString(5), 
         checker: Checker = () => false,
         initial = undefined
     ){
-        this.name = name;
+        this.name = new Name(parent.namespace, name);
         this.checker = checker;
         this.initial = initial;
     }
@@ -32,10 +35,11 @@ export class Type{
             "string": "",
             "symbol": Symbol()
         }[typeName];
-        return new Type(typeName, value => typeof value == typeName, defaultValue);
+        return new Type(new Dict, typeName, value => typeof value == typeName, defaultValue);
     }
     static fromConstructor(constructor: Constructor): Type{
         return new Type(
+            new Dict, 
             constructor.name, 
             value => 
             (value.constructor.name == constructor.name) // Same class

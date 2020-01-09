@@ -37,13 +37,13 @@ export class Template{
 		var paramReplace = this.content.match(paramRule);
 		var replaced: string = this.content;
 		var index = 0;
-		for(var currentKey in params){
-			var currentValue = params[currentKey];
+		for(var currentKey in params.value){
+			var currentValue = params.value[currentKey];
 			var template: string;
 			if(currentValue.constructor == Block || currentValue.constructor == Literal){
 				template = Template.addBracket((currentValue as Block).export(), (currentValue as Block).returnType);
 			}else{
-				template = Template.addBracket(currentValue.toString(), this.paramTypes[currentKey]);
+				template = Template.addBracket(currentValue.toString(), this.paramTypes.value[currentKey]);
 			}
 			replaced = replaced.replace(paramReplace[index], template);
 			index++;
@@ -61,7 +61,7 @@ export class Template{
 		}
 	}
 	static addBracket(value: string, type: Type): string{
-		switch(type.name){
+		switch(type.name.key){
 			case "boolean":
 				return `<${value}>`;
 			case "string":
@@ -69,7 +69,7 @@ export class Template{
 			case "Block":
 				return `{${value}}`;
 			default:
-				return `(${value}: ${type.name})`
+				return `(${value}: ${type.name.key})`
 
 		}
 	}
@@ -84,27 +84,27 @@ export class Template{
 		var [full, bracket, content, typeLabel] = execResult;
 		var returnType: Type;
 		if(typeLabel){
-			returnType = pack.types[typeLabel];
+			returnType = pack.types.value[typeLabel];
 		}else{
 			returnType = Template.typeFromBracket(bracket as Bracket);
 		}
 		return {content, returnType};
 	}
 	static parseParams(content: string, pack: Pack, useLiteralParam = false){
-		let params: Dict<any> = {};
-		let paramTypes: Dict<Type> = {};
+		let params: Dict<any> = new Dict;
+		let paramTypes: Dict<Type> = new Dict;
 		(content.match(paramRule) || []).forEach(e => {
 			paramRule.lastIndex = 0;
 			var names = paramRule.exec(e).groups;
 			var paramName = names.paramName;
-			var paramType = pack.types[names.type] || Template.typeFromBracket(e[0] as Bracket);
+			var paramType = pack.types.value[names.type] || Template.typeFromBracket(e[0] as Bracket);
 			if(useLiteralParam){
-				params[paramName] = paramType.initial;
+				params.value[paramName] = paramType.initial;
 			}else{
 				var literal = new Literal(paramType);
-				params[paramName] = literal;
+				params.value[paramName] = literal;
 			}
-			paramTypes[paramName] = paramType;
+			paramTypes.value[paramName] = paramType;
 		});
 		return {params, paramTypes};
 	}

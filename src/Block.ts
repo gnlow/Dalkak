@@ -5,9 +5,11 @@ import {Template} from "./Template";
 import {Type} from "./Type";
 import {Dict} from "./Dict";
 import {Param} from "./Param";
+import {BlockGroup} from "./BlockGroup";
+import {Util} from "./Util";
 
 export class Block{
-	name: string;
+	name: Name;
 	template: Template;
 	func: Function;
 	params: Dict<Param>;
@@ -16,16 +18,17 @@ export class Block{
 	returnType: Type;
 	useLiteralParam: boolean;
 	constructor(
-		name = Name.randomize(), 
+		parent = new Dict, 
+		name = Util.randString(5), 
 		template = "( )", 
 		func = new Function, 
-		params: Dict<Param> = {},
+		params: Dict<Param> = new Dict,
 		pack = new Pack,
 		useLiteralParam = false
 	){
 		this.pack = pack;
 		this.useLiteralParam = useLiteralParam;
-		this.name = name;
+		this.name = new Name(parent.namespace, name);
 		this.template = new Template(template, this.pack);
 		this.params = this.template.params;
 		this.paramTypes = this.template.paramTypes;
@@ -35,25 +38,25 @@ export class Block{
 	}
 	
 	setParams(params: Dict<Param>): this{
-		for(var param in params){
-			this.setParam(param, params[param]);
+		for(var param in params.value){
+			this.setParam(param, params.value[param]);
 		}
 		return this;
 	}
 	
 	setParam(name: string, value: Param){
-		if( this.paramTypes[name].check( value.run() ) ){
-			this.params[name] = value;
+		if( this.paramTypes.value[name].check( value.run() ) ){
+			this.params.value[name] = value;
 		}else{
-			throw Error(`'${value.run()}' is not assignable to type '${this.paramTypes[name].name}'`);
+			throw Error(`'${value.run()}' is not assignable to type '${this.paramTypes.value[name].name.key}'`);
 		}
 	}
 	run(e?: any){
-		var params: Dict<Param> = {};
-		for(var paramKey in this.params){
-			params[paramKey] = this.params[paramKey].run();
+		var params: Dict<Param> = new Dict;
+		for(var paramKey in this.params.value){
+			params.value[paramKey] = this.params.value[paramKey].run();
 		}
-		return this.func(params);
+		return this.func(params.value);
 	}
 	export(): string{
 		return this.template.export(this.params);
