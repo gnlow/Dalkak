@@ -40,4 +40,11 @@ export class Literal{
 	export(): string{
 		return this.template.export(this.params);
 	}
+	static from(value: any): Literal{
+		if(typeof value == "object"){
+			return new Literal(Type.fromConstructor(value.constructor));
+		}else{
+			return new Literal(Type.typeof(typeof value));
+		}
+	}
 }
