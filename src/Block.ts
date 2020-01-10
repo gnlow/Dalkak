@@ -44,14 +44,15 @@ export class Block{
 		return this;
 	}
 	
-	setParam(name: string, value: Param){
+	setParam(name: string, value: Param): this{
 		if( this.paramTypes.value[name].check( value.run() ) ){
 			this.params.value[name] = value;
 		}else{
 			throw Error(`'${value.run()}' is not assignable to type '${this.paramTypes.value[name].name.key}'`);
 		}
+		return this;
 	}
-	run(e?: any){
+	run(e?: any): any{
 		var params: Dict<Param> = new Dict;
 		for(var paramKey in this.params.value){
 			params.value[paramKey] = this.params.value[paramKey].run();

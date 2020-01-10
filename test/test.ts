@@ -64,5 +64,7 @@ join.setParam("b", string);
 //console.log(string);
 project.addEvent(start);
 console.log(project.export());
+
+console.log(Literal.from("a"));
 //console.log(project.thingGroup.children[0].blockGroups[0].blocks[0]);
 //console.log(log.params.text);
