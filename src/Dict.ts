@@ -2,9 +2,7 @@ import {Namespace} from "./Namespace";
 
 export class Dict<T> {
     namespace: Namespace = new Namespace;
-    value: {
-        [key: string]: T;
-    };
+    value: Record<string, T>;
     constructor(value = {}){
         this.value = value;
     }
