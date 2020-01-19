@@ -3,7 +3,7 @@ import {Pack} from "./Pack";
 import {Literal} from "./Literal";
 import {Template} from "./Template";
 import {Type} from "./Type";
-import {Dict} from "./Dict";
+import {Dict, Dictable} from "./Dict";
 import {Param} from "./Param";
 import {BlockGroup} from "./BlockGroup";
 import {Util} from "./Util";
@@ -22,7 +22,7 @@ export class Block{
 		name = Util.randString(5), 
 		template = "( )", 
 		func = (param: any) => {}, 
-		params: Dict<Param> = new Dict,
+		params: Dictable<Param> = new Dict,
 		pack = new Pack,
 		useLiteralParam = false
 	){
@@ -32,7 +32,7 @@ export class Block{
 		this.template = new Template(template, this.pack);
 		this.params = this.template.params;
 		this.paramTypes = this.template.paramTypes;
-		this.setParams(params);
+		this.setParams(new Dict(params));
 		this.func = func;
 		this.returnType = this.template.returnType;
 	}

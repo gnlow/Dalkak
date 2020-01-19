@@ -41,10 +41,7 @@ export class Type{
         return new Type(
             new Dict, 
             constructor.name, 
-            value => 
-            (value.constructor.name == constructor.name) // Same class
-            || 
-            (value.constructor.prototype instanceof constructor), // Extended class
+            value => value instanceof constructor,
             new constructor
         );
     }
