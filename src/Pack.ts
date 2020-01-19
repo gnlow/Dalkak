@@ -2,7 +2,7 @@ import {Name} from "./Name";
 import {Event} from "./Event";
 import {Block} from "./Block";
 import {Type} from "./Type";
-import {Dict} from "./Dict";
+import {Dict, Dictable} from "./Dict";
 import {Util} from "./Util";
 
 export class Pack{
@@ -13,13 +13,13 @@ export class Pack{
 	constructor(
 		parent = new Dict, 
 		name = Util.randString(5), 
-		blocks: Dict<Block> = new Dict, 
-		events: Dict<Event> = new Dict,
-		types: Dict<Type> = new Dict
+		blocks: Dictable<Block> = new Dict, 
+		events: Dictable<Event> = new Dict,
+		types: Dictable<Type> = new Dict
 	){
 		this.name = new Name(parent.namespace, name);
-		this.blocks = blocks;
-		this.events = events;
-		this.types = types;
+		this.blocks = new Dict(blocks);
+		this.events = new Dict(events);
+		this.types = new Dict(types);
 	}
 }
