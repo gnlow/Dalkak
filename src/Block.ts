@@ -1,11 +1,9 @@
 import {Name} from "./Name";
 import {Pack} from "./Pack";
-import {Literal} from "./Literal";
 import {Template} from "./Template";
 import {Type} from "./Type";
 import {Dict, Dictable} from "./Dict";
 import {Param} from "./Param";
-import {BlockGroup} from "./BlockGroup";
 import {Util} from "./Util";
 
 export class Block{

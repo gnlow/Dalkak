@@ -3,7 +3,6 @@ import {Block} from "./Block";
 import {Type} from "./Type";
 import {Dict} from "./Dict";
 import {Literal} from "./Literal";
-import {Param} from "./Param";
 
 type Bracket = "<" | "(" | "{";
 const paramRule = /(?:<|\(|{)(?<paramName>.+?)(?:: *(?<type>.+?))?(?:>|\)|})/g;
