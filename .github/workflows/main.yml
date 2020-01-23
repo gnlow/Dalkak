@@ -9,33 +9,28 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Bump version and push tag
-      id: tag
+      id: tag_build
       uses: anothrNick/github-tag-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         WITH_V: true
         RELEASE_BRANCHES: master
-  release-build:
-    name: Create Release
-    needs: tag-build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@master
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ steps.tag.outputs.new_tag }}
-          release_name: Release ${{ steps.tag.outputs.new_tag }}
-          body: |
-            Changes in this Release
-            - First Change
-            - Second Change
-          draft: false
-          prerelease: true
+    - name: Checkout code
+      uses: actions/checkout@master
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+        tag_name: ${{ steps.tag_build.outputs.new_tag }}
+        release_name: Release ${{ steps.tag_build.outputs.new_tag }}
+        body: |
+          Changes in this Release
+          - First Change
+          - Second Change
+        draft: false
+        prerelease: true
   publish-build:
     runs-on: ubuntu-latest
     steps:
