@@ -9,7 +9,7 @@ import {Util} from "./Util";
 export class Block{
 	name: Name;
 	template: Template;
-	func: Function;
+	func: (param: any, info?: object) => any;
 	params: Dict<Param>;
 	pack: Pack;
 	paramTypes: Dict<Type>;
@@ -50,12 +50,12 @@ export class Block{
 		}
 		return this;
 	}
-	run(e?: any): any{
+	run(info?: object): any{
 		var params: Dict<Param> = new Dict;
 		for(var paramKey in this.params.value){
 			params.value[paramKey] = this.params.value[paramKey].run();
 		}
-		return this.func(params.value);
+		return this.func(params.value, info);
 	}
 	export(): string{
 		return this.template.export(this.params);
