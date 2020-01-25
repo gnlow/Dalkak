@@ -19,7 +19,7 @@ export class Block{
 		parent = new Dict, 
 		name = Util.randString(5), 
 		template = "( )", 
-		func = (param: any) => {}, 
+		func = (param: any, info?: object) => {}, 
 		params: Dictable<Param> = new Dict,
 		pack = new Pack,
 		useLiteralParam = false
