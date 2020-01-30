@@ -1,4 +1,3 @@
-export {Name} from "./Name";
 export {Vector} from "./Vector";
 export {Event} from "./Event";
 export {Pack} from "./Pack";

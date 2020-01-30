@@ -1,4 +1,3 @@
-import {Name} from "./Name";
 import {Pack} from "./Pack";
 import {Template} from "./Template";
 import {Type} from "./Type";
@@ -8,7 +7,6 @@ import {Util} from "./Util";
 import {Project} from "./Project";
 
 interface prop {
-	parent?: Dict<any>, 
 	name?: string, 
 	template?: string, 
 	func?: (param: any, project: Project, platform?: object) => any, 
@@ -18,7 +16,7 @@ interface prop {
 }
 
 export class Block{
-	name: Name;
+	name: string;
 	template: Template;
 	func: (param: any, project: Project, platform?: object) => any;
 	params: Dict<Param>;
@@ -27,17 +25,16 @@ export class Block{
 	returnType: Type;
 	useLiteralParam: boolean;
 	constructor({
-		parent = new Dict, 
 		name = Util.randString(5), 
 		template = "( )", 
-		func = (param: any, project: Project, platform?: object) => {}, 
+		func = (param: any, project: Project, platform?: object) => {},
 		params = new Dict,
 		pack = new Pack,
 		useLiteralParam = false
 	}: prop = {}){
 		this.pack = pack;
 		this.useLiteralParam = useLiteralParam;
-		this.name = new Name(parent.namespace, name);
+		this.name = name;
 		this.template = new Template(template, this.pack);
 		this.params = this.template.params;
 		this.paramTypes = this.template.paramTypes;
@@ -57,7 +54,7 @@ export class Block{
 		if( this.paramTypes.value[name].check( value.run() ) ){
 			this.params.value[name] = value;
 		}else{
-			throw Error(`'${value.run()}' is not assignable to type '${this.paramTypes.value[name].name.key}'`);
+			throw Error(`'${value.run()}' is not assignable to type '${this.paramTypes.value[name].name}'`);
 		}
 		return this;
 	}

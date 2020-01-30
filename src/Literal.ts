@@ -1,11 +1,10 @@
-import {Name} from "./Name";
 import {Pack} from "./Pack";
 import {Template} from "./Template";
 import {Type} from "./Type";
 import {Dict} from "./Dict";
 
 export class Literal{
-	name: Name;
+	name: string;
 	template: Template;
 	func: Function;
 	params: Dict<any>;
@@ -14,15 +13,14 @@ export class Literal{
 	returnType: Type;
 	useLiteralParam: boolean;
 	constructor(
-		type: Type,
-		parent = new Dict
+		type: Type
 	){
-		this.name = new Name(parent.namespace, type.name.key);
+		this.name = type.name;
 		this.pack = new Pack({
-			name: this.name.key, 
-			types: new Dict({[this.name.key]: type})
+			name: this.name, 
+			types: new Dict({[this.name]: type})
 		});
-		this.template = new Template(`((input: ${this.name.key})): ${this.name.key}`, this.pack, true);
+		this.template = new Template(`((input: ${this.name})): ${this.name}`, this.pack, true);
 		this.func = params => params.input;
 		this.params = new Dict({input: type.initial});
 		this.paramTypes = new Dict({input: type});
@@ -33,7 +31,7 @@ export class Literal{
 		if(this.paramTypes.value[name].check(value)){
 			this.params.value[name] = value;
 		}else{
-			throw Error(`'${value}' is not assignable to type '${this.paramTypes.value[name].name.key}'`);
+			throw Error(`'${value}' is not assignable to type '${this.paramTypes.value[name].name}'`);
 		}
 		return this;
 	}

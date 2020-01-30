@@ -1,9 +1,7 @@
-import {Name} from "./Name";
 import {Event} from "./Event";
 import {Pack} from "./Pack";
 import {Thing} from "./Thing";
 import {ThingGroup} from "./ThingGroup";
-import {Dict} from "./Dict";
 import {Util} from "./Util";
 
 interface prop {
@@ -14,7 +12,7 @@ interface prop {
 }
 
 export class Project{
-	name: string; // Doesn't have to have namespace
+	name: string;
 	thingGroup: ThingGroup;
 	packs: Array<Pack>;
 	events: Array<Event>

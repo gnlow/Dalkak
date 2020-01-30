@@ -1,9 +1,6 @@
-import {Name} from "./Name";
-import {Dict} from "./Dict";
 import {Util} from "./Util";
 
 interface prop {
-    parent?: Dict<any>,
     name?: string,
     checker?: Checker,
     initial?: any
@@ -16,16 +13,15 @@ interface Constructor {
 type Checker = (value: any) => boolean;
 
 export class Type{
-    name: Name;
+    name: string;
     checker: Checker;
     initial: any;
     constructor({
-        parent = new Dict, 
         name = Util.randString(5), 
         checker = () => false,
         initial = undefined
     }: prop = {}){
-        this.name = new Name(parent.namespace, name);
+        this.name = name;
         this.checker = checker;
         this.initial = initial;
     }
