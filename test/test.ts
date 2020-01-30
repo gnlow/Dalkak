@@ -19,7 +19,10 @@ var number = new Literal(Type.typeof("number"));
 var string = new Literal(Type.typeof("string"));
 var even = new Literal(types.value.even);
 
-var pack = new Pack(new Dict, "a", new Dict, new Dict, types);
+var pack = new Pack({
+    name: "a",
+    types
+});
 
 var start = new Event(new Dict, "start");
 var log = new Block({
