@@ -13,7 +13,11 @@ import {
 var project = new Project();
 
 var types: Dict<Type> = new Dict;
-types.value.even = new Type(new Dict, "even", v => v%2 == 0, 0);
+types.value.even = new Type({
+    name: "even", 
+    checker: v => v%2 == 0, 
+    initial: 0
+});
 
 var number = new Literal(Type.typeof("number"));
 var string = new Literal(Type.typeof("string"));
