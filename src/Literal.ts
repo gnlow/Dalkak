@@ -18,7 +18,10 @@ export class Literal{
 		parent = new Dict
 	){
 		this.name = new Name(parent.namespace, type.name.key);
-		this.pack = new Pack(new Dict, this.name.key, new Dict, new Dict, new Dict({[this.name.key]: type}));
+		this.pack = new Pack({
+			name: this.name.key, 
+			types: new Dict({[this.name.key]: type})
+		});
 		this.template = new Template(`((input: ${this.name.key})): ${this.name.key}`, this.pack, true);
 		this.func = params => params.input;
 		this.params = new Dict({input: type.initial});
