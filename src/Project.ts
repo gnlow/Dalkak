@@ -13,7 +13,7 @@ export class Project{
 	events: Array<Event>
 	constructor(
 		name = Util.randString(5), 
-		thingGroup = new ThingGroup(new Dict, "Global"), 
+		thingGroup = new ThingGroup({name: "Global"}), 
 		packs: Array<Pack> = [],
 		events: Array<Event> = []
 	){
