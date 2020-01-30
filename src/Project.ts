@@ -6,17 +6,24 @@ import {ThingGroup} from "./ThingGroup";
 import {Dict} from "./Dict";
 import {Util} from "./Util";
 
+interface prop {
+	name?: string,
+	thingGroup?: ThingGroup,
+	packs?: Array<Pack>,
+	events?: Array<Event>
+}
+
 export class Project{
 	name: string; // Doesn't have to have namespace
 	thingGroup: ThingGroup;
 	packs: Array<Pack>;
 	events: Array<Event>
-	constructor(
+	constructor({
 		name = Util.randString(5), 
 		thingGroup = new ThingGroup({name: "Global"}), 
-		packs: Array<Pack> = [],
-		events: Array<Event> = []
-	){
+		packs = [],
+		events = []
+	}: prop = {}){
 		this.name = name;
 		this.thingGroup = thingGroup;
 		this.packs = packs;
