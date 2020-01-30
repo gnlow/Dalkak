@@ -7,6 +7,16 @@ import {Param} from "./Param";
 import {Util} from "./Util";
 import {Project} from "./Project";
 
+interface prop {
+	parent?: Dict<any>, 
+	name?: string, 
+	template?: string, 
+	func?: (param: any, project: Project, platform?: object) => any, 
+	params?: Dictable<Param>,
+	pack?: Pack,
+	useLiteralParam?: boolean
+}
+
 export class Block{
 	name: Name;
 	template: Template;
@@ -16,15 +26,15 @@ export class Block{
 	paramTypes: Dict<Type>;
 	returnType: Type;
 	useLiteralParam: boolean;
-	constructor(
+	constructor({
 		parent = new Dict, 
 		name = Util.randString(5), 
 		template = "( )", 
 		func = (param: any, project: Project, platform?: object) => {}, 
-		params: Dictable<Param> = new Dict,
+		params = new Dict,
 		pack = new Pack,
 		useLiteralParam = false
-	){
+	}: prop = {}){
 		this.pack = pack;
 		this.useLiteralParam = useLiteralParam;
 		this.name = new Name(parent.namespace, name);
@@ -63,7 +73,7 @@ export class Block{
 	}
 
 	static fromBlock(block: Block): Block{
-		return Object.assign(new Block(), block);
+		return Object.assign(new Block, block);
 	}
 	static isBlock(value: any): boolean{
 		return Type.fromConstructor(Block).check(value);

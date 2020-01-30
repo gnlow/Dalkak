@@ -22,27 +22,23 @@ var even = new Literal(types.value.even);
 var pack = new Pack(new Dict, "a", new Dict, new Dict, types);
 
 var start = new Event(new Dict, "start");
-var log = new Block(
-    new Dict, 
-    "log", 
-    "(text) 찍기", 
-    param => {
+var log = new Block({
+    name: "log", 
+    template: "(text) 찍기", 
+    func: param => {
         console.log(param.text);
     },
-    void 0,
     pack
-);
+});
 
-var join = new Block(
-    new Dict, 
-    "join", 
-    "( (a: even) 와 (b) 합치기 )", 
-    param => {
+var join = new Block({
+    name: "join", 
+    template: "( (a: even) 와 (b) 합치기 )", 
+    func: param => {
         return param.a + param.b;
     },
-    void 0,
     pack
-);
+});
 
 var entrybot = Thing.fromBlock(log);
 start.link(entrybot.blockGroups[0]);
