@@ -1,6 +1,10 @@
-import {Name} from "./Name";
-import {Dict} from "./Dict";
 import {Util} from "./Util";
+
+interface prop {
+    name?: string,
+    checker?: Checker,
+    initial?: any
+}
 
 interface Constructor {
     new (...any): any
@@ -9,16 +13,15 @@ interface Constructor {
 type Checker = (value: any) => boolean;
 
 export class Type{
-    name: Name;
+    name: string;
     checker: Checker;
     initial: any;
-    constructor(
-        parent = new Dict, 
+    constructor({
         name = Util.randString(5), 
-        checker: Checker = () => false,
+        checker = () => false,
         initial = undefined
-    ){
-        this.name = new Name(parent.namespace, name);
+    }: prop = {}){
+        this.name = name;
         this.checker = checker;
         this.initial = initial;
     }
@@ -35,14 +38,17 @@ export class Type{
             "string": "",
             "symbol": Symbol()
         }[typeName];
-        return new Type(new Dict, typeName, value => typeof value == typeName, defaultValue);
+        return new Type({
+            name: typeName, 
+            checker: value => typeof value == typeName, 
+            initial: defaultValue
+        });
     }
     static fromConstructor(constructor: Constructor): Type{
-        return new Type(
-            new Dict, 
-            constructor.name, 
-            value => value instanceof constructor,
-            new constructor
-        );
+        return new Type({
+            name: constructor.name, 
+            checker: value => value instanceof constructor,
+            initial: new constructor
+        });
     }
 }

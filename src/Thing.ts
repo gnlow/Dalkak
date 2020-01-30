@@ -1,21 +1,24 @@
-import {Name} from "./Name";
 import {Vector} from "./Vector";
 import {Block} from "./Block";
 import {BlockGroup} from "./BlockGroup";
-import {Dict} from "./Dict";
 import {Util} from "./Util";
 
+interface prop {
+	name?: string, 
+	pos?: Vector, 
+	blockGroups?: Array<BlockGroup>
+}
+
 export class Thing{
-	name: Name;
+	name: string;
 	pos: Vector;
 	blockGroups: Array<BlockGroup>;
-	constructor(
-		parent = new Dict, 
+	constructor({
 		name = Util.randString(5), 
 		pos = new Vector(), 
-		blockGroups: Array<BlockGroup> = []
-	){
-		this.name = new Name(parent.namespace, name);
+		blockGroups = []
+	}: prop = {}){
+		this.name = name;
 		this.pos = pos;
 		this.blockGroups = blockGroups;
 	}
@@ -24,6 +27,8 @@ export class Thing{
 		return this;
 	}
 	static fromBlock(block: Block): Thing{
-		return new Thing(undefined, undefined, undefined, [BlockGroup.fromBlock(block)]);
+		return new Thing({
+			blockGroups: [BlockGroup.fromBlock(block)]
+		});
 	}
 }

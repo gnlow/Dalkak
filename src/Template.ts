@@ -60,7 +60,7 @@ export class Template{
 		}
 	}
 	static addBracket(value: string, type: Type): string{
-		switch(type.name.key){
+		switch(type.name){
 			case "boolean":
 				return `<${value}>`;
 			case "string":
@@ -68,7 +68,7 @@ export class Template{
 			case "Block":
 				return `{${value}}`;
 			default:
-				return `(${value}: ${type.name.key})`
+				return `(${value}: ${type.name})`
 
 		}
 	}

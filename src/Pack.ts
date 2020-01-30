@@ -1,23 +1,28 @@
-import {Name} from "./Name";
 import {Event} from "./Event";
 import {Block} from "./Block";
 import {Type} from "./Type";
 import {Dict, Dictable} from "./Dict";
 import {Util} from "./Util";
 
+interface prop {
+	name?: string, 
+	blocks?: Dictable<Block>, 
+	events?: Dictable<Event>,
+	types?: Dictable<Type>
+}
+
 export class Pack{
-	name: Name;
+	name: string;
 	blocks: Dict<Block>;
 	events: Dict<Event>;
 	types: Dict<Type>;
-	constructor(
-		parent = new Dict, 
+	constructor({
 		name = Util.randString(5), 
-		blocks: Dictable<Block> = new Dict, 
-		events: Dictable<Event> = new Dict,
-		types: Dictable<Type> = new Dict
-	){
-		this.name = new Name(parent.namespace, name);
+		blocks = new Dict, 
+		events = new Dict,
+		types = new Dict
+	}: prop = {}){
+		this.name = name;
 		this.blocks = new Dict(blocks);
 		this.events = new Dict(events);
 		this.types = new Dict(types);

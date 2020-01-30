@@ -1,15 +1,24 @@
-import {Namespace} from "./Namespace";
-
 export type Dictable<T> = Record<string, T> | Dict<T>;
 
 export class Dict<T> {
-    namespace: Namespace = new Namespace;
+    namespace: Set<string> = new Set;
     value: Record<string, T>;
     constructor(value: Dictable<T> = {}){
+        let target: Record<string, T>;
         if(value instanceof Dict){
-            this.value = value.value;
+            target = value.value;
         }else{
-            this.value = value;
+            target = value;
+        }
+        this.value = new Proxy({}, {
+            set: (obj, prop, value) => {
+                this.namespace.add(value.name);
+                obj[prop as string] = value;
+                return true;
+            }
+        });
+        for(var item in target){
+            this.value[item] = target[item];
         }
     }
 };
