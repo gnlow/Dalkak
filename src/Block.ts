@@ -5,11 +5,12 @@ import {Type} from "./Type";
 import {Dict, Dictable} from "./Dict";
 import {Param} from "./Param";
 import {Util} from "./Util";
+import {Project} from "./Project";
 
 export class Block{
 	name: Name;
 	template: Template;
-	func: (param: any, info?: object) => any;
+	func: (param: any, project: Project, platform?: object) => any;
 	params: Dict<Param>;
 	pack: Pack;
 	paramTypes: Dict<Type>;
@@ -19,7 +20,7 @@ export class Block{
 		parent = new Dict, 
 		name = Util.randString(5), 
 		template = "( )", 
-		func = (param: any, info?: object) => {}, 
+		func = (param: any, project: Project, platform?: object) => {}, 
 		params: Dictable<Param> = new Dict,
 		pack = new Pack,
 		useLiteralParam = false
@@ -50,12 +51,12 @@ export class Block{
 		}
 		return this;
 	}
-	run(info?: object): any{
+	run(project: Project = new Project, platform?: object): any{
 		var params: Dict<Param> = new Dict;
 		for(var paramKey in this.params.value){
 			params.value[paramKey] = this.params.value[paramKey].run();
 		}
-		return this.func(params.value, info);
+		return this.func(params.value, project, platform);
 	}
 	export(): string{
 		return this.template.export(this.params);
