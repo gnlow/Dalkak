@@ -18,7 +18,7 @@ export class Type{
     initial: any;
     constructor({
         name = Util.randString(5), 
-        checker = () => false,
+        checker = () => true,
         initial = undefined
     }: prop = {}){
         this.name = name;
