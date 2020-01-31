@@ -4,29 +4,34 @@ import {Thing} from "./Thing";
 import {ThingGroup} from "./ThingGroup";
 import {Dict, Dictable} from "./Dict";
 import {Util} from "./Util";
+import {Variable} from "./Variable";
 
 interface prop {
 	name?: string,
 	thingGroup?: ThingGroup,
 	packs?: Dictable<Pack>,
-	events?: Dictable<Event>
+	events?: Dictable<Event>,
+	variables?: Dictable<Variable>,
 }
 
 export class Project{
 	name: string;
 	thingGroup: ThingGroup;
 	packs: Dict<Pack>;
-	events: Dict<Event>
+	events: Dict<Event>;
+	variables: Dict<Variable>;
 	constructor({
 		name = Util.randString(5), 
 		thingGroup = new ThingGroup({name: "Global"}), 
 		packs = new Dict,
-		events = new Dict
+		events = new Dict,
+		variables = new Dict,
 	}: prop = {}){
 		this.name = name;
 		this.thingGroup = thingGroup;
 		this.packs = new Dict(packs);
 		this.events = new Dict(events);
+		this.variables = new Dict(variables);
 	}
 	export(): string{
 		return (

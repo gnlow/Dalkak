@@ -63,12 +63,8 @@ join.setParam("a", number)
 project.addEvent(start);
 console.log(project.export());
 
-console.log(Literal.from("a"));
-
-console.log(Literal.from("a").paramTypes);
-
 var vv = new Variable({type: Type.typeof("number")});
-
 vv.value = 123
-
 console.log(vv)
+
+console.log(project);
