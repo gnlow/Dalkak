@@ -7,6 +7,7 @@ import {
     Block,
     Literal,
     Thing,
+    Variable,
 } from "../src/dalkak";
 
 var project = new Project();
@@ -65,3 +66,9 @@ console.log(project.export());
 console.log(Literal.from("a"));
 
 console.log(Literal.from("a").paramTypes);
+
+var vv = new Variable({type: Type.typeof("number")});
+
+vv.value = 123
+
+console.log(vv)
