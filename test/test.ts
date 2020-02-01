@@ -7,6 +7,7 @@ import {
     Block,
     Literal,
     Thing,
+    Variable,
 } from "../src/dalkak";
 
 var project = new Project();
@@ -62,6 +63,8 @@ join.setParam("a", number)
 project.addEvent(start);
 console.log(project.export());
 
-console.log(Literal.from("a"));
+var vv = new Variable({type: Type.typeof("number")});
+vv.value = 123
+console.log(vv)
 
-console.log(Literal.from("a").paramTypes);
+console.log(project);
