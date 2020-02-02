@@ -14,7 +14,13 @@ interface prop {
 	pack?: Pack,
 	useLiteralParam?: boolean
 }
-
+/**
+ * @param name 블록의 이름
+ * @param template 블록 내용을 지정하는 템플릿 문자열
+ * @param func 실행될 함수
+ * @param params 파라미터 기본값
+ * @param pack template에서 타입 정보를 참조할 Pack
+ */
 export class Block{
 	name: string;
 	template: Template;
@@ -42,14 +48,21 @@ export class Block{
 		this.func = func;
 		this.returnType = this.template.returnType;
 	}
-	
+	/**
+	 * 파라미터 값 일괄 변경.
+	 * @param params 덮어씌울 파라미터 정보
+	 */
 	setParams(params: Dict<Param>): this{
 		for(var param in params.value){
 			this.setParam(param, params.value[param]);
 		}
 		return this;
 	}
-	
+	/**
+	 * 파라미터 값 변경.
+	 * @param name 파라미터 이름
+	 * @param value 새 파라미터 값
+	 */
 	setParam(name: string, value: Param): this{
 		if( this.paramTypes.value[name].check( value.run() ) ){
 			this.params.value[name] = value;
@@ -58,6 +71,11 @@ export class Block{
 		}
 		return this;
 	}
+	/**
+	 * 블록 실행.
+	 * @param project 블록이 실행되고 있는 Project
+	 * @param platform Cross-Platform 지원을 위한 플랫폼 데이터
+	 */
 	run(project: Project = new Project, platform?: object): any{
 		var params: Dict<Param> = new Dict;
 		for(var paramKey in this.params.value){
@@ -65,13 +83,23 @@ export class Block{
 		}
 		return this.func(params.value, project, platform);
 	}
+	/**
+	 * 블록 정보를 텍스트로 변환.
+	 */
 	export(): string{
 		return this.template.export(this.params);
 	}
-
+	/**
+	 * 블록 복사.
+	 * @param block 블록 원본
+	 */
 	static fromBlock(block: Block): Block{
 		return Object.assign(new Block, block);
 	}
+	/**
+	 * 입력값이 Block인지 확인.
+	 * @param value Block인지 확인할 값
+	 */
 	static isBlock(value: any): boolean{
 		return Type.fromConstructor(Block).check(value);
 	}
