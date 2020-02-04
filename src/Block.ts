@@ -63,11 +63,13 @@ export class Block{
 	 * @param name 파라미터 이름
 	 * @param value 새 파라미터 값
 	 */
-	setParam(name: string, value: Param): this{
-		if( this.paramTypes.value[name].check( value.run() ) ){
-			this.params.value[name] = value;
+	async setParam(name: string, value: Param){ 
+		this.params.value[name] = value;
+		var result = await value.run();
+		if( this.paramTypes.value[name].check( result ) ){
+			// OK
 		}else{
-			throw Error(`'${value.run()}' is not assignable to type '${this.paramTypes.value[name].name}'`);
+			throw Error(`'${result}' is not assignable to type '${this.paramTypes.value[name].name}'`);
 		}
 		return this;
 	}
@@ -76,12 +78,12 @@ export class Block{
 	 * @param project 블록이 실행되고 있는 Project
 	 * @param platform Cross-Platform 지원을 위한 플랫폼 데이터
 	 */
-	run(project: Project = new Project, platform?: object): any{
+	async run(project: Project = new Project, platform?: object){
 		var params: Dict<Param> = new Dict;
 		for(var paramKey in this.params.value){
-			params.value[paramKey] = this.params.value[paramKey].run();
+			params.value[paramKey] = await this.params.value[paramKey].run();
 		}
-		return this.func(params.value, project, platform);
+		return await this.func(params.value, project, platform);
 	}
 	/**
 	 * 블록 정보를 텍스트로 변환.
