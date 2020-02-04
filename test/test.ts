@@ -38,6 +38,24 @@ var log = new Block({
     pack
 });
 
+var waitLog = new Block({
+    name: "waitLog", 
+    template: "((second: even) 기다리고 (text) 찍기)", 
+    func: async param => {
+        function wait(s) {
+            return new Promise(resolve => {
+              setTimeout(() => {
+                resolve('resolved');
+              }, s);
+            });
+          }
+          console.log(param.second)
+        await wait(param.second);
+        return param.text
+    },
+    pack
+});
+
 var join = new Block({
     name: "join", 
     template: "( (a: even) 와 (b) 합치기 )", 
@@ -57,8 +75,8 @@ log.setParam("text", join);
 number.setParam("input", 2);
 string.setParam("input", "Dalkak!");
 
-join.setParam("a", number)
-    .setParam("b", string);
+join.setParam("a", number);
+join.setParam("b", string);
 
 project.addEvent(start);
 console.log(project.export());
@@ -68,3 +86,12 @@ vv.value = 123
 console.log(vv)
 
 console.log(project);
+
+string.setParam("input", "LOG");
+number.setParam("input", 4000);
+waitLog.setParam("second", number);
+waitLog.setParam("text", string);
+
+(async () => {
+    console.log("test: " + await waitLog.run());
+})()

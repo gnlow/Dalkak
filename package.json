@@ -1,14 +1,13 @@
 {
   "name": "dalkak",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "description": "",
   "source": "src/dalkak.ts",
-  "main": "dist/dalkak.js",
-  "module": "dist/dalkak.mjs",
+  "main": "dist/dalkak.umd.js",
   "unpkg": "dist/dalkak.umd.js",
   "types": "dist/src/dalkak.d.ts",
   "scripts": {
-    "build": "microbundle --no-sourcemap",
+    "build": "microbundle --no-sourcemap -f modern,umd",
     "dev": "microbundle watch --no-sourcemap",
     "test": "ts-node test/test.ts",
     "docs": "npx typedoc --out docs ./src --module import --target esnext",
