@@ -1,18 +1,26 @@
 import {Block} from "./Block";
+import {Project} from "./Project";
 
-export class BlockGroup{
+interface prop {
+	blocks?: Array<Block>,
+}
+
+export class BlockGroup {
 	blocks: Array<Block>;
-	constructor(
-		blocks: Array<Block> = []
-	){
+	constructor({
+		blocks = [],
+	}: prop = {}){
 		this.blocks = blocks;
 	}
-	start(e: any): this{
-		this.blocks.forEach(block => block.run(e));
-		return this;
+	async run(project: Project = new Project, platform?: object) {
+		for(var block of this.blocks){
+			await block.run(project, platform);
+		}
 	}
 	attach(blockGroup: BlockGroup): BlockGroup{
-		return new BlockGroup(this.blocks.concat(blockGroup.blocks));
+		return new BlockGroup({
+			blocks: this.blocks.concat(blockGroup.blocks)
+		});
 	}
 	export(): string{
 		var exported = "";
@@ -20,6 +28,6 @@ export class BlockGroup{
 		return exported;
 	}
 	static fromBlock(block: Block): BlockGroup{
-		return new BlockGroup([block]);
+		return new BlockGroup({blocks: [block]});
 	}
 }
