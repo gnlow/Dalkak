@@ -1,6 +1,6 @@
 {
   "name": "dalkak",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "",
   "source": "src/dalkak.ts",
   "main": "dist/dalkak.umd.js",
