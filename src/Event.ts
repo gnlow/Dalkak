@@ -16,7 +16,7 @@ export class Event{
 		return this;
 	}
 	fire(e: any): this{
-		this.blockGroups.forEach( b => b.start(e) );
+		this.blockGroups.forEach( b => b.run(e) );
 		return this;
 	}
 	export(): string{
