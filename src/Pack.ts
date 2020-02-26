@@ -4,7 +4,7 @@ import {Type} from "./Type";
 import {Dict, Dictable} from "./Dict";
 import {Util} from "./Util";
 
-interface prop {
+export interface prop {
 	name?: string, 
 	blocks?: Dictable<Block>, 
 	events?: Dictable<Event>,

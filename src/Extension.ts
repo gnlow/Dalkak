@@ -1,4 +1,4 @@
-import { Pack } from "./Pack";
+import { Pack, prop as packProp } from "./Pack";
 
 interface prop {
     color?: number,
@@ -16,7 +16,7 @@ export class Extension extends Pack {
         color,
         event,
         ...option
-    }: prop = {}){
+    }: prop & packProp = {}){
         super(option);
         this.color = color;
         this.event = event;

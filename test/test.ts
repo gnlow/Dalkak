@@ -2,7 +2,7 @@ import {
     Project,
     Dict,
     Type,
-    Pack,
+    Extension,
     Event,
     Block,
     Literal,
@@ -23,7 +23,7 @@ var number = new Literal(Type.typeof("number"));
 var string = new Literal(Type.typeof("string"));
 var even = new Literal(types.value.even);
 
-var pack = new Pack({
+var pack = new Extension({
     name: "a",
     types
 });
