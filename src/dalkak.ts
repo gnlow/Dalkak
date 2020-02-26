@@ -13,3 +13,4 @@ export {Dict, Dictable} from "./Dict";
 export {Util} from "./Util";
 export {Param} from "./Param";
 export {Variable} from "./Variable";
+export {Extension} from "./Extension";
