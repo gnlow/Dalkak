@@ -53,9 +53,9 @@ export class Block{
 	 * @param params 덮어씌울 파라미터 정보
 	 */
 	setParams(params: Dict<Param>): this{
-		for(var param in params.value){
-			this.setParam(param, params.value[param]);
-		}
+		params.forEach((param, name) => {
+			this.setParam(name, param);
+		});
 		return this;
 	}
 	/**

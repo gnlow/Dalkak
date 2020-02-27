@@ -13,4 +13,9 @@ export class Dict<T> {
             this.value[item] = target[item];
         }
     }
+    forEach(callbackfn: (value: T, index: string, dict: Record<string, T>) => void){
+        for(var key in this.value){
+            callbackfn(this.value[key], key, this.value);
+        }
+    }
 };
