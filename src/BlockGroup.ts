@@ -35,14 +35,8 @@ export class BlockGroup implements Block {
 	 * @param name 파라미터 이름
 	 * @param value 새 파라미터 값
 	 */
-	async setParam(name: string, value: Param){ 
+	setParam(name: string, value: Param){ 
 		this.params.value[name] = value;
-		var result = await value.run();
-		if( this.paramTypes.value[name].check( result ) ){
-			// OK
-		}else{
-			throw Error(`'${result}' is not assignable to type '${this.paramTypes.value[name].name}'`);
-		}
 		return this;
 	}
 	async run(project: Project = new Project, platform?: object) {
