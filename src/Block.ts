@@ -23,13 +23,13 @@ interface prop {
  */
 export class Block{
 	name: string;
-	template: Template;
-	func: (param: any, project: Project, platform?: object) => any;
+	template?: Template;
+	func?: (param: any, project: Project, platform?: object) => any;
 	params: Dict<Param>;
-	pack: Pack;
+	pack?: Pack;
 	paramTypes: Dict<Type>;
 	returnType: Type;
-	useLiteralParam: boolean;
+	useLiteralParam?: boolean;
 	constructor({
 		name = Util.randString(5), 
 		template = "( )", 
@@ -53,9 +53,9 @@ export class Block{
 	 * @param params 덮어씌울 파라미터 정보
 	 */
 	setParams(params: Dict<Param>): this{
-		for(var param in params.value){
-			this.setParam(param, params.value[param]);
-		}
+		params.forEach((param, name) => {
+			this.setParam(name, param);
+		});
 		return this;
 	}
 	/**

@@ -36,8 +36,7 @@ export class Template{
 		var paramReplace = this.content.match(paramRule);
 		var replaced: string = this.content;
 		var index = 0;
-		for(var currentKey in params.value){
-			var currentValue = params.value[currentKey];
+		params.forEach((currentValue, currentKey) => {
 			var template: string;
 			if(currentValue.constructor == Block || currentValue.constructor == Literal){
 				template = Template.addBracket((currentValue as Block).export(), (currentValue as Block).returnType);
@@ -46,7 +45,7 @@ export class Template{
 			}
 			replaced = replaced.replace(paramReplace[index], template);
 			index++;
-		}
+		});
 		return replaced;
 	}
 	static typeFromBracket(bracket: Bracket): Type{

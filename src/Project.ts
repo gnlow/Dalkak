@@ -33,6 +33,9 @@ export class Project{
 		this.events = new Dict(events);
 		this.variables = new Dict(variables);
 	}
+	run(platform?: object) {
+		this.thingGroup.run(this, platform);
+	}
 	export(): string{
 		return (
 `- ${this.name}
