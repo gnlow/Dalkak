@@ -23,13 +23,13 @@ interface prop {
  */
 export class Block{
 	name: string;
-	template: Template;
-	func: (param: any, project: Project, platform?: object) => any;
+	template?: Template;
+	func?: (param: any, project: Project, platform?: object) => any;
 	params: Dict<Param>;
-	pack: Pack;
+	pack?: Pack;
 	paramTypes: Dict<Type>;
 	returnType: Type;
-	useLiteralParam: boolean;
+	useLiteralParam?: boolean;
 	constructor({
 		name = Util.randString(5), 
 		template = "( )", 
