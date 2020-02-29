@@ -77,7 +77,12 @@ export class Block{
 		for(var paramKey in this.params.value){
 			params.value[paramKey] = await this.params.value[paramKey].run();
 		}
-		return await this.func(params.value, project, platform);
+		let result = await this.func(params.value, project, platform);
+		if(this.returnType.extend == Block){
+			return this;
+		}else{
+			return result;
+		}
 	}
 	/**
 	 * 블록 정보를 텍스트로 변환.
