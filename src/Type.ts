@@ -1,9 +1,10 @@
 import {Util} from "./Util";
 
-interface prop {
+interface prop<T> {
     name?: string,
     checker?: Checker,
-    initial?: any
+    initial?: T,
+    extend?: T,
 }
 
 interface Constructor {
@@ -12,23 +13,43 @@ interface Constructor {
 
 type Checker = (value: any) => boolean;
 
-export class Type{
+export class Type<T = any>{
     name: string;
     checker: Checker;
-    initial: any;
+    initial: T;
+    extend: T;
     constructor({
         name = Util.randString(5), 
         checker = () => true,
-        initial = undefined
-    }: prop = {}){
+        initial = undefined,
+        extend = undefined,
+    }: prop<T> = {}){
         this.name = name;
         this.checker = checker;
         this.initial = initial;
+        this.extend = extend;
     }
     check(value: any): boolean{
-        return this.checker(value);
+        if(this.checker(value)){
+            if(this.extend){
+                if(typeof this.extend == "string"){
+                    if(typeof value == this.extend){
+                        return true;
+                    }
+                }else if(isConstructor(this.extend)){
+                    if(value instanceof (this.extend as any)){
+                        return true;
+                    }
+                }else if(value === this.extend){
+                    return true;
+                }
+            }else{
+                return true;
+            }
+        }
+        return false;
     }
-    static typeof(typeName: string): Type{
+    static typeof(typeName: string): Type<any>{
         var defaultValue = {
             "boolean": false,
             // "null": null,
@@ -40,15 +61,24 @@ export class Type{
         }[typeName];
         return new Type({
             name: typeName, 
-            checker: value => typeof value == typeName, 
+            extend: typeName, 
             initial: defaultValue
         });
     }
-    static fromConstructor(constructor: Constructor): Type{
+    static fromConstructor<T extends Constructor>(constructor: T): Type<T>{
         return new Type({
             name: constructor.name, 
-            checker: value => value instanceof constructor,
+            extend: constructor,
             initial: new constructor
         });
     }
+}
+
+function isConstructor(f: any) {
+    try{
+        new f();
+    }catch{
+        return false;
+    }
+    return true;
 }
