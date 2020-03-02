@@ -29,6 +29,9 @@ export class ThingGroup extends Thing{
 		this.blockGroups.forEach((blockGroup) => {
 			blockGroup.run(project, platform);
 		});
+		this.children.forEach(thing => {
+			thing.run(project, platform);
+		});
 	}
 	addThing(thing: Thing): this{
 		this.children.push(thing);

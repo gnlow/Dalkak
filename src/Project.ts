@@ -17,7 +17,7 @@ interface prop {
 export class Project{
 	name: string;
 	thingGroup: ThingGroup;
-	packs: Dict<Pack>;
+	pack: Pack;
 	events: Dict<Event>;
 	variables: Dict<Variable>;
 	constructor({
@@ -29,12 +29,19 @@ export class Project{
 	}: prop = {}){
 		this.name = name;
 		this.thingGroup = thingGroup;
-		this.packs = new Dict(packs);
+		this.pack = new Pack;
+		this.mount(...new Dict(packs));
 		this.events = new Dict(events);
 		this.variables = new Dict(variables);
 	}
 	run(platform?: object) {
 		this.thingGroup.run(this, platform);
+	}
+	mount(...packs: Pack[]){
+		packs.forEach(pack => {
+			this.pack = Pack.mix(this.pack, pack);
+		});
+		return this;
 	}
 	export(): string{
 		return (

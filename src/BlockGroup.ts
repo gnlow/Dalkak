@@ -3,6 +3,7 @@ import {Project} from "./Project";
 import {Dict} from "./Dict";
 import {Param} from "./Param";
 import {Type} from "./Type";
+import {Template} from "./Template";
 
 interface prop {
 	blocks?: Array<Block>,
@@ -10,6 +11,7 @@ interface prop {
 
 export class BlockGroup implements Block {
 	name: string;
+	template: Template;
 	params: Dict<Param>;
 	paramTypes: Dict<Type>;
 	returnType: Type;

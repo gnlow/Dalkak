@@ -5,7 +5,7 @@ import {Dict} from "./Dict";
 import {Literal} from "./Literal";
 
 type Bracket = "<" | "(" | "{";
-const paramRule = /(?:<|\(|{)(?<paramName>.+?)(?:: *(?<type>.+?))?(?:>|\)|})/g;
+const paramRule = /(?:<|\(|\{)(?<paramName>.+?)(?:: *(?<type>.+?))?(?:>|\)|\})/g;
 const parseRule = /(<|\(|{)(.+)(?:>|\)|})(?:: *(.+))?(?!.+)/;
 
 export class Template{
@@ -33,7 +33,7 @@ export class Template{
 		return {content, params, paramTypes, returnType};
 	}
 	export(params: Dict<any>): string{
-		var paramReplace = this.content.match(paramRule);
+		var paramReplace = this.content.match(paramRule) || [];
 		var replaced: string = this.content;
 		var index = 0;
 		params.forEach((currentValue, currentKey) => {
@@ -93,7 +93,7 @@ export class Template{
 		let paramTypes: Dict<Type> = new Dict;
 		(content.match(paramRule) || []).forEach(e => {
 			paramRule.lastIndex = 0;
-			var names = paramRule.exec(e).groups;
+			var names = paramRule.exec(e)?.groups || {};
 			var paramName = names.paramName;
 			var paramType = pack.types.value[names.type] || Template.typeFromBracket(e[0] as Bracket);
 			if(useLiteralParam){

@@ -2,6 +2,7 @@ import {Vector} from "./Vector";
 import {Block} from "./Block";
 import {BlockGroup} from "./BlockGroup";
 import {Util} from "./Util";
+import {Project} from "./Project";
 
 interface prop {
 	name?: string, 
@@ -21,6 +22,11 @@ export class Thing{
 		this.name = name;
 		this.pos = pos;
 		this.blockGroups = blockGroups;
+	}
+	run(project: Project = new Project, platform?: object) {
+		this.blockGroups.forEach((blockGroup) => {
+			blockGroup.run(project, platform);
+		});
 	}
 	addBlock(blockGroup: BlockGroup): this{
 		this.blockGroups.push(blockGroup);
