@@ -5,7 +5,7 @@ import {Dict} from "./Dict";
 import {Literal} from "./Literal";
 
 type Bracket = "<" | "(" | "{";
-const paramRule = /(?:<|\(|{)(?<paramName>.+?)(?:: *(?<type>.+?))?(?:>|\)|})/g;
+const paramRule = /(?:<|\(|\{)(?<paramName>.+?)(?:: *(?<type>.+?))?(?:>|\)|\})/g;
 const parseRule = /(<|\(|{)(.+)(?:>|\)|})(?:: *(.+))?(?!.+)/;
 
 export class Template{
