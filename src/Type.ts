@@ -8,7 +8,7 @@ interface prop<T> {
 }
 
 interface Constructor {
-    new (...any): any
+    new (...any: any[]): any
 }
 
 type Checker = (value: any) => boolean;
@@ -16,8 +16,8 @@ type Checker = (value: any) => boolean;
 export class Type<T = any>{
     name: string;
     checker: Checker;
-    initial: T;
-    extend: T;
+    initial?: T;
+    extend?: T;
     constructor({
         name = Util.randString(5), 
         checker = () => true,
@@ -32,8 +32,8 @@ export class Type<T = any>{
     check(value: any): boolean{
         if(this.checker(value)){
             if(this.extend){
-                if(typeof this.extend == "string"){
-                    if(typeof value == this.extend){
+                if(typeof this.extend != "object"){
+                    if(typeof value == typeof this.extend){
                         return true;
                     }
                 }else if(isConstructor(this.extend)){
@@ -50,7 +50,9 @@ export class Type<T = any>{
         return false;
     }
     static typeof(typeName: string): Type<any>{
-        var defaultValue = {
+        var defaultValue:{
+            [key: string]: boolean | undefined | number | string | symbol
+        } = {
             "boolean": false,
             // "null": null,
             "undefined": undefined,
@@ -58,11 +60,12 @@ export class Type<T = any>{
             // "bigint": 0n,
             "string": "",
             "symbol": Symbol()
-        }[typeName];
-        return new Type({
+        };
+        let value = defaultValue[typeName];
+        return new Type<typeof value>({
             name: typeName, 
-            extend: typeName, 
-            initial: defaultValue
+            extend: value, 
+            initial: value,
         });
     }
     static fromConstructor<T extends Constructor>(constructor: T): Type<T>{

@@ -21,7 +21,7 @@ export class Literal{
 			types: new Dict({[this.name]: type})
 		});
 		this.template = new Template(`((input: ${this.name})): ${this.name}`, this.pack, true);
-		this.func = params => params.input;
+		this.func = (params: {input: any}) => params.input;
 		this.params = new Dict({input: type.initial});
 		this.paramTypes = new Dict({input: type});
 		this.returnType = type;

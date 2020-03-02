@@ -23,7 +23,7 @@ interface prop {
  */
 export class Block{
 	name: string;
-	template?: Template;
+	template: Template;
 	func?: (param: any, project: Project, platform?: object) => any;
 	params: Dict<Param>;
 	pack?: Pack;
@@ -77,7 +77,7 @@ export class Block{
 		for(var paramKey in this.params.value){
 			params.value[paramKey] = await this.params.value[paramKey].run();
 		}
-		let result = await this.func(params.value, project, platform);
+		let result = this.func && await this.func(params.value, project, platform);
 		if(this.returnType.extend == Block){
 			return this;
 		}else{
