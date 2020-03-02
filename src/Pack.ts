@@ -27,4 +27,13 @@ export class Pack{
 		this.events = new Dict(events);
 		this.types = new Dict(types);
 	}
+	static mix(...packs: Pack[]){
+		var mixed = new Pack;
+		packs.forEach(pack => {
+			mixed.blocks = Dict.mix(mixed.blocks, pack.blocks);
+			mixed.events = Dict.mix(mixed.events, pack.events);
+			mixed.types = Dict.mix(mixed.types, pack.types);
+		});
+		return mixed;
+	}
 }
