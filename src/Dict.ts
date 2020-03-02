@@ -18,4 +18,11 @@ export class Dict<T> {
             callbackfn(this.value[key], key, this.value);
         }
     }
+    static mix<T>(...dicts: Dict<T>[]){
+        var mixed = new Dict<T>();
+        dicts.forEach(dict => {
+            Object.assign(mixed.value, dict.value);
+        });
+        return mixed;
+    }
 };
