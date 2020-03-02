@@ -27,6 +27,7 @@ var pack = new Extension({
     name: "a",
     types
 });
+project.mount(pack);
 
 var start = new Event("start");
 var log = new Block({
@@ -40,9 +41,9 @@ var log = new Block({
 
 var waitLog = new Block({
     name: "waitLog", 
-    template: "((second: even) 기다리고 (text) 찍기)", 
+    template: "{(second: even) 기다리고 (text) 찍기}", 
     func: async param => {
-        function wait(s) {
+        function wait(s: number) {
             return new Promise(resolve => {
               setTimeout(() => {
                 resolve('resolved');
@@ -95,3 +96,21 @@ waitLog.setParam("text", string);
 (async () => {
     console.log("test: " + await waitLog.run());
 })()
+
+
+var repeat = new Block({
+    name: "repeat_basic",
+    template: "{ (n) 번 반복하기 {code} }",
+    func: async (params, project) => {
+        for(var i=0;i<params.n;i++){
+            params.code.run();
+        }
+    }
+});
+
+repeat.setParam("n", Literal.from(5).setParam("input", 5));
+repeat.setParam("code", waitLog);
+console.log(repeat.params)
+repeat.run()
+
+console.log(project.pack);
