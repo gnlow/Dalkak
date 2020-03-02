@@ -3,14 +3,10 @@ export type Dictable<T> = Record<string, T> | Dict<T>;
 export class Dict<T> {
     value: Record<string, T>;
     constructor(value: Dictable<T> = {}){
-        let target: Record<string, T>;
         if(value instanceof Dict){
             this.value = value.value;
         }else{
             this.value = value;
-        }
-        for(var item in target){
-            this.value[item] = target[item];
         }
     }
     forEach(callbackfn: (value: T, index: string, dict: Record<string, T>) => void){
@@ -24,5 +20,10 @@ export class Dict<T> {
             Object.assign(mixed.value, dict.value);
         });
         return mixed;
+    }
+    *[Symbol.iterator](){
+        for(let value in this.value){
+            yield this.value[value];
+        }
     }
 };
