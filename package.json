@@ -1,9 +1,10 @@
 {
   "name": "dalkak",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "description": "",
   "source": "src/dalkak.ts",
   "main": "dist/dalkak.umd.js",
+  "module": "dist/dalkak.modern.js",
   "unpkg": "dist/dalkak.umd.js",
   "types": "dist/src/dalkak.d.ts",
   "scripts": {

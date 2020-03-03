@@ -49,12 +49,14 @@ export class Project{
 ${Util.indent( Object.keys(this.events.value).map(e => this.events.value[e].export()).join("\n") )}`
 		);
 	}
-	addThing(thing: Thing): this{
-		this.thingGroup.addThing(thing);
+	addThing(...things: Thing[]): this{
+		this.thingGroup.addThing(...things);
 		return this;
 	}
-	addEvent(event: Event): this{
-		this.events.value[event.name] = event;
+	addEvent(...events: Event[]): this{
+		events.forEach(event => {
+			this.events.value[event.name] = event;
+		});
 		return this;
 	}
 }
