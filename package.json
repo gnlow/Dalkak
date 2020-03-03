@@ -4,6 +4,7 @@
   "description": "",
   "source": "src/dalkak.ts",
   "main": "dist/dalkak.umd.js",
+  "module": "dist/dalkak.modern.js",
   "unpkg": "dist/dalkak.umd.js",
   "types": "dist/src/dalkak.d.ts",
   "scripts": {
