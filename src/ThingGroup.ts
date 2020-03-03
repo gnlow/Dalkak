@@ -33,8 +33,10 @@ export class ThingGroup extends Thing{
 			thing.run(project, platform);
 		});
 	}
-	addThing(thing: Thing): this{
-		this.children.push(thing);
+	addThing(...things: Thing[]): this{
+		things.forEach(thing => {
+			this.children.push(thing);
+		});
 		return this;
 	}
 }
