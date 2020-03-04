@@ -1,6 +1,12 @@
 export class Vector{
 	poses: Array<number>;
 	dimension: number;
+	get x(){return this.poses[0]};
+	set x(s){this.poses[0] = s};
+	get y(){return this.poses[1]};
+	set y(s){this.poses[1] = s};
+	get z(){return this.poses[2]};
+	set z(s){this.poses[2] = s};
 	constructor(...poses: Array<number>){
 		this.poses = poses;
 		this.dimension = this.poses.length;
