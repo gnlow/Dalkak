@@ -75,14 +75,13 @@ export class Block{
 	async run(project: Project = new Project, platform?: object){
 		var params: Dict<Param> = new Dict;
 		for(var paramKey in this.params.value){
-			params.value[paramKey] = await this.params.value[paramKey].run();
+			if(this.paramTypes.value[paramKey].extend == Block){
+				params.value[paramKey] = this.params.value[paramKey];
+			}else{
+				params.value[paramKey] = await this.params.value[paramKey].run();
+			}
 		}
-		let result = this.func && await this.func(params.value, project, platform);
-		if(this.returnType.extend == Block){
-			return this;
-		}else{
-			return result;
-		}
+		return this.func && await this.func(params.value, project, platform);
 	}
 	/**
 	 * 블록 정보를 텍스트로 변환.
