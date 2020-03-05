@@ -43,9 +43,9 @@ export class Literal{
 	}
 	static from(value: any): Literal{
 		if(typeof value == "object"){
-			return new Literal(Type.fromConstructor(value.constructor));
+			return (new Literal(Type.fromConstructor(value.constructor))).setParam("input", value);
 		}else{
-			return new Literal(Type.typeof(typeof value));
+			return (new Literal(Type.typeof(typeof value))).setParam("input", value);
 		}
 	}
 }
