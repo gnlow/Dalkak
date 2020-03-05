@@ -78,7 +78,7 @@ export class Block{
 			if(this.paramTypes.value[paramKey].extend == Block){
 				params.value[paramKey] = this.params.value[paramKey];
 			}else{
-				params.value[paramKey] = await this.params.value[paramKey].run();
+				params.value[paramKey] = await this.params.value[paramKey].run(project, platform);
 			}
 		}
 		return this.func && await this.func(params.value, project, platform);
