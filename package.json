@@ -1,6 +1,6 @@
 {
   "name": "dalkak",
-  "version": "0.8.5",
+  "version": "0.8.6",
   "description": "",
   "source": "src/dalkak.ts",
   "main": "dist/dalkak.umd.js",
@@ -8,8 +8,8 @@
   "unpkg": "dist/dalkak.umd.js",
   "types": "dist/src/dalkak.d.ts",
   "scripts": {
-    "build": "microbundle --no-sourcemap -f modern,umd",
-    "dev": "microbundle watch --no-sourcemap",
+    "build": "microbundle -f modern,umd",
+    "dev": "microbundle watch",
     "test": "ts-node test/test.ts",
     "docs": "npx typedoc --out docs ./src --module import --target esnext",
     "ready": "rimraf dist docs && npm run build && npm run docs"
