@@ -1,6 +1,6 @@
 import {Vector} from "./Vector";
 import {Block} from "./Block";
-import {BlockGroup} from "./BlockGroup";
+import type {BlockGroup} from "./BlockGroup";
 import {Util} from "./Util";
 import {Project} from "./Project";
 
@@ -31,10 +31,5 @@ export class Thing{
 	addBlock(blockGroup: BlockGroup): this{
 		this.blockGroups.push(blockGroup);
 		return this;
-	}
-	static fromBlock(block: Block): Thing{
-		return new Thing({
-			blockGroups: [BlockGroup.fromBlock(block)]
-		});
 	}
 }

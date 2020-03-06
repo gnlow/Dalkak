@@ -1,5 +1,5 @@
 import {Vector} from "./Vector";
-import {BlockGroup} from "./BlockGroup";
+import type {BlockGroup} from "./BlockGroup";
 import {Thing} from "./Thing";
 import {Util} from "./Util";
 import {Project} from "./Project";

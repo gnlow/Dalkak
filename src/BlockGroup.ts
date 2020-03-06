@@ -1,15 +1,20 @@
 import {Block} from "./Block";
 import {Project} from "./Project";
-import {Dict} from "./Dict";
+import {Dict, Dictable} from "./Dict";
 import {Param} from "./Param";
 import {Type} from "./Type";
 import {Template} from "./Template";
+import { Pack } from "./Pack";
 
 interface prop {
 	blocks?: Array<Block>,
+	name?: string, 
+	template?: string, 
+	params?: Dictable<Param>,
+	pack?: Pack,
 }
 
-export class BlockGroup implements Block {
+export class BlockGroup extends Block {
 	name: string;
 	template: Template;
 	params: Dict<Param>;
@@ -19,27 +24,10 @@ export class BlockGroup implements Block {
 	blocks: Array<Block>;
 	constructor({
 		blocks = [],
+		...option
 	}: prop = {}){
+		super(option);
 		this.blocks = blocks;
-	}
-	/**
-	 * 파라미터 값 일괄 변경.
-	 * @param params 덮어씌울 파라미터 정보
-	 */
-	setParams(params: Dict<Param>): this{
-		params.forEach((param, name) => {
-			this.setParam(name, param);
-		});
-		return this;
-	}
-	/**
-	 * 파라미터 값 변경.
-	 * @param name 파라미터 이름
-	 * @param value 새 파라미터 값
-	 */
-	setParam(name: string, value: Param){ 
-		this.params.value[name] = value;
-		return this;
 	}
 	async run(project: Project = new Project, platform?: object) {
 		for(var block of this.blocks){
