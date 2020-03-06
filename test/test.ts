@@ -8,6 +8,7 @@ import {
     Literal,
     Thing,
     Variable,
+    BlockGroup,
 } from "../src/dalkak";
 
 var project = new Project();
@@ -66,7 +67,7 @@ var join = new Block({
     pack
 });
 
-var entrybot = Thing.fromBlock(log);
+var entrybot = new Thing({blockGroups: [BlockGroup.fromBlock(log)]})
 start.link(entrybot.blockGroups[0]);
 
 project.addThing(entrybot);
