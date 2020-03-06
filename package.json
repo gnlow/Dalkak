@@ -1,6 +1,6 @@
 {
   "name": "dalkak",
-  "version": "0.8.8",
+  "version": "0.8.9",
   "description": "",
   "source": "src/dalkak.ts",
   "main": "dist/dalkak.umd.js",
@@ -12,7 +12,7 @@
     "dev": "microbundle watch",
     "test": "ts-node test/test.ts",
     "docs": "npx typedoc --out docs ./src --module import --target esnext",
-    "ready": "rimraf dist docs && npm run build && npm run docs"
+    "ready": "rimraf dist docs && npm run build"
   },
   "author": "Gnlow",
   "license": "MIT",
@@ -20,7 +20,7 @@
     "microbundle": "^0.12.0-next.8",
     "rimraf": "^3.0.0",
     "ts-node": "^8.6.2",
-    "typedoc": "^0.16.8",
+    "typedoc": "^0.16.11",
     "typescript": "^3.8.3"
   },
   "bugs": {
