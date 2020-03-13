@@ -5,6 +5,7 @@ import {ThingGroup} from "./ThingGroup";
 import {Dict, Dictable} from "./Dict";
 import {Util} from "./Util";
 import {Variable} from "./Variable";
+import { Extension } from "./Extension";
 
 interface prop {
 	name?: string,
@@ -20,6 +21,10 @@ export class Project{
 	pack: Pack;
 	events: Dict<Event>;
 	variables: Dict<Variable>;
+
+	projectEvents: {
+		[name: string]: ((project: Project) => void)[]
+	}
 	constructor({
 		name = Util.randString(5), 
 		thingGroup = new ThingGroup({name: "Global"}), 
@@ -33,13 +38,24 @@ export class Project{
 		this.mount(...new Dict(packs));
 		this.events = new Dict(events);
 		this.variables = new Dict(variables);
+		this.projectEvents = {
+			start: [],
+			stop: [],
+			mount: [],
+		};
 	}
 	run(platform?: object) {
+		this.fire("run");
 		this.thingGroup.run(this, platform);
 	}
-	mount(...packs: Pack[]){
+	mount(...packs: (Pack | Extension)[]){
 		packs.forEach(pack => {
 			this.pack = Pack.mix(this.pack, pack);
+			if(pack instanceof Extension){
+				pack.on.mount && pack.on.mount();
+				this.on("run", pack.on.run);
+				this.on("stop", pack.on.stop); // 아직 미구현
+			}
 		});
 		return this;
 	}
@@ -58,5 +74,13 @@ ${Util.indent( Object.keys(this.events.value).map(e => this.events.value[e].expo
 			this.events.value[event.name] = event;
 		});
 		return this;
+	}
+	on(name: string, callback?: (project: Project) => void){
+		callback && this.projectEvents[name].push(callback);
+	}
+	fire(name: string){
+		this.projectEvents[name].forEach(callback => {
+			callback(this);
+		});
 	}
 }
