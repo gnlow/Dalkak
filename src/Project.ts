@@ -53,8 +53,8 @@ export class Project{
 			this.pack = Pack.mix(this.pack, pack);
 			if(pack instanceof Extension){
 				pack.on.mount && pack.on.mount();
-				this.on("run", pack.on.run);
-				this.on("stop", pack.on.stop); // 아직 미구현
+				this.on("run", pack.on.run?.bind(pack));
+				this.on("stop", pack.on.stop?.bind(pack)); // 아직 미구현
 			}
 		});
 		return this;
