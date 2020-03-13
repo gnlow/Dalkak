@@ -39,7 +39,7 @@ export class Project{
 		this.events = new Dict(events);
 		this.variables = new Dict(variables);
 		this.projectEvents = {
-			start: [],
+			run: [],
 			stop: [],
 			mount: [],
 		};
