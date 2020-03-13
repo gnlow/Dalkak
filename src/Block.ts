@@ -93,8 +93,13 @@ export class Block{
 	 * 블록 복사.
 	 * @param block 블록 원본
 	 */
-	static fromBlock(block: Block): Block{
-		return Object.assign(new Block, block);
+	static fromBlock({name, template, params, ...rest}: Block): Block{
+		return new Block({
+			name: `Copy_${Util.randString(3)} of ${name}`,
+			template: template.template,
+			params: Object.assign({}, params.value),
+			...rest
+		});
 	}
 	/**
 	 * 입력값이 Block인지 확인.
