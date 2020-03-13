@@ -39,7 +39,7 @@ export class Project{
 		this.events = new Dict(events);
 		this.variables = new Dict(variables);
 		this.projectEvents = {
-			start: [],
+			run: [],
 			stop: [],
 			mount: [],
 		};
@@ -76,7 +76,7 @@ ${Util.indent( Object.keys(this.events.value).map(e => this.events.value[e].expo
 		return this;
 	}
 	on(name: string, callback?: (project: Project) => void){
-		callback && this.projectEvents[name].push(callback);
+		callback && this.projectEvents[name]?.push(callback);
 	}
 	fire(name: string){
 		this.projectEvents[name].forEach(callback => {
