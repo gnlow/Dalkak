@@ -5,7 +5,7 @@ interface prop<T> {
     name?: string,
     checker?: Checker,
     initial?: T,
-    extend?: T,
+    extend?: any,
     fromString?: (data: string, project: Project) => T | undefined,
 }
 
@@ -19,7 +19,7 @@ export class Type<T = any>{
     name: string;
     checker: Checker;
     initial?: T;
-    extend?: T;
+    extend?: any;
     fromString?: (data: string, project: Project) => T | undefined;
     constructor({
         name = Util.randString(5), 
@@ -73,7 +73,7 @@ export class Type<T = any>{
             initial: value,
         });
     }
-    static fromConstructor<T extends Constructor>(constructor: T, fromString?: (data: string, project: Project) => T ): Type<T>{
+    static fromConstructor<T>(constructor: new () => T, fromString?: (data: string, project: Project) => T ): Type<T>{
         return new Type<T>({
             name: constructor.name, 
             extend: constructor,
