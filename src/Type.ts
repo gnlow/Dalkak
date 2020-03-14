@@ -1,10 +1,12 @@
 import {Util} from "./Util";
+import type { Project } from "./Project";
 
 interface prop<T> {
     name?: string,
     checker?: Checker,
     initial?: T,
     extend?: T,
+    fromString?: (data: string, project: Project) => T | undefined,
 }
 
 interface Constructor {
@@ -18,16 +20,19 @@ export class Type<T = any>{
     checker: Checker;
     initial?: T;
     extend?: T;
+    fromString?: (data: string, project: Project) => T | undefined;
     constructor({
         name = Util.randString(5), 
         checker = () => true,
-        initial = undefined,
-        extend = undefined,
+        initial,
+        extend,
+        fromString = () => initial,
     }: prop<T> = {}){
         this.name = name;
         this.checker = checker;
         this.initial = initial;
         this.extend = extend;
+        this.fromString = fromString;
     }
     check(value: any): boolean{
         if(this.checker(value)){
