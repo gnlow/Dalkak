@@ -73,11 +73,12 @@ export class Type<T = any>{
             initial: value,
         });
     }
-    static fromConstructor<T extends Constructor>(constructor: T): Type<T>{
-        return new Type({
+    static fromConstructor<T extends Constructor>(constructor: T, fromString?: (data: string, project: Project) => T ): Type<T>{
+        return new Type<T>({
             name: constructor.name, 
             extend: constructor,
-            initial: new constructor
+            initial: new constructor,
+            fromString,
         });
     }
 }
