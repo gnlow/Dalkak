@@ -9,10 +9,6 @@ interface prop<T> {
     fromString?: (data: string, project: Project) => T | undefined,
 }
 
-interface Constructor {
-    new (...any: any[]): any
-}
-
 type Checker = (value: any) => boolean;
 
 export class Type<T = any>{
@@ -77,7 +73,6 @@ export class Type<T = any>{
         return new Type<T>({
             name: constructor.name, 
             extend: constructor,
-            initial: new constructor,
             fromString,
         });
     }
