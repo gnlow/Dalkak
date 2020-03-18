@@ -1,3 +1,4 @@
+import type {Local} from "./Local";
 import {Block} from "./Block";
 import {Project} from "./Project";
 import {Dict, Dictable} from "./Dict";
@@ -29,9 +30,9 @@ export class BlockGroup extends Block {
 		super(option);
 		this.blocks = blocks;
 	}
-	async run(project: Project = new Project, platform?: object) {
+	async run(project: Project, local: Local = {variables: new Dict}) {
 		for(var block of this.blocks){
-			await block.run(project, platform);
+			await block.run(project, local);
 		}
 	}
 	attach(blockGroup: BlockGroup): BlockGroup{

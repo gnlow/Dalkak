@@ -44,9 +44,9 @@ export class Project{
 			mount: [],
 		};
 	}
-	run(platform?: object) {
+	run() {
 		this.fire("run");
-		this.thingGroup.run(this, platform);
+		this.thingGroup.run(this);
 	}
 	mount(...packs: (Pack | Extension)[]){
 		packs.forEach(pack => {

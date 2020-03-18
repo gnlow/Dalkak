@@ -1,3 +1,4 @@
+import { Local } from "./Local";
 import {Pack} from "./Pack";
 import {Template} from "./Template";
 import {Type} from "./Type";
@@ -9,11 +10,12 @@ import {Project} from "./Project";
 interface prop {
 	name?: string, 
 	template?: string, 
-	func?: (param: any, project: Project, platform?: object) => any, 
+	func?: (param: any, project: Project) => any, 
 	params?: Dictable<Param>,
 	pack?: Pack,
 	useLiteralParam?: boolean
 }
+
 /**
  * @param name 블록의 이름
  * @param template 블록 내용을 지정하는 템플릿 문자열
@@ -24,7 +26,7 @@ interface prop {
 export class Block{
 	name: string;
 	template: Template;
-	func?: (param: any, project: Project, platform?: object) => any;
+	func?: (param: any, project: Project) => any;
 	params: Dict<Param>;
 	pack?: Pack;
 	paramTypes: Dict<Type>;
@@ -33,7 +35,7 @@ export class Block{
 	constructor({
 		name = Util.randString(5), 
 		template = "( )", 
-		func = (param: any, project: Project, platform?: object) => {},
+		func = (param: any, project: Project) => {},
 		params = new Dict,
 		pack = new Pack,
 		useLiteralParam = false
@@ -70,18 +72,17 @@ export class Block{
 	/**
 	 * 블록 실행.
 	 * @param project 블록이 실행되고 있는 Project
-	 * @param platform Cross-Platform 지원을 위한 플랫폼 데이터
 	 */
-	async run(project: Project = new Project, platform?: object){
+	async run(project: Project, local: Local = {variables: new Dict}){
 		var params: Dict<Param> = new Dict;
 		for(var paramKey in this.params.value){
 			if(this.paramTypes.value[paramKey].extend == Block){
 				params.value[paramKey] = this.params.value[paramKey];
 			}else{
-				params.value[paramKey] = await this.params.value[paramKey].run(project, platform);
+				params.value[paramKey] = await this.params.value[paramKey].run(project, local);
 			}
 		}
-		return this.func && await this.func(params.value, project, platform);
+		return this.func && await this.func(params.value, project);
 	}
 	/**
 	 * 블록 정보를 텍스트로 변환.

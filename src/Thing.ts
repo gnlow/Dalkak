@@ -1,8 +1,8 @@
 import {Vector} from "./Vector";
-import {Block} from "./Block";
+import type {Local} from "./Local";
 import type {BlockGroup} from "./BlockGroup";
 import {Util} from "./Util";
-import {Project} from "./Project";
+import type {Project} from "./Project";
 
 interface prop {
 	name?: string, 
@@ -23,9 +23,9 @@ export class Thing{
 		this.pos = pos;
 		this.blockGroups = blockGroups;
 	}
-	run(project: Project = new Project, platform?: object) {
+	run(project: Project, local?: Local) {
 		this.blockGroups.forEach((blockGroup) => {
-			blockGroup.run(project, platform);
+			blockGroup.run(project, local);
 		});
 	}
 	addBlock(blockGroup: BlockGroup): this{
