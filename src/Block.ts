@@ -10,7 +10,7 @@ import {Project} from "./Project";
 interface prop {
 	name?: string, 
 	template?: string, 
-	func?: (param: any, project: Project) => any, 
+	func?: (param: any, project: Project, local: Local) => any, 
 	params?: Dictable<Param>,
 	pack?: Pack,
 	useLiteralParam?: boolean
@@ -26,7 +26,7 @@ interface prop {
 export class Block{
 	name: string;
 	template: Template;
-	func?: (param: any, project: Project) => any;
+	func?: (param: any, project: Project, local: Local) => any;
 	params: Dict<Param>;
 	pack?: Pack;
 	paramTypes: Dict<Type>;
@@ -35,7 +35,7 @@ export class Block{
 	constructor({
 		name = Util.randString(5), 
 		template = "( )", 
-		func = (param: any, project: Project) => {},
+		func = () => {},
 		params = new Dict,
 		pack = new Pack,
 		useLiteralParam = false
@@ -82,7 +82,7 @@ export class Block{
 				params.value[paramKey] = await this.params.value[paramKey].run(project, local);
 			}
 		}
-		return this.func && await this.func(params.value, project);
+		return this.func && await this.func(params.value, project, local);
 	}
 	/**
 	 * 블록 정보를 텍스트로 변환.
