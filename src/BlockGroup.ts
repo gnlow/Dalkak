@@ -1,4 +1,4 @@
-import type {Local} from "./Local";
+import {Local} from "./Local";
 import {Block} from "./Block";
 import {Project} from "./Project";
 import {Dict, Dictable} from "./Dict";
@@ -30,7 +30,8 @@ export class BlockGroup extends Block {
 		super(option);
 		this.blocks = blocks;
 	}
-	async run(project: Project, local: Local = {variables: new Dict}) {
+	async run(project: Project, local: Local = new Local) {
+		local = local.dive(this);
 		for(var block of this.blocks){
 			await block.run(project, local);
 		}

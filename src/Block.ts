@@ -73,7 +73,7 @@ export class Block{
 	 * 블록 실행.
 	 * @param project 블록이 실행되고 있는 Project
 	 */
-	async run(project: Project, local: Local = {variables: new Dict}){
+	async run(project: Project, local: Local = new Local){
 		var params: Dict<Param> = new Dict;
 		for(var paramKey in this.params.value){
 			if(this.paramTypes.value[paramKey].extend == Block){

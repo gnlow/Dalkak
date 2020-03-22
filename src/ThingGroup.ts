@@ -26,7 +26,8 @@ export class ThingGroup extends Thing{
 		super({name, pos, blockGroups});
 		this.children = children;
 	}
-	run(project: Project, local?: Local) {
+	run(project: Project, local: Local) {
+		local = local.dive(this);
 		this.blockGroups.forEach((blockGroup) => {
 			blockGroup.run(project, local);
 		});

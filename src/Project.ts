@@ -6,6 +6,7 @@ import {Dict, Dictable} from "./Dict";
 import {Util} from "./Util";
 import {Variable} from "./Variable";
 import { Extension } from "./Extension";
+import { Local } from "./Local";
 
 interface prop {
 	name?: string,
@@ -46,7 +47,7 @@ export class Project{
 	}
 	run() {
 		this.fire("run");
-		this.thingGroup.run(this);
+		this.thingGroup.run(this, (new Local).dive(this));
 	}
 	mount(...packs: (Pack | Extension)[]){
 		packs.forEach(pack => {
