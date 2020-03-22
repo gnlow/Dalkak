@@ -74,12 +74,18 @@ export class Block{
 	 * @param project 블록이 실행되고 있는 Project
 	 */
 	async run(project: Project, local: Local = new Local){
-		var params: Dict<Param> = new Dict;
+		var params: Dict<any> = new Dict;
 		for(var paramKey in this.params.value){
 			if(this.paramTypes.value[paramKey].extend == Block){
 				params.value[paramKey] = this.params.value[paramKey];
 			}else{
-				params.value[paramKey] = await this.params.value[paramKey].run(project, local);
+				const result = await this.params.value[paramKey].run(project, local);
+				if(typeof result == "string"){
+					params.value[paramKey] = ( this.paramTypes.value[paramKey].fromString || (()=>{}) )(result, project, local);
+				}else{
+					params.value[paramKey] = result;
+				}
+				
 			}
 		}
 		return this.func && await this.func(params.value, project, local);
