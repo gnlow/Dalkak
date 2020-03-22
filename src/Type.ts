@@ -1,12 +1,13 @@
 import {Util} from "./Util";
 import type { Project } from "./Project";
+import { Local } from "./Local";
 
 interface prop<T> {
     name?: string,
     checker?: Checker,
     initial?: T,
     extend?: any,
-    fromString?: (data: string, project: Project) => T | undefined,
+    fromString?: (data: string, project: Project, local: Local) => T | undefined,
 }
 
 type Checker = (value: any) => boolean;
@@ -16,7 +17,7 @@ export class Type<T = any>{
     checker: Checker;
     initial?: T;
     extend?: any;
-    fromString?: (data: string, project: Project) => T | undefined;
+    fromString?: (data: string, project: Project, local: Local) => T | undefined;
     constructor({
         name = Util.randString(5), 
         checker = () => true,
@@ -69,7 +70,7 @@ export class Type<T = any>{
             initial: value,
         });
     }
-    static fromConstructor<T>(constructor: new () => T, fromString?: (data: string, project: Project) => T ): Type<T>{
+    static fromConstructor<T>(constructor: new () => T, fromString?: (data: string, project: Project, local: Local) => T ): Type<T>{
         return new Type<T>({
             name: constructor.name, 
             extend: constructor,
