@@ -23,6 +23,6 @@ export class Local {
 			this.variables.value[name] = [];
 		}
 		return this.variables.value[name].find(variable => variable.scope.compare(this.scope)) 
-		|| this.variables.value[name][this.variables.value[name].push(new Variable({name}))];
+		|| this.variables.value[name][this.variables.value[name].push(new Variable({name})) - 1];
 	}
 }
