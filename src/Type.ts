@@ -51,7 +51,7 @@ export class Type<T = any>{
         }
         return false;
     }
-    static typeof(typeName: string): Type<any>{
+    static typeof(typeName: string, fromString?: (data: string, project: Project, local: Local) => any): Type<any>{
         var defaultValue:{
             [key: string]: boolean | undefined | number | string | symbol
         } = {
@@ -68,6 +68,7 @@ export class Type<T = any>{
             name: typeName, 
             extend: value, 
             initial: value,
+            fromString,
         });
     }
     static fromConstructor<T>(constructor: new () => T, fromString?: (data: string, project: Project, local: Local) => T ): Type<T>{
