@@ -5,8 +5,9 @@ import { Scope } from "./Scope";
 export class Local {
 	scope: Scope;
 	variables: Dict<Variable[]>;
-	constructor(){
+	constructor(variables?: Dict<Variable>){
 		this.variables = new Dict;
+		variables?.forEach(variable => this.variables.value[variable.name] = [variable]);
 		this.scope = new Scope;
 	}
 	copy(){
