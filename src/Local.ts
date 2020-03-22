@@ -1,5 +1,5 @@
 import { Dict } from "./Dict";
-import type { Variable } from "./Variable";
+import { Variable } from "./Variable";
 import { Scope } from "./Scope";
 
 export class Local {
@@ -18,6 +18,7 @@ export class Local {
 		return copy;
 	}
 	getVariable(name: string){
-		return this.variables.value[name].find(variable => variable.scope.compare(this.scope));
+		return this.variables.value[name].find(variable => variable.scope.compare(this.scope)) 
+		|| this.variables.value[name][this.variables.value[name].push(new Variable({name}))];
 	}
 }
