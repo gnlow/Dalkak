@@ -17,7 +17,7 @@ export class Type<T = any>{
     checker: Checker;
     initial?: T;
     extend?: any;
-    fromString?: (data: string, project: Project, local: Local) => T | undefined;
+    fromString: (data: string, project: Project, local: Local) => T | undefined;
     constructor({
         name = Util.randString(5), 
         checker = () => true,

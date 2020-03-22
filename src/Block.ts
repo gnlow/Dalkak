@@ -81,7 +81,7 @@ export class Block{
 			}else{
 				const result = await this.params.value[paramKey].run(project, local);
 				if(typeof result == "string"){
-					params.value[paramKey] = ( this.paramTypes.value[paramKey].fromString || (()=>{}) )(result, project, local);
+					params.value[paramKey] = this.paramTypes.value[paramKey].fromString(result, project, local);
 				}else{
 					params.value[paramKey] = result;
 				}
