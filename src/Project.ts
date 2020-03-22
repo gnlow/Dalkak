@@ -47,6 +47,8 @@ export class Project{
 	}
 	run() {
 		this.fire("run");
+		let local = new Local(this.variables);
+		local.dive(this);
 		this.thingGroup.run(this, (new Local).dive(this));
 	}
 	mount(...packs: (Pack | Extension)[]){
