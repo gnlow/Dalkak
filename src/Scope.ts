@@ -3,8 +3,11 @@ export class Scope {
     constructor(...dir: any[]){
         this.dir = dir
     }
+    copy(){
+        return new Scope(...this.dir);
+    }
     dive(path: any){
-        let copy = new Scope(...this.dir);
+        let copy = this.copy();
         copy.dir.push(path);
         return copy;
     }
