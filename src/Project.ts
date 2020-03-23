@@ -51,7 +51,7 @@ export class Project{
 		local.dive(this);
 		this.thingGroup.run(this, (new Local).dive(this));
 	}
-	mount(...packs: (Pack | Extension)[]){
+	mount(...packs: Pack[]){
 		packs.forEach(pack => {
 			this.pack = Pack.mix(this.pack, pack);
 			if(pack instanceof Extension){
