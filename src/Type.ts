@@ -73,7 +73,7 @@ export class Type<T = any>{
     }
     static fromConstructor<T>(constructor: new () => T, fromString?: (data: string, project: Project, local: Local) => T ): Type<T>{
         return new Type<T>({
-            name: constructor.name, 
+            name: constructor?.name, 
             extend: constructor,
             fromString,
         });
