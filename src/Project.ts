@@ -55,7 +55,7 @@ export class Project{
 		packs.forEach(pack => {
 			this.pack = Pack.mix(this.pack, pack);
 			if(pack instanceof Extension){
-				pack.on.mount && pack.on.mount();
+				pack.on.mount && pack.on.mount(this);
 				this.on("run", pack.on.run?.bind(pack));
 				this.on("stop", pack.on.stop?.bind(pack)); // 아직 미구현
 			}

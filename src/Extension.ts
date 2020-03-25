@@ -1,17 +1,20 @@
 import { Pack, prop as packProp } from "./Pack";
+import type { Project } from "./Project";
+
+interface Listener {
+    run?(project: Project): any,
+    stop?(project: Project): any,
+    mount?(project: Project): any,
+};
 
 interface prop {
     color?: number,
-    on?: {
-        run?(): any,
-        stop?(): any,
-        mount?(): any,
-    },
-}
+    on?: Listener,
+};
 
 export class Extension extends Pack {
     color: number;
-    on: { run?(): any; stop?(): any; mount?(): any; };
+    on: Listener;
     constructor({
         color = 0,
         on = {},
