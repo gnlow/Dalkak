@@ -49,7 +49,6 @@ export class Project{
 		this.fire("run");
 		let local = new Local(this.variables);
 		local.dive(this);
-		this.thingGroup.run(this, local);
 	}
 	mount(...packs: Pack[]){
 		packs.forEach(pack => {
