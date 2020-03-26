@@ -24,7 +24,7 @@ export class Project{
 	variables: Dict<Variable>;
 
 	projectEvents: {
-		[name: string]: ((project: Project) => void)[]
+		[name: string]: ((project: Project, local: Local) => void)[]
 	}
 	constructor({
 		name = Util.randString(5), 
@@ -46,9 +46,9 @@ export class Project{
 		};
 	}
 	run() {
-		this.fire("run");
 		let local = new Local(this.variables);
 		local.dive(this);
+		this.fire("run", local);
 	}
 	mount(...packs: Pack[]){
 		packs.forEach(pack => {
@@ -77,12 +77,12 @@ ${Util.indent( Object.keys(this.events.value).map(e => this.events.value[e].expo
 		});
 		return this;
 	}
-	on(name: string, callback?: (project: Project) => void){
+	on(name: string, callback?: (project: Project, local: Local) => void){
 		callback && this.projectEvents[name]?.push(callback);
 	}
-	fire(name: string){
+	fire(name: string, local: Local){
 		this.projectEvents[name].forEach(callback => {
-			callback(this);
+			callback(this, local);
 		});
 	}
 }

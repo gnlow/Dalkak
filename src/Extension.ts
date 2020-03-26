@@ -1,10 +1,13 @@
 import { Pack, prop as packProp } from "./Pack";
 import type { Project } from "./Project";
+import type { Local } from "./Local";
+
+type Callback = (project: Project, local?: Local) => any;
 
 interface Listener {
-    run?(project: Project): any,
-    stop?(project: Project): any,
-    mount?(project: Project): any,
+    run?: Callback,
+    stop?: Callback,
+    mount?: Callback,
 };
 
 interface prop {
