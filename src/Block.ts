@@ -6,11 +6,12 @@ import {Dict, Dictable} from "./Dict";
 import {Param} from "./Param";
 import {Util} from "./Util";
 import {Project} from "./Project";
+import type { Platform } from "./Platform";
 
 interface prop {
 	name?: string, 
 	template?: string, 
-	func?: (param: any, project: Project, local: Local) => any, 
+	func?: (param: any, project: Project, local: Local, platform?: Platform) => any, 
 	params?: Dictable<Param>,
 	pack?: Pack,
 	useLiteralParam?: boolean
@@ -26,7 +27,7 @@ interface prop {
 export class Block{
 	name: string;
 	template: Template;
-	func?: (param: any, project: Project, local: Local) => any;
+	func?: (param: any, project: Project, local: Local, platform?: Platform) => any;
 	params: Dict<Param>;
 	pack?: Pack;
 	paramTypes: Dict<Type>;
@@ -73,13 +74,13 @@ export class Block{
 	 * 블록 실행.
 	 * @param project 블록이 실행되고 있는 Project
 	 */
-	async run(project: Project, local: Local = new Local){
+	async run(project: Project, local: Local = new Local, platform?: Platform){
 		var params: Dict<any> = new Dict;
 		for(var paramKey in this.params.value){
 			if(this.paramTypes.value[paramKey].extend == Block){
 				params.value[paramKey] = this.params.value[paramKey];
 			}else{
-				const result = await this.params.value[paramKey].run(project, local);
+				const result = await this.params.value[paramKey].run(project, local, platform);
 				if(typeof result == "string"){
 					params.value[paramKey] = this.paramTypes.value[paramKey].fromString(result, project, local);
 				}else{
@@ -88,7 +89,7 @@ export class Block{
 				
 			}
 		}
-		return this.func && await this.func(params.value, project, local);
+		return this.func && await this.func(params.value, project, local, platform);
 	}
 	/**
 	 * 블록 정보를 텍스트로 변환.

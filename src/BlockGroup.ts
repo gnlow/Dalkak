@@ -6,6 +6,7 @@ import {Param} from "./Param";
 import {Type} from "./Type";
 import {Template} from "./Template";
 import { Pack } from "./Pack";
+import type { Platform } from "./Platform";
 
 interface prop {
 	blocks?: Array<Block>,
@@ -30,10 +31,10 @@ export class BlockGroup extends Block {
 		super(option);
 		this.blocks = blocks;
 	}
-	async run(project: Project, local: Local = new Local) {
+	async run(project: Project, local: Local = new Local, platform?: Platform) {
 		local = local.dive(this);
 		for(var block of this.blocks){
-			await block.run(project, local);
+			await block.run(project, local, platform);
 		}
 	}
 	attach(blockGroup: BlockGroup): BlockGroup{

@@ -3,6 +3,7 @@ import type {Local} from "./Local";
 import type {BlockGroup} from "./BlockGroup";
 import {Util} from "./Util";
 import type {Project} from "./Project";
+import type { Platform } from "./Platform";
 
 interface prop {
 	name?: string, 
@@ -23,10 +24,10 @@ export class Thing{
 		this.pos = pos;
 		this.blockGroups = blockGroups;
 	}
-	run(project: Project, local: Local) {
+	run(project: Project, local: Local, platform?: Platform) {
 		local = local.dive(this)
 		this.blockGroups.forEach((blockGroup) => {
-			blockGroup.run(project, local);
+			blockGroup.run(project, local, platform);
 		});
 	}
 	addBlock(blockGroup: BlockGroup): this{

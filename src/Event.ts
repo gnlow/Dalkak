@@ -2,6 +2,7 @@ import type {Local} from "./Local";
 import {BlockGroup} from "./BlockGroup";
 import {Util} from "./Util";
 import { Project } from "./Project";
+import type { Platform } from "./Platform";
 
 export class Event{
 	name: string;
@@ -17,8 +18,8 @@ export class Event{
 		this.blockGroups.push(blockGroup);
 		return this;
 	}
-	fire(project: Project, local?: Local): this{
-		this.blockGroups.forEach( b => b.run(project, local) );
+	fire(project: Project, local?: Local, platform?: Platform): this{
+		this.blockGroups.forEach( b => b.run(project, local, platform) );
 		return this;
 	}
 	export(): string{
