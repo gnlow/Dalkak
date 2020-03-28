@@ -1,8 +1,9 @@
 import { Pack, prop as packProp } from "./Pack";
 import type { Project } from "./Project";
 import type { Local } from "./Local";
+import type { Platform } from "./Platform";
 
-type Callback = (project: Project, local?: Local) => any;
+type Callback = (project: Project, local?: Local, platform?: Platform) => any;
 
 interface Listener {
     run?: Callback,
