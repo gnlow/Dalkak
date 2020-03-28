@@ -85,8 +85,11 @@ type EntryProject = {
     aiUtilizeBlocks?: any, // 추가 요망
 };
 export interface Platform {
-    Entry: {
+    Entry?: {
         project: EntryProject,
         idList: Record<string, string>,
     },
+    backend?: {
+        port?: number,
+    }
 }
