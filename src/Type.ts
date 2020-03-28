@@ -1,13 +1,14 @@
 import {Util} from "./Util";
 import type { Project } from "./Project";
 import { Local } from "./Local";
+import { Platform } from "./Platform";
 
 interface prop<T> {
     name?: string,
     checker?: Checker,
     initial?: T,
     extend?: any,
-    fromString?: (data: string, project: Project, local: Local) => T | undefined,
+    fromString?: (data: string, project: Project, local: Local, platform: Platform) => T | undefined,
 }
 
 type Checker = (value: any) => boolean;
@@ -17,7 +18,7 @@ export class Type<T = any>{
     checker: Checker;
     initial?: T;
     extend?: any;
-    fromString: (data: string, project: Project, local: Local) => T | undefined;
+    fromString: (data: string, project: Project, local: Local, platform: Platform) => T | undefined;
     constructor({
         name = Util.randString(5), 
         checker = () => true,
@@ -51,7 +52,7 @@ export class Type<T = any>{
         }
         return false;
     }
-    static typeof(typeName: string, fromString?: (data: string, project: Project, local: Local) => any): Type<any>{
+    static typeof(typeName: string, fromString?: (data: string, project: Project, local: Local, platform: Platform) => any): Type<any>{
         var defaultValue:{
             [key: string]: boolean | undefined | number | string | symbol
         } = {
@@ -71,7 +72,7 @@ export class Type<T = any>{
             fromString,
         });
     }
-    static fromConstructor<T>(constructor: new () => T, fromString?: (data: string, project: Project, local: Local) => T ): Type<T>{
+    static fromConstructor<T>(constructor: new () => T, fromString?: (data: string, project: Project, local: Local, platform: Platform) => T ): Type<T>{
         return new Type<T>({
             name: constructor?.name, 
             extend: constructor,

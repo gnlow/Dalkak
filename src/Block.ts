@@ -74,7 +74,7 @@ export class Block{
 	 * 블록 실행.
 	 * @param project 블록이 실행되고 있는 Project
 	 */
-	async run(project: Project, local: Local = new Local, platform?: Platform){
+	async run(project: Project, local: Local = new Local, platform: Platform = {}){
 		var params: Dict<any> = new Dict;
 		for(var paramKey in this.params.value){
 			if(this.paramTypes.value[paramKey].extend == Block){
@@ -82,7 +82,7 @@ export class Block{
 			}else{
 				const result = await this.params.value[paramKey].run(project, local, platform);
 				if(typeof result == "string"){
-					params.value[paramKey] = this.paramTypes.value[paramKey].fromString(result, project, local);
+					params.value[paramKey] = this.paramTypes.value[paramKey].fromString(result, project, local, platform);
 				}else{
 					params.value[paramKey] = result;
 				}
