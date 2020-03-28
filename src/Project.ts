@@ -6,6 +6,8 @@ import {Dict, Dictable} from "./Dict";
 import {Util} from "./Util";
 import {Variable} from "./Variable";
 import { Extension } from "./Extension";
+import { Local } from "./Local";
+import type { Platform } from "./Platform";
 
 interface prop {
 	name?: string,
@@ -23,7 +25,7 @@ export class Project{
 	variables: Dict<Variable>;
 
 	projectEvents: {
-		[name: string]: ((project: Project) => void)[]
+		[name: string]: ((project: Project, local: Local, platform: Platform) => void)[]
 	}
 	constructor({
 		name = Util.randString(5), 
@@ -44,17 +46,18 @@ export class Project{
 			mount: [],
 		};
 	}
-	run(platform?: object) {
-		this.fire("run");
-		this.thingGroup.run(this, platform);
+	run(platform: Platform) {
+		let local = new Local(this.variables);
+		local.dive(this);
+		this.fire("run", local, platform);
 	}
-	mount(...packs: (Pack | Extension)[]){
+	mount(...packs: Pack[]){
 		packs.forEach(pack => {
 			this.pack = Pack.mix(this.pack, pack);
 			if(pack instanceof Extension){
-				pack.on.mount && pack.on.mount();
-				this.on("run", pack.on.run);
-				this.on("stop", pack.on.stop); // 아직 미구현
+				pack.on.mount && pack.on.mount(this);
+				this.on("run", pack.on.run?.bind(pack));
+				this.on("stop", pack.on.stop?.bind(pack)); // 아직 미구현
 			}
 		});
 		return this;
@@ -75,12 +78,12 @@ ${Util.indent( Object.keys(this.events.value).map(e => this.events.value[e].expo
 		});
 		return this;
 	}
-	on(name: string, callback?: (project: Project) => void){
+	on(name: string, callback?: (project: Project, local: Local, platform: Platform) => void){
 		callback && this.projectEvents[name]?.push(callback);
 	}
-	fire(name: string){
+	fire(name: string, local: Local, platform: Platform){
 		this.projectEvents[name].forEach(callback => {
-			callback(this);
+			callback(this, local, platform);
 		});
 	}
 }

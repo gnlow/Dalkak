@@ -95,7 +95,7 @@ waitLog.setParam("second", number);
 waitLog.setParam("text", string);
 
 (async () => {
-    console.log("test: " + await waitLog.run());
+    console.log("test: " + await waitLog.run(project));
 })()
 
 
@@ -112,6 +112,6 @@ var repeat = new Block({
 repeat.setParam("n", Literal.from(5).setParam("input", 5));
 repeat.setParam("code", waitLog);
 console.log(repeat.params)
-repeat.run()
+repeat.run(project)
 
 console.log(project.pack);

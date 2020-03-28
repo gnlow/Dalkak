@@ -1,14 +1,13 @@
 import {Util} from "./Util";
+import type { Project } from "./Project";
+import { Local } from "./Local";
 
 interface prop<T> {
     name?: string,
     checker?: Checker,
     initial?: T,
-    extend?: T,
-}
-
-interface Constructor {
-    new (...any: any[]): any
+    extend?: any,
+    fromString?: (data: string, project: Project, local: Local) => T | undefined,
 }
 
 type Checker = (value: any) => boolean;
@@ -17,17 +16,20 @@ export class Type<T = any>{
     name: string;
     checker: Checker;
     initial?: T;
-    extend?: T;
+    extend?: any;
+    fromString: (data: string, project: Project, local: Local) => T | undefined;
     constructor({
         name = Util.randString(5), 
         checker = () => true,
-        initial = undefined,
-        extend = undefined,
+        initial,
+        extend,
+        fromString = () => initial,
     }: prop<T> = {}){
         this.name = name;
         this.checker = checker;
         this.initial = initial;
         this.extend = extend;
+        this.fromString = fromString;
     }
     check(value: any): boolean{
         if(this.checker(value)){
@@ -49,7 +51,7 @@ export class Type<T = any>{
         }
         return false;
     }
-    static typeof(typeName: string): Type<any>{
+    static typeof(typeName: string, fromString?: (data: string, project: Project, local: Local) => any): Type<any>{
         var defaultValue:{
             [key: string]: boolean | undefined | number | string | symbol
         } = {
@@ -66,13 +68,14 @@ export class Type<T = any>{
             name: typeName, 
             extend: value, 
             initial: value,
+            fromString,
         });
     }
-    static fromConstructor<T extends Constructor>(constructor: T): Type<T>{
-        return new Type({
-            name: constructor.name, 
+    static fromConstructor<T>(constructor: new () => T, fromString?: (data: string, project: Project, local: Local) => T ): Type<T>{
+        return new Type<T>({
+            name: constructor?.name, 
             extend: constructor,
-            initial: new constructor
+            fromString,
         });
     }
 }

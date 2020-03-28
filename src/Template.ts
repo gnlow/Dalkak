@@ -51,9 +51,9 @@ export class Template{
 	static typeFromBracket(bracket: Bracket): Type{
 		switch(bracket){
 			case "<":
-				return Type.typeof("boolean");
+				return Type.typeof("boolean", Boolean);
 			case "(":
-				return Type.typeof("string");
+				return Type.typeof("string", String);
 			case "{":
 				return Type.fromConstructor(Block);
 		}

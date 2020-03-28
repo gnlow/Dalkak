@@ -14,3 +14,5 @@ export {Util} from "./Util";
 export {Param} from "./Param";
 export {Variable} from "./Variable";
 export {Extension} from "./Extension";
+export {Local} from "./Local";
+export {Platform} from "./Platform";
