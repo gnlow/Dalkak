@@ -1,4 +1,4 @@
-import {Block} from "./Block";
-import {Literal} from "./Literal";
+import { Block } from "./Block"
+import { Literal } from "./Literal"
 
-export type Param = Block | Literal;
+export type Param = Block | Literal

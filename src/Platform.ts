@@ -83,7 +83,7 @@ type EntryProject = {
     },
     expansionBlocks?: any, // 추가 요망
     aiUtilizeBlocks?: any, // 추가 요망
-};
+}
 export interface Platform {
     Entry?: {
         project: EntryProject,
