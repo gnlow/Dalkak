@@ -17,7 +17,7 @@
   "author": "Gnlow",
   "license": "MIT",
   "devDependencies": {
-    "microbundle": "^0.12.0-next.8",
+    "microbundle": "^0.13.1",
     "rimraf": "^3.0.0",
     "ts-node": "^8.6.2",
     "typedoc": "^0.16.11",
